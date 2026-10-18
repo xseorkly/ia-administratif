@@ -1,0 +1,6 @@
+id;service;materiel;date;debut;fin;demandeur;statut
+R01;Documentation;Vidéoprojecteur A;2026-11-19;09:00;10:30;Agent A;À saisir
+R02;Sciences;Vidéoprojecteur A;2026-11-19;10:00;11:00;Agent B;Conflit potentiel
+R03;Direction;Enceinte mobile;2026-11-20;14:00;15:30;Agent C;À saisir
+R04;Vie scolaire;Micro mobile;2026-11-20;08:30;09:30;Agent D;À saisir
+R05;Langues;Ordinateur portable 2;2026-11-20;13:00;14:00;Agent E;À saisir
