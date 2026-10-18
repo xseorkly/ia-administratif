@@ -1,0 +1,5 @@
+id;objet;statut;urgence;maj
+I01;Éclairage A;En cours;Moyenne;2026-10-15
+I02;Réseau B;Clos;Haute;2026-10-17
+I03;Porte C;À traiter;Haute;2026-10-17
+I04;Peinture D;Prévu;Faible;2026-10-16

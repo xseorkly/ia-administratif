@@ -1,0 +1,13 @@
+id;service;matériel;date;début;fin;demandeur
+R01;Documentation;Vidéoprojecteur A;2026-11-19;09:00;10:30;Agent A
+R02;Sciences;Vidéoprojecteur A;2026-11-19;10:00;11:00;Agent B
+R03;Direction;Enceinte mobile;2026-11-20;14:00;15:30;Agent C
+R04;Vie scolaire;Micro mobile;2026-11-20;08:30;09:30;Agent D
+R05;Langues;Ordinateur portable 2;2026-11-20;13:00;14:00;Agent E
+R06;Arts;Caméra mobile;2026-11-20;10:00;12:00;Agent F
+R07;Sciences;Tablette 3;2026-11-21;09:00;10:00;Agent G
+R08;Lettres;Micro mobile;2026-11-21;14:00;15:00;Agent H
+R09;Direction;Caméra mobile;2026-11-22;10:00;11:00;Agent I
+R10;Vie scolaire;Ordinateur portable 2;2026-11-22;13:00;14:30;Agent J
+R11;Langues;Tablette 3;2026-11-23;09:00;11:00;Agent K
+R12;Documentation;Enceinte mobile;2026-11-23;11:00;12:00;Agent L

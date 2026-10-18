@@ -1,0 +1,4 @@
+id;service;objet;priorite;statut
+D01;Direction;Écran;Moyenne;Nouveau
+D02;Vie scolaire;Porte;Haute;En cours
+D03;Documentation;Casier;Faible;Clos

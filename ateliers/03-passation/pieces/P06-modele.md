@@ -1,0 +1,1 @@
+VALIDÉ — Fiche d'accueil : identité fictive, rôle, dates, référent, pièces reçues, pièces manquantes.

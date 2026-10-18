@@ -1,0 +1,1 @@
+Ouverture fictive du nouvel espace pédagogique dans dix jours. Inspection de sécurité non planifiée. La réunion de coordination est à confirmer. Exiger un rapport cohérent Direction/Gestion/Outils.

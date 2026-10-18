@@ -1,0 +1,1 @@
+Chaque vendredi, comparer l'état présent avec l'état précédent; mentionner uniquement les changements. Les tickets clos ne doivent pas susciter de nouvelles relances à cause d'un ancien niveau d'urgence. Ne contacter aucun prestataire directement. S'il n'y a pas de changement, le dire sans inventer d'événement.

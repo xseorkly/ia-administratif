@@ -1,0 +1,1 @@
+VALIDÉ — Les correspondances externes restent au stade de brouillon avant validation humaine.

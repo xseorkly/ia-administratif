@@ -1,0 +1,1 @@
+OBSOLÈTE — Version antérieure, remplacée par P01. Archive sans suppression.

@@ -1,0 +1,1 @@
+BROUILLON — 10/10/2026. Proposition non validée : autoriser une intervention avant signature lorsque la mission est urgente. Ne pas appliquer.

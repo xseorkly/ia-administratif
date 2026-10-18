@@ -1,0 +1,1 @@
+Procédure fictive P-CONV-01 validée : recenser la demande, vérifier identité et objet, vérifier dates, attestation d'assurance si prévue, transmettre au responsable pour décision; pas de signature par l'IA.

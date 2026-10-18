@@ -1,0 +1,1 @@
+Les demandes sont fictives. Ne validez aucune réservation définitive sans accord. Les doublons de créneau pour un même équipement doivent être détectés. Aucun mot de passe ni droit administrateur ne doit être transmis à l'agent.
