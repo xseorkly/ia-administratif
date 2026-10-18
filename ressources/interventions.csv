@@ -1,0 +1,5 @@
+id;objet;prestataire;ouverture;échéance;statut;maj;commentaire
+I01;Éclairage salle A;ElecDemo;2026-10-05;2026-10-20;En cours;2026-10-15;Attente pièce
+I02;Réseau bureau B;NetEdu;2026-10-12;2026-10-19;Clos;2026-10-17;Ancienne note dit urgent mais résolu
+I03;Porte entrée C;Maintien;2026-10-16;2026-10-19;À traiter;2026-10-17;Contrôle à confirmer
+I04;Peinture espace D;DecorPlus;2026-10-10;2026-10-29;Prévu;2026-10-16;Pas de changement
