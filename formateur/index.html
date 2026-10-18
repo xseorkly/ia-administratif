@@ -14,7 +14,7 @@
 <button class="btn" id="out" style="background:#e6eded">Verrouiller</button></div></section></main>
 <footer><div class="wrap">✳ IA ADMINISTRATIVE 2.0 · Espace formateur · Chiffrement AES-256-GCM, clé dérivée du mot de passe dans votre navigateur.</div></footer>
 <script>
-const CFG={"salt": "b92899fd6a5a59a5ca25c3aec090ef43", "iter": 600000};let KEY=null,ITEMS=[];
+const CFG={"salt": "f744e74328f539fc1f5e029fe327e98f", "iter": 600000};let KEY=null,ITEMS=[];
 const hex=h=>new Uint8Array(h.match(/../g).map(x=>parseInt(x,16)));
 async function dec(buf){const b=new Uint8Array(buf);return crypto.subtle.decrypt({name:"AES-GCM",iv:b.slice(0,12)},KEY,b.slice(12))}
 async function derive(p){const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(p),"PBKDF2",false,["deriveKey"]);
