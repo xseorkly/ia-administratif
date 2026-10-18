@@ -1,1 +1,0 @@
-À distribuer au bout de 35 minutes : Le prestataire mobilier annonce trois jours de retard. Il propose une livraison accélérée pour 1250 EUR supplémentaires, mais aucune approbation n'a été donnée. Le responsable demande une actualisation sans confondre montant engagé et montant envisagé.

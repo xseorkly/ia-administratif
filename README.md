@@ -1,11 +1,33 @@
 # IA administrative 2.0 — Formation niveau 2
-Site statique interactif pour personnels administratifs et comptables ayant déjà suivi une formation IA de niveau 1.
+
+Site statique de la formation de niveau 2 « IA administrative » destinée aux assistantes et assistants de direction, secrétaires et personnels administratifs et comptables ayant suivi le niveau 1.
 
 ## Contenu
-Présentation interactive des nouveautés ChatGPT et Claude ; 12 heures de formation ; 7 fiches défi détaillées avec prompts copiables ; mallette fictive ; guide formateur ; passeport de compétences et conseils de sécurité.
+
+- 8 ateliers (7 + 1 grand défi, dont un parcours au choix le jour 2), 198 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels .eml, agenda .ics, photo) ;
+- un établissement fictif unique : le Lycée français international Marie-Curie de Valmont (EGD de l'AEFE) — voir `ressources/contexte-etablissement-LFI-Marie-Curie.pdf` ;
+- trois niveaux de difficulté par atelier ; un logiciel de démonstration (`ateliers/02-computer-use/dossier/logiciel/reservequip.html`) ;
+- une banque de prompts (`ressources/banque-de-prompts.pdf` et `.md`) et un passeport de compétences.
+
+## Ce qui n'est pas dans ce dépôt
+
+Les corrigés, le manifeste des anomalies, les cartes surprise et le guide formateur constituent un **espace formateur distinct**, non publié, pour que les stagiaires ne disposent pas des réponses.
+
+## Ateliers
+
+- `01-radar-contrats` — Radar contrats (37 pièces)
+- `02-computer-use` — L'IA prend mon ordinateur en main (18 pièces)
+- `03-passation` — Passation du savoir-faire du service (25 pièces)
+- `04-assistant-metier` — Je fabrique mon assistant métier (26 pièces)
+- `05-automatisation` — Mon agent travaille sans moi (20 pièces)
+- `06-application` — Je crée mon logiciel administratif (20 pièces)
+- `07-grand-defi` — Grand défi · Horizon 2030 (32 pièces)
+- `08-conseil-etablissement` — Je prépare le conseil d'établissement (20 pièces)
 
 ## Déploiement
-Activer GitHub Pages dans Settings > Pages : Deploy from a branch, main, / (root). Aucune compilation nécessaire. Ouvrir index.html pour usage local.
+
+GitHub Pages (workflow `.github/workflows/static.yml`). Aucune compilation. Pour un usage local, ouvrir `index.html`.
 
 ## Important
-Le site n'accède pas lui-même à ChatGPT, Claude, Gmail ou Drive. Les connecteurs et Computer Use doivent être configurés préalablement dans un environnement de démonstration. Les fonctions varient selon offres et autorisations. Aucune collecte de données n'est intégrée.
+
+Le site n'accède à aucun service. Les connecteurs, Computer Use et les tâches programmées se configurent dans un espace de démonstration (comptes fictifs). Toutes les personnes, entreprises et données sont inventées.

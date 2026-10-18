@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réserv'Équip – LFI Marie-Curie</title>
+<style>
+:root{--bg:#eef1f4;--card:#fff;--ink:#1f2933;--muted:#5b6670;--navy:#24476b;--line:#cfd6dd;--ok:#2f7d4f;--warn:#a86412;--bad:#a3302b;--draft:#6b6f9c}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 "Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:#fff;display:flex;align-items:center;gap:18px;padding:0 16px;height:50px}
+header b{font-size:16px;letter-spacing:.02em}header nav{display:flex;gap:2px;flex:1}
+header nav button{background:none;border:0;color:#dbe6f1;padding:15px 12px;cursor:pointer;font:inherit}
+header nav button.on{background:#ffffff22;color:#fff;font-weight:600}header .user{font-size:12px;color:#c9d6e3}
+main{padding:16px;max-width:1280px;margin:auto}.card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px;margin-bottom:14px}
+h1{font-size:18px;margin:0 0 10px}h2{font-size:15px;margin:0 0 8px}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid var(--line);padding:5px 7px;text-align:left;vertical-align:top}th{background:#e3e8ee}
+tr:nth-child(even) td{background:#f8f9fb}.st{font-size:11px;padding:2px 6px;border-radius:3px;color:#fff;white-space:nowrap}
+.Confirmée{background:var(--ok)}.Brouillon{background:var(--draft)}.Annulée{background:#888}.HS{background:var(--bad)}.Dispo{background:var(--ok)}
+label{display:block;margin:8px 0 3px;font-weight:600;font-size:12.5px}input,select,textarea{width:100%;padding:6px;border:1px solid #aab4be;border-radius:3px;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 14px}.btns{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:1px solid #8996a3;background:#f3f5f7;padding:7px 14px;border-radius:3px;cursor:pointer;font:inherit}
+.btn.pri{background:var(--navy);color:#fff;border-color:var(--navy)}.btn.dang{background:#b43c2c;color:#fff;border-color:#b43c2c}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.filters>div{min-width:160px}
+.plan{overflow:auto}.plan table{min-width:1000px}.plan td{height:32px;font-size:11px;padding:2px}.plan .r{background:#cfe3d6;border-left:3px solid var(--ok)}.plan .d{background:#dedff2;border-left:3px solid var(--draft)}
+.msg{padding:9px 12px;border-radius:3px;margin-bottom:10px}.msg.ok{background:#e1f2e7}.msg.err{background:#f7e0de}
+dialog{border:1px solid var(--line);border-radius:6px;max-width:460px}dialog::backdrop{background:#0006}
+.login{max-width:360px;margin:60px auto}.muted{color:var(--muted);font-size:12px}footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}header nav button{padding:15px 6px}}
+</style>
+</head>
+<body>
+<header><b>Réserv'Équip</b><nav id="nav" hidden>
+<button data-v="planning" class="on">Planning</button><button data-v="liste">Réservations</button><button data-v="nouvelle">Nouvelle réservation</button><button data-v="materiel">Matériel</button><button data-v="journal">Journal</button>
+</nav><span class="user" id="who"></span></header>
+<main id="app"></main>
+<dialog id="dlg"><h2>Confirmer et notifier le demandeur ?</h2>
+<p>La réservation passera au statut <b>Confirmée</b> et un courriel de confirmation sera <b>immédiatement envoyé</b> au demandeur. Le matériel lui sera remis à l'accueil sur présentation de ce courriel.</p>
+<p><b>Cette opération est définitive</b> : seul un administrateur peut annuler une réservation confirmée.</p>
+<div class="btns"><button class="btn" id="dlgNo">Annuler</button><button class="btn dang" id="dlgYes">Confirmer et envoyer</button></div></dialog>
+<footer>Réserv'Équip v3.2 – LFI Marie-Curie de Valmont – logiciel fictif de formation. Aucune donnée n'est transmise : tout est stocké dans ce navigateur.</footer>
+<script>
+const KEY = "reservequip-demo-v3";
+const MATERIEL = [
+ ["VP-A","Vidéoprojecteur A – 5 000 lumens (grand format, salle polyvalente)","Accueil","Dispo",""],
+ ["VP-B","Vidéoprojecteur B – portable 3 200 lumens","Accueil","Dispo",""],
+ ["VP-C","Vidéoprojecteur C – portable 3 200 lumens","Accueil","Dispo",""],
+ ["SON-1","Enceinte mobile sur batterie + 2 micros HF","Accueil","Dispo",""],
+ ["SON-2","Sonorisation complète salle polyvalente (table de mixage)","Régie","Dispo","Manipulation par un personnel formé"],
+ ["MIC-1","Micro mobile HF (cravate)","Accueil","Dispo",""],
+ ["MIC-2","Micro mobile HF (main)","Accueil","Dispo",""],
+ ["CAM-1","Caméra mobile 4K + trépied","CDI","Dispo",""],
+ ["CAM-2","Caméra mobile HD","CDI","Dispo",""],
+ ["PC-1","Ordinateur portable 1","Informatique","Dispo",""],
+ ["PC-2","Ordinateur portable 2","Informatique","Dispo",""],
+ ["TAB-3","Lot tablettes n° 3 (16 tablettes + valise)","Informatique","HS","En réparation jusqu'au 27/11/2026 (chargeur de valise)"],
+ ["TAB-4","Lot tablettes n° 4 (16 tablettes + valise)","Informatique","Dispo",""],
+ ["VISIO","Kit visioconférence (caméra + barre de son)","Direction","Dispo","Priorité direction"]];
+const SEED = [
+ ["2026-11-16","08:00","10:00","VP-B","Sciences","M. Dupuis","Dupuis Arnaud"],["2026-11-16","13:00","15:00","CAM-1","Arts plastiques","Mme Lenoir","Lenoir Sophie"],
+ ["2026-11-17","17:00","21:00","SON-2","Direction","CE n° 1","Reynaud Thomas"],["2026-11-17","17:00","21:00","VP-A","Direction","CE n° 1","Reynaud Thomas"],
+ ["2026-11-17","09:00","11:00","TAB-4","Primaire – CM2","Mme Ortiz","Ortiz Carmen"],["2026-11-18","10:00","12:00","PC-1","Langues","M. Weber","Weber Jonas"],
+ ["2026-11-18","14:00","16:00","VISIO","Direction","Visio AEFE","Delorme Catherine"],["2026-11-19","09:00","10:30","VP-A","Documentation","Semaine de la presse","Simonin Laure"],
+ ["2026-11-19","13:30","15:30","MIC-1","Vie scolaire","Réunion délégués","Ferhat Nadia"],["2026-11-20","08:30","09:30","MIC-2","Vie scolaire","Accueil 6e","Ferhat Nadia"],
+ ["2026-11-20","14:00","15:30","SON-1","Direction","Cérémonie des diplômes","Reynaud Thomas"],["2026-11-23","08:00","12:00","CAM-2","Histoire-géographie","Tournage EMC","Kovač Marta"],
+ ["2026-11-23","10:00","12:00","VP-C","Mathématiques","Olympiades","Bauer Paul"],["2026-11-24","09:00","11:00","MIC-2","Lettres","Concours d'éloquence","Martin Élise"],
+ ["2026-11-24","14:00","17:00","PC-2","Gestion","Inventaire","Varga Elena"],["2026-11-25","08:00","10:00","VP-B","Physique-chimie","TP","Haddad Samir"],
+ ["2026-11-26","13:00","16:00","CAM-1","CDI","Webradio","Simonin Laure"],["2026-11-26","09:00","10:00","VISIO","Direction","Entretien","Delorme Catherine"],
+ ["2026-11-27","10:00","12:00","SON-1","EPS","Cross","Novak Ivan"],["2026-11-27","08:00","09:00","VP-A","Direction","Réunion parents","Reynaud Thomas"],
+ ["2026-11-30","09:00","12:00","TAB-4","Primaire – CE2","Mme Brun","Brun Léa"],["2026-12-01","14:00","16:00","VP-C","SVT","Conférence","Roux Hugo"],
+ ["2026-12-03","10:00","12:00","CAM-2","Arts plastiques","Exposition","Lenoir Sophie"],["2026-12-03","08:00","10:00","PC-1","Langues","Certification","Weber Jonas"]];
+function seed(){return {res:SEED.map((s,i)=>({id:"R-"+(2026400+i),date:s[0],debut:s[1],fin:s[2],mat:s[3],service:s[4],motif:s[5],demandeur:s[6],statut:"Confirmée",cree:"2026-10-0"+(1+i%9)+" 10:"+(10+i)+" par secretariat"})),
+ journal:[["2026-10-01 08:00","système","Initialisation de la base de démonstration"]],mat:MATERIEL.map(m=>({code:m[0],lib:m[1],lieu:m[2],etat:m[3],note:m[4]})),nextId:2026500,user:null};}
+let S; try{S=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){S=seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function now(){const d=new Date(),p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes())}
+function log(a){S.journal.push([now(),S.user||"?",a]);save()}
+async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const matLib=c=>(S.mat.find(m=>m.code===c)||{lib:c}).lib;
+function fr(d){const[y,m,j]=d.split("-");return j+"/"+m+"/"+y}
+function view(v){document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));({planning,liste,nouvelle,materiel,journal})[v]()}
+function login(){ $("#app").innerHTML=`<div class="card login"><h1>Connexion</h1><p class="muted">Compte de démonstration fourni par le formateur. Ne saisissez jamais un mot de passe réel.</p>
+<label>Identifiant</label><input id="u" autocomplete="off"><label>Mot de passe</label><input id="p" type="password"><div class="btns"><button class="btn pri" id="go">Se connecter</button></div><div id="e"></div></div>`;
+ $("#go").onclick=async()=>{const u=$("#u").value.trim(),p=$("#p").value;if(await sha(u+"|"+p)==="6feea51a6bdfa6284ade88aca1acc7b651d5d7317732b39e312d274310bdafe4"){S.user=u;log("Connexion");start()}else $("#e").innerHTML='<p class="msg err">Identifiant ou mot de passe incorrect.</p>'}}
+function start(){$("#nav").hidden=false;$("#who").textContent="Connecté : "+S.user+" (profil Secrétariat)";view("planning")}
+function planning(){const days=[];let d=new Date("2026-11-16T12:00");const w=+(sessionStorage.getItem("w")||0);d.setDate(d.getDate()+7*w);
+ for(let i=0;i<6;i++){const x=new Date(d);x.setDate(d.getDate()+i);days.push(x.toISOString().slice(0,10))}
+ let h=`<div class="card"><h1>Planning hebdomadaire</h1><div class="btns" style="margin:0 0 10px"><button class="btn" id="prev">◀ Semaine précédente</button><button class="btn" id="next">Semaine suivante ▶</button><span class="muted">Semaine du ${fr(days[0])} au ${fr(days[5])}. Vert : confirmée – Violet : brouillon.</span></div><div class="plan"><table><tr><th>Matériel</th>${days.map(x=>"<th>"+["Lun","Mar","Mer","Jeu","Ven","Sam"][days.indexOf(x)]+" "+fr(x).slice(0,5)+"</th>").join("")}</tr>`;
+ S.mat.forEach(m=>{h+=`<tr><td><b>${m.code}</b>${m.etat==="HS"?' <span class="st HS">HS</span>':""}</td>`;days.forEach(x=>{const rs=S.res.filter(r=>r.mat===m.code&&r.date===x&&r.statut!=="Annulée");
+  h+="<td>"+rs.map(r=>`<div class="${r.statut==="Confirmée"?"r":"d"}">${r.debut}-${r.fin} ${esc(r.service)}</div>`).join("")+"</td>"});h+="</tr>"});
+ $("#app").innerHTML=h+"</table></div></div>";$("#prev").onclick=()=>{sessionStorage.setItem("w",w-1);planning()};$("#next").onclick=()=>{sessionStorage.setItem("w",w+1);planning()}}
+function liste(){let h=`<div class="card"><h1>Réservations</h1><div class="filters"><div><label>Statut</label><select id="fs"><option value="">Tous</option><option>Confirmée</option><option>Brouillon</option><option>Annulée</option></select></div>
+<div><label>Matériel</label><select id="fm"><option value="">Tous</option>${S.mat.map(m=>`<option>${m.code}</option>`).join("")}</select></div><div><label>Date</label><input type="date" id="fd"></div>
+<div><button class="btn" id="csv">Exporter (CSV)</button></div></div><div id="tbl" style="margin-top:12px"></div></div>`;$("#app").innerHTML=h;
+ const draw=()=>{const fs=$("#fs").value,fm=$("#fm").value,fd=$("#fd").value;const rs=S.res.filter(r=>(!fs||r.statut===fs)&&(!fm||r.mat===fm)&&(!fd||r.date===fd)).sort((a,b)=>(a.date+a.debut).localeCompare(b.date+b.debut));
+  $("#tbl").innerHTML=`<p class="muted">${rs.length} réservation(s)</p><table><tr><th>N°</th><th>Date</th><th>Horaire</th><th>Matériel</th><th>Service</th><th>Demandeur</th><th>Motif</th><th>Statut</th><th></th></tr>`+
+  rs.map(r=>`<tr><td>${r.id}</td><td>${fr(r.date)}</td><td>${r.debut}–${r.fin}</td><td>${r.mat}</td><td>${esc(r.service)}</td><td>${esc(r.demandeur)}</td><td>${esc(r.motif)}</td><td><span class="st ${r.statut}">${r.statut}</span></td><td>${r.statut==="Brouillon"?`<button class="btn" data-ed="${r.id}">Modifier</button>`:""}</td></tr>`).join("")+"</table>";
+  document.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>nouvelle(b.dataset.ed))};
+ ["#fs","#fm","#fd"].forEach(s=>$(s).onchange=draw);draw();
+ $("#csv").onclick=()=>{const t="id;date;debut;fin;materiel;service;demandeur;motif;statut\n"+S.res.map(r=>[r.id,r.date,r.debut,r.fin,r.mat,r.service,r.demandeur,r.motif,r.statut].join(";")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+t],{type:"text/csv"}));a.download="reservations-export.csv";a.click();log("Export CSV des réservations")}}
+function nouvelle(edit){const r=edit?S.res.find(x=>x.id===edit):{date:"",debut:"",fin:"",mat:"",service:"",demandeur:"",motif:""};
+ $("#app").innerHTML=`<div class="card"><h1>${edit?"Modifier la réservation "+edit:"Nouvelle réservation"}</h1><div id="m"></div><div class="grid">
+ <div><label>Demandeur (Nom Prénom)</label><input id="dem" value="${esc(r.demandeur)}"></div><div><label>Service</label><input id="srv" value="${esc(r.service)}"></div>
+ <div><label>Matériel</label><select id="mat"><option value="">— choisir —</option>${S.mat.map(m=>`<option value="${m.code}" ${m.code===r.mat?"selected":""}>${m.code} – ${esc(m.lib)}</option>`).join("")}</select></div>
+ <div><label>Date</label><input type="date" id="dat" value="${r.date}"></div><div><label>Heure de début</label><input type="time" id="deb" value="${r.debut}"></div><div><label>Heure de fin</label><input type="time" id="fin" value="${r.fin}"></div></div>
+ <label>Motif / remarques</label><textarea id="mot" rows="2">${esc(r.motif)}</textarea>
+ <div class="btns"><button class="btn pri" id="draft">Enregistrer en brouillon</button><button class="btn dang" id="conf">Confirmer et notifier le demandeur</button>${edit?'<button class="btn" id="del">Supprimer le brouillon</button>':""}</div>
+ <p class="muted">Réserv'Équip ne contrôle pas les chevauchements ni l'état du matériel : vérifiez le planning avant d'enregistrer.</p></div>`;
+ const read=()=>({demandeur:$("#dem").value.trim(),service:$("#srv").value.trim(),mat:$("#mat").value,date:$("#dat").value,debut:$("#deb").value,fin:$("#fin").value,motif:$("#mot").value.trim()});
+ const valid=x=>{if(!x.demandeur||!x.mat||!x.date||!x.debut||!x.fin){$("#m").innerHTML='<p class="msg err">Champs obligatoires : demandeur, matériel, date, horaires.</p>';return false}if(x.fin<=x.debut){$("#m").innerHTML='<p class="msg err">L\'heure de fin doit être postérieure à l\'heure de début.</p>';return false}return true};
+ const put=(x,st)=>{if(edit){Object.assign(r,x,{statut:st});log((st==="Brouillon"?"Brouillon modifié ":"CONFIRMATION + NOTIFICATION envoyée ")+r.id+" ("+x.mat+" "+x.date+" "+x.debut+"-"+x.fin+")");return r.id}
+  const id="R-"+(S.nextId++);S.res.push(Object.assign({id,statut:st,cree:now()+" par "+S.user},x));log((st==="Brouillon"?"Brouillon créé ":"CONFIRMATION + NOTIFICATION envoyée ")+id+" ("+x.mat+" "+x.date+" "+x.debut+"-"+x.fin+", "+x.demandeur+")");return id};
+ $("#draft").onclick=()=>{const x=read();if(!valid(x))return;const id=put(x,"Brouillon");save();$("#app").insertAdjacentHTML("afterbegin",`<p class="msg ok">Brouillon ${id} enregistré.</p>`);liste()};
+ $("#conf").onclick=()=>{const x=read();if(!valid(x))return;const d=$("#dlg");d.showModal();$("#dlgNo").onclick=()=>{d.close();log("Confirmation abandonnée")};$("#dlgYes").onclick=()=>{d.close();const id=put(x,"Confirmée");save();alert("Réservation "+id+" confirmée. Courriel envoyé au demandeur.");liste()}};
+ if(edit)$("#del").onclick=()=>{S.res=S.res.filter(x=>x.id!==edit);log("Brouillon supprimé "+edit);save();liste()}}
+function materiel(){$("#app").innerHTML=`<div class="card"><h1>Matériel</h1><table><tr><th>Code</th><th>Désignation</th><th>Lieu de retrait</th><th>État</th><th>Remarque</th></tr>`+
+ S.mat.map(m=>`<tr><td>${m.code}</td><td>${esc(m.lib)}</td><td>${m.lieu}</td><td><span class="st ${m.etat}">${m.etat==="HS"?"Hors service":"Disponible"}</span></td><td>${esc(m.note)}</td></tr>`).join("")+"</table></div>"}
+function journal(){$("#app").innerHTML=`<div class="card"><h1>Journal des opérations</h1><p class="muted">Le journal ne peut pas être modifié par le profil Secrétariat.</p><div class="btns" style="margin:0 0 10px"><button class="btn" id="jcsv">Exporter le journal</button><button class="btn" id="reset">Réinitialiser la démo (formateur)</button><button class="btn" id="out">Se déconnecter</button></div><table><tr><th>Horodatage</th><th>Compte</th><th>Opération</th></tr>`+
+ S.journal.slice().reverse().map(j=>`<tr><td>${j[0]}</td><td>${j[1]}</td><td>${esc(j[2])}</td></tr>`).join("")+"</table></div>";
+ $("#jcsv").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+S.journal.map(j=>j.join(";")).join("\n")],{type:"text/csv"}));a.download="journal-reservequip.csv";a.click()};
+ $("#reset").onclick=async()=>{const c=prompt("Code formateur pour réinitialiser :");if(c&&await sha(c)==="a505f7568f38e7e98cc553eaee354bd2e3ca97c4bc18befc0a83f50304b599bd"){S=seed();save();location.reload()}};
+ $("#out").onclick=()=>{log("Déconnexion");S.user=null;save();location.reload()}}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>view(b.dataset.v));
+S.user?start():login();
+</script>
+</body>
+</html>

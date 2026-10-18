@@ -1,1 +1,0 @@
-VALIDÉ — 01/09/2026. Chaque intervenant signe une convention validée par la direction avant le début de la mission.
