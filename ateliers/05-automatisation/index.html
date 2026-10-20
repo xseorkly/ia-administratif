@@ -1,13 +1,460 @@
-<!doctype html><html lang='fr'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Atelier 05 · Mon agent travaille sans moi – IA administrative 2.0</title><meta name='description' content='Chaque vendredi, la GMAO exporte 150 demandes d&#x27;intervention. Le DAF veut le lundi une synthèse d&#x27;une page. Programmez un agent qui repère ce qui compte… et qui se tait quand il ne s&#x27;est rien passé.'><style>
-:root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#687788}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,sans-serif}a{color:inherit}button{cursor:pointer;font:inherit}.wrap{max-width:1100px;margin:auto;padding:0 25px}header{position:sticky;top:0;background:#ffffffeb;backdrop-filter:blur(12px);border-bottom:1px solid #dae1e4;z-index:5}header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:15px;padding-bottom:15px;gap:18px}nav{display:flex;flex-wrap:wrap;gap:19px;font-size:13px;font-weight:700}nav a{text-decoration:none}.brand{font-size:16px;font-weight:900;text-decoration:none}.brand span{color:#078879}.hero{background:var(--navy);color:white;padding:95px 0}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#008f7f}.hero .eyebrow{color:var(--mint)}h1,h2,h3{line-height:1.13;letter-spacing:-.045em}h1{font-size:clamp(43px,6vw,76px);max-width:850px;margin:18px 0}h1 em{font-style:normal;color:var(--mint)}h2{font-size:clamp(32px,4vw,49px);margin:12px 0 18px}h3{font-size:23px;margin:8px 0}p{max-width:800px}.lead{font-size:19px;color:#c6d3e2}.btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:var(--mint);color:var(--navy);margin:8px 8px 0 0}.ghost{background:transparent;color:white;border:1px solid #75879e}.hero-stats{display:flex;gap:35px;flex-wrap:wrap;margin-top:40px}.hero-stats b{display:block;font-size:28px}.hero-stats small{color:#b6c4d3}.section{padding:85px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.card{background:white;border:1px solid #dce4e4;border-radius:14px;padding:23px}.card p{font-size:14px;color:var(--gray)}.card .num{font-size:11px;font-weight:900;color:#078879;letter-spacing:.1em}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:30px 0 15px}.tabs button,.days button{border:1px solid #dbe3e4;border-radius:10px;padding:12px 17px;background:white;font-weight:800}.tabs button.active,.days button.active{background:var(--navy);color:white}.panel[hidden],.schedule[hidden]{display:none}.demo{background:#dcece3;padding:20px 25px;border-radius:12px;margin-top:20px}.days{display:flex;gap:10px;margin:25px 0}.days button{flex:1;text-align:left}.schedule article{display:grid;grid-template-columns:85px 1fr 85px;gap:10px;padding:18px 5px;border-bottom:1px solid #dce4e4}.schedule time{font-weight:900;color:#078879}.schedule a{text-decoration:none;font-size:12px;font-weight:800}.challenges{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:25px 0}.challenge{background:white;border:1px solid #dce4e4;border-radius:15px;padding:25px;display:flex;flex-direction:column}.challenge p{flex:1;color:var(--gray)}.challenge button{align-self:start;border:0;background:var(--navy);color:white;border-radius:9px;padding:10px 15px;font-size:13px;font-weight:800}.safety{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.safety .card{background:var(--light)}.res{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.res a{background:white;border:1px solid #dce4e4;padding:15px;border-radius:10px;text-decoration:none;font-weight:700}.res small{display:block;color:var(--gray);font-weight:400}.passport label{display:block;padding:12px;border-bottom:1px solid #dce4e4}.passport input{width:17px;height:17px;accent-color:#078879}.progress{height:9px;background:#e6eded;border-radius:10px;overflow:hidden}.progress span{background:#078879;height:100%;display:block;transition:width .2s}.dark{background:var(--navy);color:white}.dark .card{color:var(--navy)}footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}dialog{border:0;border-radius:15px;width:min(740px,95%);max-height:88vh;overflow:auto;padding:30px;box-shadow:0 20px 90px #0008}dialog::backdrop{background:#07152cba}dialog pre{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:17px;border-radius:9px;font-size:12px}dialog h4{text-transform:uppercase;letter-spacing:.1em;color:#008f7f;font-size:12px;margin-bottom:5px}.close{float:right;border:0;border-radius:50%;width:34px;height:34px;font-size:22px}@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}.safety{grid-template-columns:repeat(2,1fr)}header .wrap{display:block}nav{margin-top:8px}}@media(max-width:550px){.grid,.challenges,.res,.safety{grid-template-columns:1fr}.schedule article{grid-template-columns:65px 1fr}.schedule a{grid-column:2}.section{padding:58px 0}}
+<!doctype html>
+<html lang='fr'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Atelier 05 · Mon agent travaille sans moi – IA administrative 2.0</title>
+<meta name='description' content="Chaque vendredi, la GMAO exporte 160 demandes d'intervention. Le DAF veut le lundi une synthèse d'une page. Programmez un agent qui repère ce qui compte… et qui se tait quand il ne s'est rien passé.">
+<style>
+:root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#5d6b7b;--teal:#078879;--line:#dce4e4;--warn:#fff7e0;--warnb:#c49317;--ok:#e7f6ec;--okb:#2f8a52;--stop:#fdeceb;--stopb:#b23a2a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}button{cursor:pointer;font:inherit}.wrap{max-width:1100px;margin:auto;padding:0 25px}
+header{position:sticky;top:0;background:#ffffffeb;backdrop-filter:blur(12px);border-bottom:1px solid #dae1e4;z-index:5}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:15px;padding-bottom:15px;gap:18px}
+nav{display:flex;flex-wrap:wrap;gap:19px;font-size:13px;font-weight:700}nav a{text-decoration:none}
+.brand{font-size:16px;font-weight:900;text-decoration:none}.brand span{color:var(--teal)}
+.hero{background:var(--navy);color:white;padding:80px 0 70px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#008f7f}.hero .eyebrow{color:var(--mint)}
+h1,h2,h3{line-height:1.13;letter-spacing:-.04em}h1{font-size:clamp(43px,6vw,76px);max-width:850px;margin:18px 0}
+h2{font-size:clamp(30px,4vw,46px);margin:12px 0 18px}h3{font-size:22px;margin:8px 0}h4{font-size:15px;margin:18px 0 6px}
+p{max-width:820px}.lead{font-size:19px;color:#c6d3e2;max-width:780px}
+.btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:var(--mint);color:var(--navy);margin:8px 8px 0 0}
+.ghost{background:transparent;color:white;border:1px solid #75879e}.btn.dark{background:var(--navy);color:#fff}
+.section{padding:75px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px}.card p,.card li{font-size:14.5px;color:var(--gray)}
+.card .num{font-size:11px;font-weight:900;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.crumbs{font-size:13px;margin-bottom:10px}.crumbs a{color:var(--mint)}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#2b3a52;border-radius:14px;overflow:hidden;margin-top:38px}
+.summary div{background:#16243c;padding:16px}.summary b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:4px}.summary span{font-size:14.5px;color:#e4ecf3}
+.note{background:var(--warn);border-left:4px solid var(--warnb);padding:14px 18px;border-radius:6px;font-size:15px;margin:18px 0;max-width:900px}
+.note.ok{background:var(--ok);border-color:var(--okb)}.note.stop{background:var(--stop);border-color:var(--stopb)}
+.who{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}.who td,.who th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.who th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0 0}.tabs button{border:1px solid #dbe3e4;border-radius:10px 10px 0 0;padding:11px 16px;background:white;font-weight:800;font-size:14px}.tabs button.active{background:var(--navy);color:white;border-color:var(--navy)}
+.panel{border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:22px 24px;background:#fff}.panel[hidden]{display:none}.panel ol li,.panel ul li{margin:6px 0}
+.levels .card h3{font-size:20px}.lvl-bronze{border-top:5px solid #b07a4a}.lvl-argent{border-top:5px solid #98a4ad}.lvl-or{border-top:5px solid #d4a514}
+.levels .card ul{padding-left:18px;margin:8px 0}.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:20px;padding:2px 9px;background:#efe2d4;color:#7b4f25;margin-left:6px}
+.step{border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:18px 0;background:#fff;position:relative}
+.step-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.step-num{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--teal)}.step h3{margin:4px 0 2px}
+.step .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:10px}.step .cols h4{margin-top:6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.step ul{padding-left:18px;margin:6px 0}.step li{margin:5px 0;font-size:15px}.step.done{opacity:.6}
+.timer{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.timer button{border:1px solid var(--line);background:var(--light);border-radius:8px;padding:6px 12px;font-weight:800;font-size:13px}
+.timer .t{font-weight:900;font-size:18px;min-width:56px;text-align:right}.timer .t.over{color:var(--stopb)}
+.success{background:var(--ok);border-radius:10px;padding:10px 14px;font-size:14.5px;margin-top:12px}.success b{color:var(--okb)}
+pre.prompt,pre.tpl{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:18px;border-radius:10px;font-size:13.5px;margin:10px 0 6px}
+pre.tpl{background:#f0f4f2;color:var(--navy);border:1px dashed #9fb1b3}
+.copy{border:0;background:var(--mint);border-radius:8px;padding:8px 13px;font-weight:800;font-size:13px}
+details{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:10px 0;background:#fff}details summary{font-weight:800;cursor:pointer}
+details details{margin:8px 0 0;background:var(--light)}details details summary{font-weight:700;font-size:14.5px}details p{margin:8px 0;font-size:15px}
+dl.glos{display:grid;grid-template-columns:220px 1fr;gap:0;border-top:1px solid var(--line)}dl.glos dt,dl.glos dd{margin:0;padding:11px 8px;border-bottom:1px solid var(--line)}dl.glos dt{font-weight:800}dl.glos dd{color:var(--gray);font-size:15px}
+.cols-table{width:100%;border-collapse:collapse;font-size:14.5px}.cols-table td,.cols-table th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.cols-table th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}.cols-table td:first-child{font-weight:800;white-space:nowrap}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:11px 6px;border-bottom:1px solid var(--line);font-size:15px}.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--teal);flex:none}
+.progress{height:9px;background:#e6eded;border-radius:10px;overflow:hidden;margin:10px 0}.progress span{background:var(--teal);height:100%;display:block;transition:width .2s}
+.files{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}.files td,.files th{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}.files th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.files .t{font-size:11px;font-weight:900;color:#fff;background:#5b6670;border-radius:4px;padding:2px 6px}.t.pdf{background:#b23a2a}.t.docx{background:#2b5797}.t.xlsx{background:#1d7044}.t.eml{background:#7a4b9a}.t.ics{background:#b06a10}
+.files td:nth-child(2){overflow-wrap:anywhere}.tw{overflow-x:auto}.bz{font-size:10.5px;font-weight:900;color:#7b4f25;background:#efe2d4;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.toc a{font-size:13px;font-weight:700;text-decoration:none;border:1px solid #3a4a63;color:#dbe6ef;border-radius:20px;padding:5px 12px}
+footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
+@media(max-width:850px){.summary{grid-template-columns:repeat(2,1fr)}.step .cols{grid-template-columns:1fr}}
+@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}header .wrap{display:block}nav{margin-top:8px}dl.glos{grid-template-columns:1fr}dl.glos dt{border-bottom:0;padding-bottom:0}}
+@media(max-width:550px){.wrap{padding:0 16px}.grid,.grid2,.summary{grid-template-columns:1fr}.section{padding:55px 0}.files td:nth-child(3),.files th:nth-child(3){display:none}.who td:nth-child(3),.who th:nth-child(3){display:none}}
+@media print{header,.timer,.copy,.toc,.btn{display:none!important}.hero{background:#fff;color:var(--navy);padding:20px 0}.summary div{background:#fff}.summary span{color:var(--navy)}details{break-inside:avoid}details:not([open]) > *:not(summary){display:none}}
+</style>
+<style>code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}</style>
+</head>
+<body>
+<header><div class='wrap'><a class='brand' href='../../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../../index.html#nouveautes'>Nouveautés</a><a href='../../index.html#programme'>Programme</a><a href='../../index.html#ateliers'>Ateliers</a><a href='../../index.html#ressources'>Ressources</a><a href='../../index.html#formateur'>Formateur</a></nav></div></header>
+<main>
 
-.badge{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.12em;color:#078879}
-.challenge h3{margin-top:6px}.challenge .meta{font-size:12px;color:var(--gray);margin:0 0 12px}.challenge a.go{align-self:start;background:var(--navy);color:#fff;border-radius:9px;padding:10px 15px;font-size:13px;font-weight:800;text-decoration:none}
-.choice{border:2px dashed #078879}.note{background:#fff7e0;border-left:4px solid #c49317;padding:14px 18px;border-radius:6px;font-size:14px;margin:18px 0}
-.files{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}.files td,.files th{border-bottom:1px solid #dce4e4;padding:9px 6px;text-align:left;vertical-align:top}.files th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.files .t{font-size:11px;font-weight:900;color:#fff;background:#5b6670;border-radius:4px;padding:2px 6px}.t.pdf{background:#b23a2a}.t.docx{background:#2b5797}.t.xlsx{background:#1d7044}.t.eml{background:#7a4b9a}.t.ics{background:#b06a10}.t.html{background:#0f6e66}.t.jpg{background:#6b5a2b}.t.csv{background:#1d7044}
-.steps li{margin:8px 0}.levels .card h3{font-size:19px}.lvl-bronze{border-top:5px solid #b07a4a}.lvl-argent{border-top:5px solid #98a4ad}.lvl-or{border-top:5px solid #d4a514}
-pre.prompt{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:18px;border-radius:10px;font-size:13.5px}.copy{border:0;background:var(--mint);border-radius:8px;padding:9px 14px;font-weight:800}
-.check li{list-style:"☐  ";margin:6px 0}.tw{overflow-x:auto}.files td:nth-child(2){overflow-wrap:anywhere}
-@media(max-width:550px){.files td:nth-child(3),.files th:nth-child(3){display:none}.grid .card[style]{grid-column:auto!important}}.crumbs{font-size:13px;margin-bottom:10px}.crumbs a{color:#cafd70}
-</style></head><body><header><div class='wrap'><a class='brand' href='../../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../../index.html#nouveautes'>Nouveautés</a><a href='../../index.html#programme'>Programme</a><a href='../../index.html#ateliers'>Ateliers</a><a href='../../index.html#ressources'>Ressources</a><a href='../../index.html#formateur'>Formateur</a></nav></div></header><main><section class='hero'><div class='wrap'><div class='crumbs'><a href='../../index.html#ateliers'>← Tous les ateliers</a> · <a href='../../dossiers.html'>Toutes les mallettes</a></div><div class='eyebrow'>Atelier 05 · TÂCHE PROGRAMMÉE · 70 MIN</div><h1>Mon agent travaille sans moi</h1><p class='lead'>Chaque vendredi, la GMAO exporte 150 demandes d&#x27;intervention. Le DAF veut le lundi une synthèse d&#x27;une page. Programmez un agent qui repère ce qui compte… et qui se tait quand il ne s&#x27;est rien passé.</p><a class='btn' href='dossier-atelier-05.zip' download>↧ Télécharger le dossier complet (611 Ko)</a><a class='btn ghost' href='#pieces'>Voir les 20 pièces ↓</a></div></section><section class='section'><div class='wrap'><div class='eyebrow'>Situation</div><h2>Lundi 19 octobre 2026, LFI Marie-Curie de Valmont</h2><p class='intro'>Trois exports successifs de MaintiGest (9, 16 et 23 octobre) et la note de cadrage du DAF. Vous paramétrez une tâche récurrente qui compare l&#x27;export de la semaine au précédent et produit la synthèse attendue.</p><p><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement (organisation, délégations de signature, calendrier) ↗</a></p><div class='grid'><div class='card'><div class='num'>CAPACITÉ TRAVAILLÉE</div><p>Concevoir une tâche programmée : source, fréquence, règles de déclenchement, test, cas « rien à signaler ».</p></div><div class='card' style='grid-column:span 2'><div class='num'>LIVRABLE ATTENDU</div><p>Instructions de la tâche récurrente + synthèse S1→S2 (alertes, pour information, décisions) + synthèse S2→S3 (« aucun changement significatif ») + journal de test.</p></div></div><h2>Votre mission, étape par étape</h2><ol class='steps'><li>Lisez la note du DAF ; transformez-la en règles testables (10 min).</li><li>Écrivez les instructions de la tâche : source, comparaison, règles, format, interdits (15 min).</li><li>Exécution 1 : S1 → S2. Vérifiez trois alertes à la main dans les fichiers (15 min).</li><li>Exécution 2 : S2 → S3. L&#x27;agent doit conclure qu&#x27;il ne s&#x27;est rien passé (10 min).</li><li>Carte surprise (10 min).</li><li>Si l&#x27;outil le permet, programmez la tâche pour le lundi 8 h (10 min).</li></ol><div class='note'><b>Règle commune :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div></div></section><section class='section alt'><div class='wrap'><div class='eyebrow'>Trois niveaux</div><h2>Choisissez votre niveau de difficulté</h2><div class='grid levels'><div class='card lvl-bronze'><div class='num'>NIVEAU</div><h3>Bronze</h3><p>Comparaison S1 → S2 uniquement, alertes seulement.</p></div><div class='card lvl-argent'><div class='num'>NIVEAU</div><h3>Argent</h3><p>S1 → S2 puis S2 → S3, format complet.</p></div><div class='card lvl-or'><div class='num'>NIVEAU</div><h3>Or</h3><p>Tout + programmation réelle de la tâche (outil de tâches planifiées) et calcul des indicateurs de délai par prestataire.</p></div></div><h2>Critères de réussite</h2><ul><li>Chaque alerte cite le ticket et la colonne qui a changé</li><li>Aucune fausse alerte au regard des règles du DAF</li><li>L&#x27;agent sait conclure qu&#x27;il ne s&#x27;est rien passé</li><li>Aucun contact prestataire</li></ul><p class='intro'>Le formateur détient la carte surprise et le corrigé de cet atelier : ils ne sont pas publiés.</p></div></section><section class='section'><div class='wrap'><h2>Prompt de départ</h2><p class='intro'>Un point de départ, pas une recette : adaptez-le à votre plan et à vos sources.</p><pre class='prompt' id='pr'>Tu exécutes chaque lundi à 8 h une veille des demandes d&#x27;intervention. Compare l&#x27;export MaintiGest le plus récent à l&#x27;export précédent, ligne à ligne par numéro de ticket. Applique strictement les règles de la note du DAF : ce qui déclenche une alerte, ce qui n&#x27;en déclenche pas. Pour chaque alerte, cite le numéro de ticket et la colonne qui a changé. Une simple mise à jour de date, un commentaire sur une demande close ou une demande archivée ne sont pas des alertes. Si rien de significatif n&#x27;a changé, écris seulement « aucun changement significatif ». Ne contacte aucun prestataire et ne modifie rien.</pre><button class='copy' onclick="navigator.clipboard.writeText(document.getElementById('pr').innerText).then(()=>this.textContent='Copié ✓')">Copier le prompt</button></div></section><section class='section alt' id='pieces'><div class='wrap'><div class='eyebrow'>Pièces du dossier</div><h2>20 documents professionnels fictifs</h2><p class='intro'>Formats réels : PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics. Les anomalies ne sont pas signalées : à vous et à votre agent de les trouver.</p><div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th></tr><tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Delais-contractuels-prestataires.pdf' target=_blank>Delais-contractuels-prestataires.pdf</a></td><td>—</td><td>35 Ko</td></tr><tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/MaintiGest-dictionnaire-des-champs.pdf' target=_blank>MaintiGest-dictionnaire-des-champs.pdf</a></td><td>—</td><td>36 Ko</td></tr><tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-09.xlsx' download>MaintiGest_export_2026-10-09.xlsx</a></td><td>—</td><td>18 Ko</td></tr><tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-16.xlsx' download>MaintiGest_export_2026-10-16.xlsx</a></td><td>—</td><td>18 Ko</td></tr><tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-23.xlsx' download>MaintiGest_export_2026-10-23.xlsx</a></td><td>—</td><td>18 Ko</td></tr><tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Note-DAF-veille-hebdomadaire.docx' download>Note-DAF-veille-hebdomadaire.docx</a></td><td>—</td><td>38 Ko</td></tr><tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Synthese-precedente-12-10-2026.docx' download>Synthese-precedente-12-10-2026.docx</a></td><td>—</td><td>37 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-12_0900_MG-26-1776.pdf' target=_blank>2026-10-12_0900_MG-26-1776.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1615.pdf' target=_blank>2026-10-13_1000_MG-26-1615.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1616.pdf' target=_blank>2026-10-13_1000_MG-26-1616.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1775.pdf' target=_blank>2026-10-13_1000_MG-26-1775.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-14_0812_MG-26-1632.pdf' target=_blank>2026-10-14_0812_MG-26-1632.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-14_1100_MG-26-1777.pdf' target=_blank>2026-10-14_1100_MG-26-1777.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-14_1750_MG-26-1774.pdf' target=_blank>2026-10-14_1750_MG-26-1774.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-15_0805_MG-26-1772.pdf' target=_blank>2026-10-15_0805_MG-26-1772.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-15_0840_MG-26-1773.pdf' target=_blank>2026-10-15_0840_MG-26-1773.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-15_1500_MG-26-1637.pdf' target=_blank>2026-10-15_1500_MG-26-1637.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1619.pdf' target=_blank>2026-10-15_1600_MG-26-1619.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1662.pdf' target=_blank>2026-10-15_1600_MG-26-1662.pdf</a></td><td>notifications</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/notifications/2026-10-15_1700_MG-26-1623.pdf' target=_blank>2026-10-15_1700_MG-26-1623.pdf</a></td><td>notifications</td><td>35 Ko</td></tr></table></div></div></section></main><footer><div class='wrap'>✳ IA ADMINISTRATIVE 2.0 · Formation niveau 2 · Établissement, personnes et documents fictifs (LFI Marie-Curie de Valmont) · <a href='https://github.com/xseorkly/ia-administratif'>Dépôt GitHub ↗</a></div></footer></body></html>
+<!-- ============ EN-TÊTE ============ -->
+<section class='hero'><div class='wrap'>
+<div class='crumbs'><a href='../../index.html#ateliers'>← Tous les ateliers</a> · <a href='../../dossiers.html'>Toutes les mallettes</a></div>
+<div class='eyebrow'>Atelier 05 · Tâche programmée · 70 min · en autonomie</div>
+<h1>Mon agent travaille sans moi</h1>
+<p class='lead'>Chaque vendredi soir, le logiciel de maintenance exporte environ 160 demandes d'intervention. Le DAF veut, le lundi à 8 h, une synthèse d'une page. Vous allez concevoir un agent qui fera ce travail chaque semaine, seul : repérer ce qui compte, ignorer le bruit… et se taire quand il ne s'est rien passé.</p>
+<a class='btn' href='#demarrer'>Commencer l'atelier ↓</a>
+<a class='btn ghost' href='#pieces'>Voir les pièces ↓</a>
+<div class='summary'>
+<div><b>Votre rôle</b><span>Secrétariat de direction, qui prépare la veille du lundi pour le DAF</span></div>
+<div><b>Votre mission</b><span>Écrire et tester les instructions d'une tâche qui tournera chaque semaine</span></div>
+<div><b>La difficulté</b><span>Pas de fausse alerte, pas d'oubli, et savoir dire « rien à signaler »</span></div>
+<div><b>Vous rendez</b><span>Instructions de la tâche · 2 synthèses · journal de test</span></div>
+<div><b>Votre outil</b><span>ChatGPT ou Claude, avec analyse de fichiers ; tâches programmées si disponibles</span></div>
+</div>
+<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#objectifs'>2 · Objectifs</a><a href='#demarrer'>3 · Démarrer</a><a href='#niveaux'>4 · Niveau</a><a href='#mission'>5 · Mission</a><a href='#livrable'>6 · Livrable</a><a href='#glossaire'>Glossaire</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
+</div></section>
+
+<!-- ============ 1. SITUATION ============ -->
+<section class='section' id='situation'><div class='wrap'>
+<div class='eyebrow'>1 · La situation</div>
+<h2>Lundi 19 octobre 2026, 7 h 45, LFI Marie-Curie de Valmont</h2>
+<p class='intro'>Jusqu'ici, Mme Marquet rédigeait à la main, chaque lundi, une synthèse des demandes d'intervention pour le DAF. Elle comparait l'export de MaintiGest (le logiciel de gestion de la maintenance) du vendredi avec celui de la semaine précédente. Une heure de travail chaque semaine. Elle part : c'est le moment de confier cette veille à un agent.</p>
+<p>Le DAF a écrit ses règles dans une note : ce qui doit déclencher une alerte, ce qui ne le doit pas, le format, les interdits. Vous disposez de <b>trois exports successifs</b> (vendredis 9, 16 et 23 octobre), de la dernière synthèse manuelle, de la documentation des champs de MaintiGest et des notifications de la semaine.</p>
+<p>Pour l'atelier, vous allez <b>simuler deux lundis</b> : celui d'aujourd'hui (comparaison du 9 au 16 octobre) et celui de la semaine prochaine, le 26 octobre (comparaison du 16 au 23 octobre). C'est la répétition générale avant de laisser l'agent travailler seul.</p>
+<div class='note stop'><b>Pourquoi c'est important.</b> Une tâche programmée tourne sans vous. Si elle crie au loup chaque semaine, le DAF cessera de la lire, et le jour où une porte coupe-feu ne se ferme plus, l'alerte passera inaperçue. Si elle oublie une règle, personne ne s'en rendra compte. Il faut donc la tester <b>avant</b> de la programmer.</div>
+
+<h3>Qui est qui dans ce dossier</h3>
+<div class='tw'><table class='who'>
+<tr><th>Personne</th><th>Fonction</th><th>Ce qu'il faut savoir pour l'atelier</th></tr>
+<tr><td>Patrice Aubertin</td><td>DAF</td><td>Destinataire de la synthèse. Il a fixé les règles. Il décide seul des relances aux prestataires.</td></tr>
+<tr><td>Dragan Petrović</td><td>Chef d'équipe maintenance</td><td>En copie de la note. Il gère l'équipe interne et peut relancer les prestataires.</td></tr>
+<tr><td>Hélène Marquet</td><td>Assistante de direction (sortante)</td><td>Auteure de la dernière synthèse manuelle (12 octobre), qui sert de modèle et de point de départ.</td></tr>
+<tr><td>Prestataires</td><td>ThermoServices, NetSol, Securis Alarmes</td><td>Ils interviennent selon des délais contractuels. La tâche ne les contacte jamais.</td></tr>
+<tr><td><b>Vous</b></td><td>Secrétariat de direction</td><td>Vous concevez la tâche, la testez, et validez chaque synthèse avant qu'elle parte en brouillon chez le DAF.</td></tr>
+</table></div>
+<p><a class='btn dark' href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement ↗</a> <small style='color:var(--gray)'>Organisation, outils du service (MaintiGest), règles d'usage de l'IA. Il est inclus dans les archives.</small></p>
+</div></section>
+
+<!-- ============ 2. OBJECTIFS ============ -->
+<section class='section alt' id='objectifs'><div class='wrap'>
+<div class='eyebrow'>2 · Ce que vous allez apprendre</div>
+<h2>Les objectifs de l'atelier</h2>
+<p class='intro'>Dans les ateliers précédents, vous étiez là pendant que l'agent travaillait. Ici, il travaillera <b>sans vous</b>, chaque lundi. Tout doit donc être prévu dans ses instructions et vérifié avant.</p>
+<div class='grid'>
+<div class='card'><div class='num'>À la fin, vous saurez…</div><ul>
+<li>transformer une consigne écrite en <b>règles testables</b> (quelle colonne, quel changement) ;</li>
+<li>écrire les instructions d'une <b>tâche récurrente</b> : source, comparaison, règles, format, interdits ;</li>
+<li>faire faire une comparaison de fichiers par un <b>outil de calcul</b> plutôt que « de mémoire » ;</li>
+<li>repérer une <b>fausse alerte</b> et un <b>oubli</b> ;</li>
+<li>faire dire à l'agent « rien à signaler » quand c'est vrai, et seulement quand c'est vrai ;</li>
+<li>programmer la tâche, si l'outil le permet.</li></ul></div>
+<div class='card'><div class='num'>Outils et fonctions utilisés</div><ul>
+<li><b>ChatGPT ou Claude</b> avec analyse de fichiers Excel : l'IA écrit et exécute du code pour comparer les exports ;</li>
+<li>un <b>projet</b> pour garder les instructions de la tâche ;</li>
+<li>les <b>tâches programmées</b> (« Tâches » dans ChatGPT, tâches planifiées dans Claude), selon votre offre ;</li>
+<li>à défaut, une exécution manuelle chaque lundi avec les mêmes instructions (plan B).</li></ul></div>
+<div class='card'><div class='num'>Compétences du passeport</div><ul>
+<li>☐ Paramétrer une tâche récurrente sans fausse alerte</li>
+<li>☐ Connecter une source autorisée et exiger des preuves</li></ul>
+<p>Vous les cocherez dans le <a href='../../index.html#passeport'>passeport d'agent IA</a> à la fin de la formation, seulement si vous les avez réellement pratiquées.</p></div>
+</div>
+<div class='note ok'><b>Pas besoin de savoir programmer :</b> c'est l'IA qui écrit le code de comparaison. Votre travail est de lui dire <i>quoi</i> comparer et <i>quand</i> alerter, puis de vérifier qu'elle l'a bien fait.</div>
+</div></section>
+
+<!-- ============ 3. DÉMARRER ============ -->
+<section class='section' id='demarrer'><div class='wrap'>
+<div class='eyebrow'>3 · Avant de commencer · 5 min</div>
+<h2>Préparez votre poste de travail</h2>
+<ol>
+<li><b>Choisissez votre niveau</b> (<a href='#niveaux'>section 4</a>) et <b>téléchargez son dossier</b>. Décompressez-le.</li>
+<li><b>Ouvrez les deux premiers exports dans Excel</b> pour voir à quoi ils ressemblent : une ligne par demande, treize colonnes. Ne lisez pas tout.</li>
+<li><b>Préparez votre outil</b> (onglets ci-dessous).</li>
+</ol>
+<div class='tabs' role='tablist'><button class='active' data-tab='optA' role='tab'>ChatGPT</button><button data-tab='optB' role='tab'>Claude</button><button data-tab='optC' role='tab'>Plan B</button></div>
+<div class='panel' id='optA'>
+<ol>
+<li>Créez un <b>projet</b> « Veille MaintiGest ». Vous collerez vos instructions dans ses <b>instructions</b> à l'étape 2.</li>
+<li>Ajoutez au projet la note du DAF et le dictionnaire des champs. Les <b>exports</b>, eux, seront joints à chaque exécution : c'est ce qui change chaque semaine.</li>
+<li>Pour l'étape 6 (programmation) : les <b>Tâches</b> de ChatGPT, si elles sont disponibles sur votre offre, permettent de planifier un message chaque lundi à 8 h. Vérifiez qu'elles ont accès aux fichiers dont elles auront besoin.</li>
+</ol>
+<div class='success'><b>C'est prêt quand</b> l'IA, à qui vous joignez l'export du 9 octobre, vous répond correctement à « Combien de demandes contient ce fichier, et combien sont au statut Clos ? », en indiquant qu'elle a fait le calcul avec du code.</div>
+</div>
+<div class='panel' id='optB' hidden>
+<ol>
+<li>Créez un <b>projet</b> « Veille MaintiGest ». Vous collerez vos instructions dans les <b>instructions du projet</b> à l'étape 2.</li>
+<li>Ajoutez aux connaissances la note du DAF et le dictionnaire des champs. Les <b>exports</b> seront joints à chaque exécution.</li>
+<li>Vérifiez que l'<b>exécution de code / l'analyse de fichiers</b> est activée : Claude doit pouvoir lire les fichiers Excel avec un outil de calcul.</li>
+<li>Pour l'étape 6 : selon votre offre, les <b>tâches planifiées</b> de Claude permettent de lancer la même consigne chaque lundi.</li>
+</ol>
+<div class='success'><b>C'est prêt quand</b> Claude, à qui vous joignez l'export du 9 octobre, vous dit combien de demandes il contient et combien sont closes, en ayant fait le calcul avec du code.</div>
+</div>
+<div class='panel' id='optC' hidden>
+<p>Pas de projet ni de tâches programmées ? Gardez vos instructions dans un fichier texte. Chaque « lundi », ouvrez une conversation, collez les instructions et joignez les deux exports. C'est exactement ce que fera la tâche programmée : vous jouez le rôle du minuteur.</p>
+<div class='success'><b>C'est prêt quand</b> l'IA a confirmé avoir lu les deux exports et compté leurs lignes.</div>
+</div>
+<div class='note'><b>Règle commune à tous les ateliers :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div>
+</div></section>
+
+<!-- ============ 4. NIVEAUX ============ -->
+<section class='section alt' id='niveaux'><div class='wrap'>
+<div class='eyebrow'>4 · Choisissez votre niveau</div>
+<h2>Trois niveaux, la même mission</h2>
+<div class='grid levels'>
+<div class='card lvl-bronze'><div class='num'>Pour découvrir</div><h3>Bronze</h3>
+<p><b>7 pièces</b> : la note du DAF, le dictionnaire des champs, les exports du <b>9 et du 16 octobre</b>, la synthèse précédente, le dossier de contexte et le gabarit.</p>
+<p><b>Vous rendez :</b></p><ul><li>les règles testables ;</li><li>les instructions de la tâche ;</li><li>la synthèse du 19 octobre, <b>rubrique Alertes</b> seulement ;</li><li>le journal de test (3 vérifications).</li></ul>
+<a class='btn dark' href='dossier-atelier-05-bronze.zip' download>↧ Dossier Bronze (202 Ko)</a></div>
+<div class='card lvl-argent'><div class='num'>Le niveau de référence</div><h3>Argent</h3>
+<p><b>22 pièces</b> : les trois exports, les notifications de la semaine, les délais contractuels, la documentation, le dossier de contexte et le gabarit.</p>
+<p><b>Vous rendez :</b></p><ul><li>les règles testables et les instructions ;</li><li>la synthèse <b>complète</b> du 19 octobre (S1 → S2) ;</li><li>la synthèse du 26 octobre (S2 → S3) ;</li><li>le journal de test.</li></ul>
+<a class='btn dark' href='dossier-atelier-05.zip' download>↧ Dossier complet (674 Ko)</a></div>
+<div class='card lvl-or'><div class='num'>Pour aller plus loin</div><h3>Or</h3>
+<p>Le niveau Argent, et en plus :</p><ul><li>la <b>programmation réelle</b> de la tâche chaque lundi à 8 h dans l'outil de tâches programmées ;</li><li>le calcul des <b>indicateurs de délai par prestataire</b> (onglet 3 du gabarit), à partir des délais contractuels.</li></ul>
+<a class='btn dark' href='dossier-atelier-05.zip' download>↧ Dossier complet (674 Ko)</a></div>
+</div>
+<p class='intro'>Tous les niveaux utilisent le <a href='gabarit-veille-atelier-05.xlsx' download><b>gabarit Excel</b></a> (règles testables, journal de test, indicateurs), inclus dans les deux archives.</p>
+</div></section>
+
+<!-- ============ 5. MISSION ============ -->
+<section class='section' id='mission'><div class='wrap'>
+<div class='eyebrow'>5 · Votre mission · 65 min</div>
+<h2>Six étapes, à suivre dans l'ordre</h2>
+<p class='intro'>Chaque étape indique son but, les questions à vous poser, comment faire, et à quoi vous savez qu'elle est terminée. Le chronomètre vous aide à tenir le temps.</p>
+
+<div class='step' id='e1'><div class='step-head'><div><div class='step-num'>ÉTAPE 1 · SANS IA</div><h3>Transformer la note du DAF en règles testables</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> une règle est <i>testable</i> quand on peut répondre oui ou non en regardant deux exports. « Ce qui mérite mon attention » n'est pas testable ; « le statut est passé à Rouvert » l'est.</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Lisez la <b>note du DAF</b> (1 page) et le <b>dictionnaire des champs</b> de MaintiGest.</li>
+<li>Dans l'onglet 1 du gabarit, une ligne par règle : la phrase du DAF, la colonne à regarder, le changement qui déclenche.</li>
+<li>Faites de même pour les règles « ne pas déclencher » : elles sont aussi importantes.</li>
+<li>Lisez la <b>synthèse précédente</b> : c'est le format attendu.</li></ul></div>
+<div><h4>Les questions à vous poser</h4><ul>
+<li>Combien de règles « alerte » le DAF fixe-t-il ? Et de règles « pas d'alerte » ?</li>
+<li>Que signifie un changement de « Dernière MAJ » d'après le dictionnaire ?</li>
+<li>Une demande qui disparaît d'un export à l'autre : alerte ou pas ? Dans quel cas ?</li>
+<li>Un retard déjà signalé la semaine précédente : on le répète ou on le compte ?</li>
+<li>Comment reconnaître un doublon, d'après le DAF ?</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> chaque phrase de la note a sa ligne dans l'onglet 1, avec une colonne et une condition.</div>
+</div>
+
+<div class='step' id='e2'><div class='step-head'><div><div class='step-num'>ÉTAPE 2 · SANS IA, PUIS DANS L'OUTIL</div><h3>Écrire les instructions de la tâche</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> écrire une consigne qui pourra tourner chaque lundi <b>sans vous</b>. Tout ce que vous ne mettez pas dedans, l'agent devra le deviner.</p>
+<pre class='tpl' id='tplTache'>TÂCHE RÉCURRENTE – Veille MaintiGest du lundi
+QUAND : chaque lundi à 8 h.
+SOURCES : l'export MaintiGest le plus récent et l'export précédent (…). Rien d'autre.
+DATE DE RÉFÉRENCE : la date indiquée en titre de l'export le plus récent.
+MÉTHODE : compare les deux exports ligne à ligne par numéro de ticket, avec un outil de calcul (code), pas de mémoire. …
+RÈGLES D'ALERTE : (recopiez vos règles testables de l'étape 1)
+  1. …
+RÈGLES « NE PAS ALERTER » :
+  1. …
+FORMAT : 1. Alertes (5 max, par gravité, n° de ticket + colonne changée + motif) ; 2. Pour information (compteurs) ; 3. Décisions. Une page.
+SI RIEN NE DÉCLENCHE : écris seulement « aucun changement significatif » (et les compteurs).
+INTERDITS : …
+VÉRIFICATION : à la fin, liste les tickets que tu as écartés et la règle qui les a écartés.</pre>
+<button class='copy' data-copy='tplTache'>Copier la trame</button>
+<p>Collez ensuite vos instructions dans les instructions du projet (ou gardez-les dans un fichier texte pour le plan B).</p>
+<div class='success'><b>Étape terminée quand</b> toutes les rubriques sont remplies et que chaque règle de l'onglet 1 apparaît dans les instructions.</div>
+</div>
+
+<div class='step' id='e3'><div class='step-head'><div><div class='step-num'>ÉTAPE 3 · EXÉCUTION 1</div><h3>Le lundi 19 octobre : comparer le 9 et le 16 octobre</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> faire tourner la tâche une première fois, puis vérifier à la main que ses alertes sont justes et qu'elle n'en a oublié aucune.</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Ouvrez une conversation (dans le projet), joignez les exports du <b>9</b> et du <b>16 octobre</b>, et lancez : « Exécute la veille du lundi 19 octobre. »</li>
+<li>Lisez la synthèse. Puis demandez la liste des tickets <b>écartés</b> et la règle appliquée.</li>
+<li>Vérifiez <b>trois alertes</b> à la main : ouvrez les deux exports, filtrez sur le numéro de ticket, comparez les colonnes.</li>
+<li>Argent : utilisez aussi les <b>notifications</b> de la semaine pour repérer un oubli.</li>
+<li>Notez chaque vérification dans l'onglet 2 du gabarit.</li></ul></div>
+<div><h4>Des relances utiles (à adapter)</h4><ul>
+<li>« Pour ce ticket, montre-moi la ligne dans les deux exports. »</li>
+<li>« Quelles demandes ont seulement changé de Dernière MAJ ? Les as-tu écartées ? »</li>
+<li>« Quels tickets ont disparu ? Étaient-ils clos depuis plus de 30 jours ? »</li>
+<li>« As-tu cherché les doublons ? Comment ? »</li>
+<li>« Pourquoi cette alerte est-elle classée avant celle-là ? »</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> la synthèse tient sur une page, que vous avez vérifié trois alertes et cherché au moins un oubli, et que les erreurs éventuelles ont donné lieu à une <b>correction des instructions</b> (pas seulement de la synthèse).</div>
+</div>
+
+<div class='step' id='e4'><div class='step-head'><div><div class='step-num'>ÉTAPE 4 · EXÉCUTION 2 · ARGENT ET OR</div><h3>Le lundi 26 octobre : comparer le 16 et le 23 octobre</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> vérifier que la tâche sait distinguer une semaine agitée d'une semaine calme, sans rien inventer et sans rien oublier.</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Nouvelle conversation, mêmes instructions, exports du <b>16</b> et du <b>23 octobre</b>. Lancez : « Exécute la veille du lundi 26 octobre. »</li>
+<li>Regardez combien de lignes ont « changé » et quelles colonnes ont changé.</li>
+<li>Appliquez <b>chaque</b> règle du DAF, une par une, y compris celles qui peuvent se déclencher sans qu'aucune ligne ne soit modifiée.</li></ul></div>
+<div><h4>Les questions à vous poser</h4><ul>
+<li>Un changement de « Dernière MAJ » seul, est-ce un changement significatif ?</li>
+<li>Le temps qui passe peut-il, à lui seul, déclencher une règle ?</li>
+<li>Si aucune règle ne se déclenche, la synthèse dit-elle seulement « aucun changement significatif » ?</li>
+<li>Et si une règle se déclenche, l'agent l'a-t-il vue ?</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> la synthèse du 26 octobre contient exactement ce que les règles imposent, et rien d'autre, et que vous savez justifier chaque ligne (ou l'absence de ligne).</div>
+</div>
+
+<div class='step' id='e5'><div class='step-head'><div><div class='step-num'>ÉTAPE 5 · IMPRÉVU</div><h3>La carte surprise</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<p>Le formateur distribue une carte. Demandez-vous : <b>faut-il changer une règle, le format, la source ?</b> Modifiez les <b>instructions</b> de la tâche, puis relancez une exécution pour vérifier l'effet. Notez-le dans le journal de test.</p>
+<p><small style='color:var(--gray)'>Sans formateur : le DAF vous écrit « Je veux aussi être alerté de toute demande P1 non résolue depuis plus de 24 h, même déjà signalée. » Ajoutez la règle, relancez l'exécution 1, comparez.</small></p>
+<div class='success'><b>Étape terminée quand</b> les instructions sont modifiées, une exécution de contrôle est faite et notée dans le journal.</div>
+</div>
+
+<div class='step' id='e6'><div class='step-head'><div><div class='step-num'>ÉTAPE 6 · PROGRAMMATION ET RESTITUTION</div><h3>Laisser l'agent travailler sans vous</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<ul>
+<li><b>Si l'outil le permet</b> (Or) : programmez la tâche chaque <b>lundi à 8 h</b>, avec vos instructions. Indiquez où elle trouvera les exports (connecteur, dossier) et qu'elle produit un <b>brouillon</b>, sans envoi.</li>
+<li><b>Sinon</b> : écrivez en deux lignes ce qu'il faudrait pour la programmer (où sont les exports, qui lit la synthèse, qui la valide).</li>
+<li>Préparez trois phrases :</li></ul>
+<pre class='tpl' id='tplResti'>1. Ma tâche alerte sur : … et se tait sur : …
+2. L'erreur que les tests ont révélée, et la correction faite dans les instructions : …
+3. Ce qu'un humain vérifie encore chaque lundi avant que la synthèse parte : …</pre>
+<button class='copy' data-copy='tplResti'>Copier la trame</button>
+<div class='success'><b>Étape terminée quand</b> vous avez fait l'<a href='#bilan'>autocontrôle</a> et préparé vos trois phrases.</div>
+</div>
+
+<h3 id='prompt' style='margin-top:45px'>Le prompt de départ</h3>
+<p class='intro'>Un point de départ, pas une recette. Complétez-le avec vos règles testables de l'étape 1, aux endroits entre [crochets].</p>
+<pre class='prompt' id='pr'>Tu exécutes chaque lundi à 8 h la veille des demandes d'intervention pour le DAF du LFI Marie-Curie de Valmont.
+
+Méthode : compare l'export MaintiGest le plus récent à l'export précédent, ligne à ligne par numéro de ticket, avec un outil de calcul (code). La date de référence est celle de l'export le plus récent. Le dictionnaire des champs t'explique chaque colonne.
+
+Règles d'alerte (strictement celles de la note du DAF) : [vos règles testables].
+Ne déclenchent pas d'alerte : [vos règles « ne pas alerter »]. Une simple mise à jour de la date « Dernière MAJ », un commentaire sur une demande close ou une demande archivée ne sont pas des alertes.
+
+Format : 1. Alertes (5 au maximum, par gravité ; pour chacune, le numéro de ticket, la colonne qui a changé et le motif) ; 2. Pour information (compteurs) ; 3. Points nécessitant une décision. Une page au maximum.
+Si aucune règle ne se déclenche, écris seulement « aucun changement significatif », suivi des compteurs.
+À la fin, liste les tickets que tu as écartés et la règle qui les a écartés.
+
+Ne contacte aucun prestataire, ne modifie rien, n'envoie rien : la synthèse est un brouillon pour le DAF.</pre>
+<button class='copy' data-copy='pr'>Copier le prompt</button>
+</div></section>
+
+<!-- ============ 6. LIVRABLE ============ -->
+<section class='section alt' id='livrable'><div class='wrap'>
+<div class='eyebrow'>6 · Ce que vous rendez</div>
+<h2>Le livrable et les critères de réussite</h2>
+<div class='grid2'>
+<div class='card'><div class='num'>① Les instructions · ② Les synthèses</div>
+<p><b>Les instructions de la tâche</b> (fichier texte ou instructions du projet), avec les règles testables de l'onglet 1.</p>
+<p><b>Les synthèses</b>, en brouillon, au format du DAF :</p>
+<table class='cols-table'>
+<tr><td>19 octobre</td><td>S1 → S2 : la semaine agitée. Bronze : rubrique Alertes ; Argent et Or : les trois rubriques.</td></tr>
+<tr><td>26 octobre</td><td>S2 → S3 (Argent et Or) : ce que les règles imposent, et rien d'autre ; « aucun changement significatif » si aucune ne se déclenche.</td></tr>
+<tr><td>Alertes</td><td>5 au maximum, numéro de ticket, colonne changée, motif.</td></tr>
+<tr><td>Pour information</td><td>Nouvelles demandes, clôtures, retards en cours, priorités abaissées.</td></tr>
+</table></div>
+<div class='card'><div class='num'>③ Le journal de test</div>
+<p>Onglet 2 du <a href='gabarit-veille-atelier-05.xlsx' download>gabarit</a> : chaque exécution, les tickets vérifiés à la main, les fausses alertes ou oublis trouvés, et les corrections apportées aux instructions.</p>
+<div class='num' style='margin-top:18px'>Critères de réussite</div>
+<ul>
+<li>Chaque alerte cite le ticket et la colonne qui a changé.</li>
+<li>Aucune fausse alerte au regard des règles du DAF.</li>
+<li>Aucun oubli au regard des règles du DAF.</li>
+<li>L'agent sait conclure qu'il ne s'est rien passé, quand c'est le cas.</li>
+<li>Aucun contact prestataire, aucune modification dans MaintiGest.</li></ul></div>
+</div>
+<p class='intro'>Le formateur détient la carte surprise et le corrigé : ils ne sont pas publiés.</p>
+</div></section>
+
+<!-- ============ GLOSSAIRE ============ -->
+<section class='section' id='glossaire'><div class='wrap'>
+<div class='eyebrow'>Glossaire</div>
+<h2>Les mots de l'atelier</h2>
+<dl class='glos'>
+<dt>GMAO / MaintiGest</dt><dd>Gestion de la maintenance assistée par ordinateur. MaintiGest est le logiciel du lycée : chaque panne signalée y devient une « demande » (un ticket).</dd>
+<dt>Export</dt><dd>Fichier Excel produit chaque vendredi à 18 h, qui contient l'état de toutes les demandes ouvertes et récemment closes.</dd>
+<dt>Ticket</dt><dd>Une demande d'intervention, identifiée par un numéro MG-AA-NNNN.</dd>
+<dt>Priorité P1 à P4</dt><dd>De la plus urgente (P1 : sécurité des personnes, échéance le lendemain) à la moins urgente (P4 : confort, 30 jours).</dd>
+<dt>Échéance</dt><dd>Date avant laquelle la demande doit être traitée, calculée selon la priorité.</dd>
+<dt>Retard</dt><dd>Demande non résolue dont l'échéance est dépassée à la date de l'export.</dd>
+<dt>Rouvert</dt><dd>Statut d'une demande que le demandeur signale comme non réglée après une intervention.</dd>
+<dt>Dernière MAJ</dt><dd>Date de la dernière écriture dans la ligne, y compris par une synchronisation technique nocturne : elle peut changer sans que rien ne change vraiment.</dd>
+<dt>Archivage automatique</dt><dd>Les demandes closes depuis plus de 30 jours disparaissent de l'export. Ce n'est pas une anomalie.</dd>
+<dt>Doublon</dt><dd>Deux demandes pour le même problème : même local, même nature, à quelques heures d'intervalle.</dd>
+<dt>Règle testable</dt><dd>Règle qu'on peut vérifier par oui ou non en comparant deux fichiers.</dd>
+<dt>Fausse alerte / oubli</dt><dd>Alerte qui n'aurait pas dû être donnée / alerte qui aurait dû l'être et ne l'a pas été.</dd>
+<dt>Tâche programmée</dt><dd>Consigne que l'IA exécute seule, à une date ou une fréquence fixée.</dd>
+</dl>
+</div></section>
+
+<!-- ============ COUPS DE POUCE ============ -->
+<section class='section alt' id='aide'><div class='wrap'>
+<div class='eyebrow'>Coups de pouce</div>
+<h2>Vous êtes bloqué·e ? Ouvrez un indice à la fois</h2>
+<p class='intro'>Chaque blocage a trois niveaux d'indice, du plus léger au plus précis. Aucun ne donne la réponse.</p>
+
+<details><summary>L'IA compare « à l'œil » et se trompe</summary>
+<details><summary>Indice 1</summary><p>Comparer 160 lignes de tête est impossible, même pour une IA. Demandez-lui explicitement d'utiliser un outil de calcul (code) et de vous dire quand elle l'a fait.</p></details>
+<details><summary>Indice 2</summary><p>Demandez d'abord des chiffres simples : nombre de tickets dans chaque export, tickets nouveaux, tickets disparus, tickets dont au moins une colonne a changé. Vérifiez-en un ou deux dans Excel.</p></details>
+<details><summary>Indice 3</summary><p>Faites-lui produire un tableau intermédiaire : ticket, colonne changée, valeur avant, valeur après. Les alertes se décident ensuite à partir de ce tableau, règle par règle.</p></details>
+</details>
+
+<details><summary>Il y a beaucoup trop d'alertes</summary>
+<details><summary>Indice 1</summary><p>Regardez quelle colonne a changé pour chaque alerte. Le dictionnaire des champs explique pourquoi l'une d'elles change souvent sans raison.</p></details>
+<details><summary>Indice 2</summary><p>Relisez les règles « ne pas déclencher » de la note : sont-elles toutes dans vos instructions ?</p></details>
+<details><summary>Indice 3</summary><p>Les retards déjà signalés la semaine précédente ne se répètent pas : ils se comptent. La synthèse précédente vous dit lesquels l'avaient été.</p></details>
+</details>
+
+<details><summary>Je ne sais pas si l'agent a oublié une alerte</summary>
+<details><summary>Indice 1</summary><p>Reprenez vos règles d'alerte une par une et demandez à l'agent : « Pour cette règle, quels tickets la déclenchent ? Aucun ? Montre-moi comment tu l'as vérifié. »</p></details>
+<details><summary>Indice 2</summary><p>Les notifications de la semaine (dossier <code>notifications</code>) racontent ce qui s'est passé. Toutes les notifications importantes se retrouvent-elles dans la synthèse ?</p></details>
+<details><summary>Indice 3</summary><p>Deux règles sont faciles à oublier : la catégorie Sécurité, qui déclenche quelle que soit la priorité, et les doublons, qui ne se voient qu'en comparant les lignes entre elles.</p></details>
+</details>
+
+<details><summary>Une demande a disparu de l'export</summary>
+<p>Avant de crier à l'anomalie, regardez dans l'export précédent son statut et la date de sa dernière écriture. Le dictionnaire des champs explique quand une demande disparaît normalement.</p>
+</details>
+
+<details><summary>La semaine du 26 octobre : l'agent dit qu'il ne s'est rien passé. A-t-il raison ?</summary>
+<details><summary>Indice 1</summary><p>Faites-lui lister les colonnes qui ont changé entre les deux exports. Laquelle change, et le dictionnaire en dit-il quelque chose ?</p></details>
+<details><summary>Indice 2</summary><p>Relisez la règle des retards : elle parle de l'échéance <i>et</i> de la date de l'export. Entre deux exports, la date de l'export, elle, a avancé d'une semaine.</p></details>
+<details><summary>Indice 3</summary><p>Demandez : « Quelles demandes non résolues ont une échéance comprise entre la date de l'export précédent et celle de cet export ? » Puis décidez avec la règle du DAF.</p></details>
+</details>
+
+<details><summary>Je suis en retard sur le temps</summary>
+<p>Priorité : l'exécution 1 vérifiée sur trois tickets, et des instructions corrigées. Une tâche bien testée sur une semaine vaut mieux qu'une tâche programmée sans test.</p>
+</details>
+</div></section>
+
+<!-- ============ AUTOCONTRÔLE ============ -->
+<section class='section' id='bilan'><div class='wrap'>
+<div class='eyebrow'>Autocontrôle avant la restitution</div>
+<h2>Votre livrable est-il prêt ?</h2>
+<p class='intro'>Cochez honnêtement. Les cases restent sur votre appareil, rien n'est envoyé.</p>
+<div class='card check' id='checklist'></div>
+<p id='checkmsg' style='font-weight:800;color:var(--teal)'></p>
+</div></section>
+
+<!-- ============ PIÈCES ============ -->
+<section class='section alt' id='pieces'><div class='wrap'>
+<div class='eyebrow'>Pièces du dossier</div>
+<h2>22 documents professionnels fictifs</h2>
+<p class='intro'>Formats réels : exports Excel, Word, PDF, notifications imprimées en PDF. Les anomalies ne sont pas signalées : à vous et à votre agent de les trouver. Les pièces marquées <span class='bz'>BRONZE</span> composent le dossier Bronze.</p>
+<a class='btn dark' href='dossier-atelier-05-bronze.zip' download>↧ Dossier Bronze (202 Ko)</a>
+<a class='btn dark' href='dossier-atelier-05.zip' download>↧ Dossier complet (674 Ko)</a>
+<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th><th>Niveau</th></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Delais-contractuels-prestataires.pdf' download>Delais-contractuels-prestataires.pdf</a></td><td>—</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/MaintiGest-dictionnaire-des-champs.pdf' download>MaintiGest-dictionnaire-des-champs.pdf</a></td><td>—</td><td>36 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-09.xlsx' download>MaintiGest_export_2026-10-09.xlsx</a></td><td>—</td><td>18 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-16.xlsx' download>MaintiGest_export_2026-10-16.xlsx</a></td><td>—</td><td>18 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-23.xlsx' download>MaintiGest_export_2026-10-23.xlsx</a></td><td>—</td><td>18 Ko</td><td></td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Note-DAF-veille-hebdomadaire.docx' download>Note-DAF-veille-hebdomadaire.docx</a></td><td>—</td><td>38 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Synthese-precedente-12-10-2026.docx' download>Synthese-precedente-12-10-2026.docx</a></td><td>—</td><td>37 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-12_0900_MG-26-1776.pdf' download>2026-10-12_0900_MG-26-1776.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1615.pdf' download>2026-10-13_1000_MG-26-1615.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1616.pdf' download>2026-10-13_1000_MG-26-1616.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1775.pdf' download>2026-10-13_1000_MG-26-1775.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_0812_MG-26-1632.pdf' download>2026-10-14_0812_MG-26-1632.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_1100_MG-26-1777.pdf' download>2026-10-14_1100_MG-26-1777.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_1750_MG-26-1774.pdf' download>2026-10-14_1750_MG-26-1774.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_0805_MG-26-1772.pdf' download>2026-10-15_0805_MG-26-1772.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_0840_MG-26-1773.pdf' download>2026-10-15_0840_MG-26-1773.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1500_MG-26-1637.pdf' download>2026-10-15_1500_MG-26-1637.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1619.pdf' download>2026-10-15_1600_MG-26-1619.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1662.pdf' download>2026-10-15_1600_MG-26-1662.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1700_MG-26-1623.pdf' download>2026-10-15_1700_MG-26-1623.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a> <small>(ressource commune)</small></td><td>—</td><td>60 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-veille-atelier-05.xlsx' download>gabarit-veille-atelier-05.xlsx</a> <small>(gabarit du livrable)</small></td><td>—</td><td>9 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+</table></div>
+</div></section>
+</main>
+<footer><div class='wrap'>✳ IA ADMINISTRATIVE 2.0 · Formation niveau 2 · Établissement, personnes et documents fictifs (LFI Marie-Curie de Valmont) · <a href='https://github.com/xseorkly/ia-administratif'>Dépôt GitHub ↗</a></div></footer>
+<script>
+(function(){
+// Onglets
+document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
+document.querySelectorAll('[data-tab]').forEach(function(x){x.classList.toggle('active',x===b)});
+document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!==b.dataset.tab});});});
+// Copier
+document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+var t=document.getElementById(b.dataset.copy).innerText,old=b.textContent;
+function done(){b.textContent='Copié ✓';setTimeout(function(){b.textContent=old},1800)}
+if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}});});
+function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+// Chronomètres
+document.querySelectorAll('.timer').forEach(function(el){
+var total=+el.dataset.min*60,left=total,id=null,disp=el.querySelector('.t'),btn=el.querySelector('button');
+function fmt(s){var n=Math.abs(s);return (s<0?'+':'')+String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+btn.addEventListener('click',function(){
+if(id){clearInterval(id);id=null;btn.textContent='Reprendre';return}
+btn.textContent='Pause';id=setInterval(function(){left--;disp.textContent=fmt(left);disp.classList.toggle('over',left<0)},1000);});
+});
+// Autocontrôle
+var items=["Chaque phrase de la note du DAF est devenue une règle testable (colonne + condition).", "Les règles « ne pas alerter » sont dans les instructions, autant que les règles d'alerte.", "Mes instructions indiquent la date de référence, la méthode (code) et le format.", "L'agent a comparé les exports avec un outil de calcul, pas de mémoire.", "Chaque alerte cite le ticket, la colonne changée et le motif.", "Les changements de « Dernière MAJ » seuls n'ont produit aucune alerte.", "J'ai vérifié au moins trois alertes à la main dans les deux exports.", "J'ai cherché les oublis, règle par règle (Sécurité, doublons, retards…).", "La synthèse de la semaine calme contient exactement ce que les règles imposent.", "Chaque erreur trouvée a conduit à corriger les instructions, et c'est noté au journal.", "Aucun prestataire contacté, rien de modifié, synthèse en brouillon."];
+var KEY='atelier05-autocontrole',state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}}
+var box=document.getElementById('checklist'),msg=document.getElementById('checkmsg');
+function draw(){var n=items.filter(function(_,i){return state[i]}).length;
+box.innerHTML='<b>'+n+' / '+items.length+' points vérifiés</b><div class="progress"><span style="width:'+(n/items.length*100)+'%"></span></div>'+items.map(function(s,i){return '<label><input type="checkbox" data-i="'+i+'"'+(state[i]?' checked':'')+'> <span>'+s+'</span></label>'}).join('');
+msg.textContent=n===items.length?'Livrable prêt : passez à la restitution.':'';
+box.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){state[c.dataset.i]=c.checked;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}draw()})});}
+draw();
+})();
+</script>
+</body>
+</html>
