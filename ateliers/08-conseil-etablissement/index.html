@@ -1,13 +1,428 @@
-<!doctype html><html lang='fr'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Atelier 08 · Je prépare le conseil d&#x27;établissement – IA administrative 2.0</title><meta name='description' content='Le cœur du métier d&#x27;assistante de direction : un conseil d&#x27;établissement à préparer, un règlement intérieur à respecter, douze courriels de membres, une annexe financière… et aucun prompt fourni.'><style>
-:root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#687788}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,sans-serif}a{color:inherit}button{cursor:pointer;font:inherit}.wrap{max-width:1100px;margin:auto;padding:0 25px}header{position:sticky;top:0;background:#ffffffeb;backdrop-filter:blur(12px);border-bottom:1px solid #dae1e4;z-index:5}header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:15px;padding-bottom:15px;gap:18px}nav{display:flex;flex-wrap:wrap;gap:19px;font-size:13px;font-weight:700}nav a{text-decoration:none}.brand{font-size:16px;font-weight:900;text-decoration:none}.brand span{color:#078879}.hero{background:var(--navy);color:white;padding:95px 0}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#008f7f}.hero .eyebrow{color:var(--mint)}h1,h2,h3{line-height:1.13;letter-spacing:-.045em}h1{font-size:clamp(43px,6vw,76px);max-width:850px;margin:18px 0}h1 em{font-style:normal;color:var(--mint)}h2{font-size:clamp(32px,4vw,49px);margin:12px 0 18px}h3{font-size:23px;margin:8px 0}p{max-width:800px}.lead{font-size:19px;color:#c6d3e2}.btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:var(--mint);color:var(--navy);margin:8px 8px 0 0}.ghost{background:transparent;color:white;border:1px solid #75879e}.hero-stats{display:flex;gap:35px;flex-wrap:wrap;margin-top:40px}.hero-stats b{display:block;font-size:28px}.hero-stats small{color:#b6c4d3}.section{padding:85px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.card{background:white;border:1px solid #dce4e4;border-radius:14px;padding:23px}.card p{font-size:14px;color:var(--gray)}.card .num{font-size:11px;font-weight:900;color:#078879;letter-spacing:.1em}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:30px 0 15px}.tabs button,.days button{border:1px solid #dbe3e4;border-radius:10px;padding:12px 17px;background:white;font-weight:800}.tabs button.active,.days button.active{background:var(--navy);color:white}.panel[hidden],.schedule[hidden]{display:none}.demo{background:#dcece3;padding:20px 25px;border-radius:12px;margin-top:20px}.days{display:flex;gap:10px;margin:25px 0}.days button{flex:1;text-align:left}.schedule article{display:grid;grid-template-columns:85px 1fr 85px;gap:10px;padding:18px 5px;border-bottom:1px solid #dce4e4}.schedule time{font-weight:900;color:#078879}.schedule a{text-decoration:none;font-size:12px;font-weight:800}.challenges{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:25px 0}.challenge{background:white;border:1px solid #dce4e4;border-radius:15px;padding:25px;display:flex;flex-direction:column}.challenge p{flex:1;color:var(--gray)}.challenge button{align-self:start;border:0;background:var(--navy);color:white;border-radius:9px;padding:10px 15px;font-size:13px;font-weight:800}.safety{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.safety .card{background:var(--light)}.res{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.res a{background:white;border:1px solid #dce4e4;padding:15px;border-radius:10px;text-decoration:none;font-weight:700}.res small{display:block;color:var(--gray);font-weight:400}.passport label{display:block;padding:12px;border-bottom:1px solid #dce4e4}.passport input{width:17px;height:17px;accent-color:#078879}.progress{height:9px;background:#e6eded;border-radius:10px;overflow:hidden}.progress span{background:#078879;height:100%;display:block;transition:width .2s}.dark{background:var(--navy);color:white}.dark .card{color:var(--navy)}footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}dialog{border:0;border-radius:15px;width:min(740px,95%);max-height:88vh;overflow:auto;padding:30px;box-shadow:0 20px 90px #0008}dialog::backdrop{background:#07152cba}dialog pre{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:17px;border-radius:9px;font-size:12px}dialog h4{text-transform:uppercase;letter-spacing:.1em;color:#008f7f;font-size:12px;margin-bottom:5px}.close{float:right;border:0;border-radius:50%;width:34px;height:34px;font-size:22px}@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}.safety{grid-template-columns:repeat(2,1fr)}header .wrap{display:block}nav{margin-top:8px}}@media(max-width:550px){.grid,.challenges,.res,.safety{grid-template-columns:1fr}.schedule article{grid-template-columns:65px 1fr}.schedule a{grid-column:2}.section{padding:58px 0}}
+<!doctype html>
+<html lang='fr'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Atelier 08 · Je prépare le conseil d'établissement – IA administrative 2.0</title>
+<meta name='description' content="Le cœur du métier d'assistante de direction : un conseil d'établissement à préparer, un règlement intérieur à respecter, douze courriels de membres, une annexe financière… et aucun prompt fourni.">
+<style>
+:root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#5d6b7b;--teal:#078879;--line:#dce4e4;--warn:#fff7e0;--warnb:#c49317;--ok:#e7f6ec;--okb:#2f8a52;--stop:#fdeceb;--stopb:#b23a2a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}button{cursor:pointer;font:inherit}.wrap{max-width:1100px;margin:auto;padding:0 25px}
+header{position:sticky;top:0;background:#ffffffeb;backdrop-filter:blur(12px);border-bottom:1px solid #dae1e4;z-index:5}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:15px;padding-bottom:15px;gap:18px}
+nav{display:flex;flex-wrap:wrap;gap:19px;font-size:13px;font-weight:700}nav a{text-decoration:none}
+.brand{font-size:16px;font-weight:900;text-decoration:none}.brand span{color:var(--teal)}
+.hero{background:var(--navy);color:white;padding:80px 0 70px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#008f7f}.hero .eyebrow{color:var(--mint)}
+h1,h2,h3{line-height:1.13;letter-spacing:-.04em}h1{font-size:clamp(43px,6vw,76px);max-width:850px;margin:18px 0}
+h2{font-size:clamp(30px,4vw,46px);margin:12px 0 18px}h3{font-size:22px;margin:8px 0}h4{font-size:15px;margin:18px 0 6px}
+p{max-width:820px}.lead{font-size:19px;color:#c6d3e2;max-width:780px}
+.btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:var(--mint);color:var(--navy);margin:8px 8px 0 0}
+.ghost{background:transparent;color:white;border:1px solid #75879e}.btn.dark{background:var(--navy);color:#fff}
+.section{padding:75px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px}.card p,.card li{font-size:14.5px;color:var(--gray)}
+.card .num{font-size:11px;font-weight:900;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.crumbs{font-size:13px;margin-bottom:10px}.crumbs a{color:var(--mint)}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#2b3a52;border-radius:14px;overflow:hidden;margin-top:38px}
+.summary div{background:#16243c;padding:16px}.summary b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:4px}.summary span{font-size:14.5px;color:#e4ecf3}
+.note{background:var(--warn);border-left:4px solid var(--warnb);padding:14px 18px;border-radius:6px;font-size:15px;margin:18px 0;max-width:900px}
+.note.ok{background:var(--ok);border-color:var(--okb)}.note.stop{background:var(--stop);border-color:var(--stopb)}
+.who{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}.who td,.who th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.who th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0 0}.tabs button{border:1px solid #dbe3e4;border-radius:10px 10px 0 0;padding:11px 16px;background:white;font-weight:800;font-size:14px}.tabs button.active{background:var(--navy);color:white;border-color:var(--navy)}
+.panel{border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:22px 24px;background:#fff}.panel[hidden]{display:none}.panel ol li,.panel ul li{margin:6px 0}
+.levels .card h3{font-size:20px}.lvl-bronze{border-top:5px solid #b07a4a}.lvl-argent{border-top:5px solid #98a4ad}.lvl-or{border-top:5px solid #d4a514}
+.levels .card ul{padding-left:18px;margin:8px 0}.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:20px;padding:2px 9px;background:#efe2d4;color:#7b4f25;margin-left:6px}
+.step{border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:18px 0;background:#fff;position:relative}
+.step-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.step-num{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--teal)}.step h3{margin:4px 0 2px}
+.step .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:10px}.step .cols h4{margin-top:6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.step ul{padding-left:18px;margin:6px 0}.step li{margin:5px 0;font-size:15px}.step.done{opacity:.6}
+.timer{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.timer button{border:1px solid var(--line);background:var(--light);border-radius:8px;padding:6px 12px;font-weight:800;font-size:13px}
+.timer .t{font-weight:900;font-size:18px;min-width:56px;text-align:right}.timer .t.over{color:var(--stopb)}
+.success{background:var(--ok);border-radius:10px;padding:10px 14px;font-size:14.5px;margin-top:12px}.success b{color:var(--okb)}
+pre.prompt,pre.tpl{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:18px;border-radius:10px;font-size:13.5px;margin:10px 0 6px}
+pre.tpl{background:#f0f4f2;color:var(--navy);border:1px dashed #9fb1b3}
+.copy{border:0;background:var(--mint);border-radius:8px;padding:8px 13px;font-weight:800;font-size:13px}
+details{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:10px 0;background:#fff}details summary{font-weight:800;cursor:pointer}
+details details{margin:8px 0 0;background:var(--light)}details details summary{font-weight:700;font-size:14.5px}details p{margin:8px 0;font-size:15px}
+dl.glos{display:grid;grid-template-columns:220px 1fr;gap:0;border-top:1px solid var(--line)}dl.glos dt,dl.glos dd{margin:0;padding:11px 8px;border-bottom:1px solid var(--line)}dl.glos dt{font-weight:800}dl.glos dd{color:var(--gray);font-size:15px}
+.cols-table{width:100%;border-collapse:collapse;font-size:14.5px}.cols-table td,.cols-table th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.cols-table th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}.cols-table td:first-child{font-weight:800;white-space:nowrap}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:11px 6px;border-bottom:1px solid var(--line);font-size:15px}.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--teal);flex:none}
+.progress{height:9px;background:#e6eded;border-radius:10px;overflow:hidden;margin:10px 0}.progress span{background:var(--teal);height:100%;display:block;transition:width .2s}
+.files{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}.files td,.files th{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}.files th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.files .t{font-size:11px;font-weight:900;color:#fff;background:#5b6670;border-radius:4px;padding:2px 6px}.t.pdf{background:#b23a2a}.t.docx{background:#2b5797}.t.xlsx{background:#1d7044}.t.eml{background:#7a4b9a}.t.ics{background:#b06a10}
+.files td:nth-child(2){overflow-wrap:anywhere}.tw{overflow-x:auto}.bz{font-size:10.5px;font-weight:900;color:#7b4f25;background:#efe2d4;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.toc a{font-size:13px;font-weight:700;text-decoration:none;border:1px solid #3a4a63;color:#dbe6ef;border-radius:20px;padding:5px 12px}
+footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
+@media(max-width:850px){.summary{grid-template-columns:repeat(2,1fr)}.step .cols{grid-template-columns:1fr}}
+@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}header .wrap{display:block}nav{margin-top:8px}dl.glos{grid-template-columns:1fr}dl.glos dt{border-bottom:0;padding-bottom:0}}
+@media(max-width:550px){.wrap{padding:0 16px}.grid,.grid2,.summary{grid-template-columns:1fr}.section{padding:55px 0}.files td:nth-child(3),.files th:nth-child(3){display:none}.who td:nth-child(3),.who th:nth-child(3){display:none}}
+@media print{header,.timer,.copy,.toc,.btn{display:none!important}.hero{background:#fff;color:var(--navy);padding:20px 0}.summary div{background:#fff}.summary span{color:var(--navy)}details{break-inside:avoid}details:not([open]) > *:not(summary){display:none}}
+</style>
+<style>code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}</style>
+</head>
+<body>
+<header><div class='wrap'><a class='brand' href='../../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../../index.html#nouveautes'>Nouveautés</a><a href='../../index.html#programme'>Programme</a><a href='../../index.html#ateliers'>Ateliers</a><a href='../../index.html#ressources'>Ressources</a><a href='../../index.html#formateur'>Formateur</a></nav></div></header>
+<main>
 
-.badge{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.12em;color:#078879}
-.challenge h3{margin-top:6px}.challenge .meta{font-size:12px;color:var(--gray);margin:0 0 12px}.challenge a.go{align-self:start;background:var(--navy);color:#fff;border-radius:9px;padding:10px 15px;font-size:13px;font-weight:800;text-decoration:none}
-.choice{border:2px dashed #078879}.note{background:#fff7e0;border-left:4px solid #c49317;padding:14px 18px;border-radius:6px;font-size:14px;margin:18px 0}
-.files{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}.files td,.files th{border-bottom:1px solid #dce4e4;padding:9px 6px;text-align:left;vertical-align:top}.files th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.files .t{font-size:11px;font-weight:900;color:#fff;background:#5b6670;border-radius:4px;padding:2px 6px}.t.pdf{background:#b23a2a}.t.docx{background:#2b5797}.t.xlsx{background:#1d7044}.t.eml{background:#7a4b9a}.t.ics{background:#b06a10}.t.html{background:#0f6e66}.t.jpg{background:#6b5a2b}.t.csv{background:#1d7044}
-.steps li{margin:8px 0}.levels .card h3{font-size:19px}.lvl-bronze{border-top:5px solid #b07a4a}.lvl-argent{border-top:5px solid #98a4ad}.lvl-or{border-top:5px solid #d4a514}
-pre.prompt{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:18px;border-radius:10px;font-size:13.5px}.copy{border:0;background:var(--mint);border-radius:8px;padding:9px 14px;font-weight:800}
-.check li{list-style:"☐  ";margin:6px 0}.tw{overflow-x:auto}.files td:nth-child(2){overflow-wrap:anywhere}
-@media(max-width:550px){.files td:nth-child(3),.files th:nth-child(3){display:none}.grid .card[style]{grid-column:auto!important}}.crumbs{font-size:13px;margin-bottom:10px}.crumbs a{color:#cafd70}
-</style></head><body><header><div class='wrap'><a class='brand' href='../../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../../index.html#nouveautes'>Nouveautés</a><a href='../../index.html#programme'>Programme</a><a href='../../index.html#ateliers'>Ateliers</a><a href='../../index.html#ressources'>Ressources</a><a href='../../index.html#formateur'>Formateur</a></nav></div></header><main><section class='hero'><div class='wrap'><div class='crumbs'><a href='../../index.html#ateliers'>← Tous les ateliers</a> · <a href='../../dossiers.html'>Toutes les mallettes</a></div><div class='eyebrow'>Atelier 08 · SANS PROMPT FOURNI · 100 MIN</div><h1>Je prépare le conseil d&#x27;établissement</h1><p class='lead'>Le cœur du métier d&#x27;assistante de direction : un conseil d&#x27;établissement à préparer, un règlement intérieur à respecter, douze courriels de membres, une annexe financière… et aucun prompt fourni.</p><a class='btn' href='dossier-atelier-08.zip' download>↧ Télécharger le dossier complet (619 Ko)</a><a class='btn ghost' href='#pieces'>Voir les 20 pièces ↓</a></div></section><section class='section'><div class='wrap'><div class='eyebrow'>Situation</div><h2>Lundi 19 octobre 2026, LFI Marie-Curie de Valmont</h2><p class='intro'>Parcours au choix « secrétariat de direction » du jour 2. Le CE n° 1 a lieu le mardi 17 novembre. La proviseure vous demande la convocation, le dossier préparatoire et la liste des pièces manquantes. Cette fois, c&#x27;est à vous d&#x27;écrire toutes les consignes de l&#x27;agent.</p><p><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement (organisation, délégations de signature, calendrier) ↗</a></p><div class='note'><b>Parcours au choix du jour 2</b> – secrétariat de direction : cet atelier se déroule en parallèle de l'atelier 06.</div><div class='grid'><div class='card'><div class='num'>CAPACITÉ TRAVAILLÉE</div><p>Concevoir seul·e sa consigne et son plan de contrôle sur une tâche métier complète.</p></div><div class='card' style='grid-column:span 2'><div class='num'>LIVRABLE ATTENDU</div><p>Projet de convocation et d&#x27;ordre du jour + calendrier d&#x27;envoi conforme au règlement + liste des membres à convoquer + liste des pièces manquantes et des points à faire arbitrer par la proviseure. Après la carte surprise : projet de procès-verbal.</p></div></div><h2>Votre mission, étape par étape</h2><ol class='steps'><li>Sans IA : listez les productions attendues et les règles du règlement intérieur qui s&#x27;appliquent (15 min).</li><li>Écrivez votre propre consigne à l&#x27;agent : rôle, sources, tâches, contrôles, format, interdits. Aucun modèle n&#x27;est fourni (15 min).</li><li>Faites exécuter, puis contrôlez chaque date et chaque nom contre le règlement et la composition (30 min).</li><li>Carte surprise : notes de séance → projet de PV (25 min).</li><li>Échangez vos consignes avec un autre binôme et comparez (15 min).</li></ol><div class='note'><b>Règle commune :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div></div></section><section class='section alt'><div class='wrap'><div class='eyebrow'>Trois niveaux</div><h2>Choisissez votre niveau de difficulté</h2><div class='grid levels'><div class='card lvl-bronze'><div class='num'>NIVEAU</div><h3>Bronze</h3><p>Convocation et ordre du jour conformes au règlement (articles 3 et 4).</p></div><div class='card lvl-argent'><div class='num'>NIVEAU</div><h3>Argent</h3><p>Dossier complet : convocation, membres à convoquer, pièces manquantes, arbitrages.</p></div><div class='card lvl-or'><div class='num'>NIVEAU</div><h3>Or</h3><p>Tout + projet de procès-verbal à partir des notes de séance (carte surprise).</p></div></div><h2>Critères de réussite</h2><ul><li>Chaque date et chaque nom sont vérifiés contre le règlement et la composition</li><li>Les pièces manquantes et les arbitrages sont listés</li><li>Rien n&#x27;est envoyé ni décidé à la place de la présidente</li><li>Aucune donnée personnelle superflue</li></ul><p class='intro'>Le formateur détient la carte surprise et le corrigé de cet atelier : ils ne sont pas publiés.</p></div></section><section class='section'><div class='wrap'><h2>Pas de prompt fourni</h2><p class='intro'>Dans cet atelier, c'est vous qui écrivez toute la consigne. Vérifiez qu'elle contient :</p><ul class='check'><li>Le rôle et le contexte (établissement, instance, date)</li><li>Les sources autorisées, et elles seules</li><li>Les règles à appliquer, avec renvoi aux articles</li><li>Les productions attendues et leur format</li><li>Les contrôles que l&#x27;agent doit faire (dates, quorum, composition, totaux)</li><li>Ce qu&#x27;il ne doit pas faire (envoyer, décider, voter, reproduire des données personnelles)</li><li>La demande de signaler ce qui manque ou ce qui doit être arbitré</li></ul></div></section><section class='section alt' id='pieces'><div class='wrap'><div class='eyebrow'>Pièces du dossier</div><h2>20 documents professionnels fictifs</h2><p class='intro'>Formats réels : PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics. Les anomalies ne sont pas signalées : à vous et à votre agent de les trouver.</p><div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th></tr><tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Annexe-DBM-2-2026.xlsx' download>Annexe-DBM-2-2026.xlsx</a></td><td>—</td><td>6 Ko</td></tr><tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Composition-CE-2026-2027.xlsx' download>Composition-CE-2026-2027.xlsx</a></td><td>—</td><td>7 Ko</td></tr><tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Convocation-CE-juin-2026-modele.docx' download>Convocation-CE-juin-2026-modele.docx</a></td><td>—</td><td>38 Ko</td></tr><tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/ODJ-provisoire-CE-17-11-2026.docx' download>ODJ-provisoire-CE-17-11-2026.docx</a></td><td>—</td><td>37 Ko</td></tr><tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/PV-CE-16-06-2026-projet.pdf' target=_blank>PV-CE-16-06-2026-projet.pdf</a></td><td>—</td><td>37 Ko</td></tr><tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/PV-elections-CE-06-10-2026.pdf' target=_blank>PV-elections-CE-06-10-2026.pdf</a></td><td>—</td><td>36 Ko</td></tr><tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Projet-calendrier-seances-2026-2027.docx' download>Projet-calendrier-seances-2026-2027.docx</a></td><td>—</td><td>37 Ko</td></tr><tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Reglement-interieur-CE.pdf' target=_blank>Reglement-interieur-CE.pdf</a></td><td>—</td><td>37 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/01-Fontaine_demission.pdf' target=_blank>01-Fontaine_demission.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/02-Proviseure_convocation.pdf' target=_blank>02-Proviseure_convocation.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/03-Valette_procuration.pdf' target=_blank>03-Valette_procuration.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/04-Garnier_question.pdf' target=_blank>04-Garnier_question.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/05-DAF_DBM.pdf' target=_blank>05-DAF_DBM.pdf</a></td><td>courriels</td><td>51 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/06-Moreau_point-ODJ.pdf' target=_blank>06-Moreau_point-ODJ.pdf</a></td><td>courriels</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/07-Martin_documents.pdf' target=_blank>07-Martin_documents.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/08-Reynaud_groupe-travail.pdf' target=_blank>08-Reynaud_groupe-travail.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/09-Kaplan_question.pdf' target=_blank>09-Kaplan_question.pdf</a></td><td>courriels</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/10-Reynaud_salle.pdf' target=_blank>10-Reynaud_salle.pdf</a></td><td>courriels</td><td>34 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/11-Dvorak_excuse.pdf' target=_blank>11-Dvorak_excuse.pdf</a></td><td>courriels</td><td>35 Ko</td></tr><tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/12-Laurent_ODJ.pdf' target=_blank>12-Laurent_ODJ.pdf</a></td><td>courriels</td><td>34 Ko</td></tr></table></div></div></section></main><footer><div class='wrap'>✳ IA ADMINISTRATIVE 2.0 · Formation niveau 2 · Établissement, personnes et documents fictifs (LFI Marie-Curie de Valmont) · <a href='https://github.com/xseorkly/ia-administratif'>Dépôt GitHub ↗</a></div></footer></body></html>
+<!-- ============ EN-TÊTE ============ -->
+<section class='hero'><div class='wrap'>
+<div class='crumbs'><a href='../../index.html#ateliers'>← Tous les ateliers</a> · <a href='../../dossiers.html'>Toutes les mallettes</a></div>
+<div class='eyebrow'>Atelier 08 · Sans prompt fourni · 100 min · parcours « secrétariat de direction »</div>
+<h1>Je prépare le conseil d'établissement</h1>
+<p class='lead'>Le cœur du métier : un conseil d'établissement à préparer, un règlement intérieur à respecter, douze courriels de membres, une annexe financière… Cette fois, aucun prompt n'est fourni. C'est vous qui écrivez la consigne de l'agent, de A à Z, et vous qui contrôlez chaque date et chaque nom.</p>
+<a class='btn' href='#demarrer'>Commencer l'atelier ↓</a>
+<a class='btn ghost' href='#pieces'>Voir les pièces ↓</a>
+<div class='summary'>
+<div><b>Votre rôle</b><span>Assistant·e de direction, au service de la présidente du CE</span></div>
+<div><b>Votre mission</b><span>Préparer le CE n° 1 du mardi 17 novembre</span></div>
+<div><b>La difficulté</b><span>Pas de prompt : votre consigne fait toute la qualité du résultat</span></div>
+<div><b>Vous rendez</b><span>Convocation · calendrier d'envoi · membres · pièces manquantes · arbitrages</span></div>
+<div><b>Votre outil</b><span>ChatGPT ou Claude, et le règlement intérieur comme boussole</span></div>
+</div>
+<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#objectifs'>2 · Objectifs</a><a href='#demarrer'>3 · Démarrer</a><a href='#niveaux'>4 · Niveau</a><a href='#mission'>5 · Mission</a><a href='#livrable'>6 · Livrable</a><a href='#glossaire'>Glossaire</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
+</div></section>
+
+<!-- ============ 1. SITUATION ============ -->
+<section class='section' id='situation'><div class='wrap'>
+<div class='eyebrow'>1 · La situation</div>
+<h2>Lundi 19 octobre 2026, 16 h, LFI Marie-Curie de Valmont</h2>
+<p class='intro'>Le premier conseil d'établissement (CE) de l'année se tient le <b>mardi 17 novembre 2026</b>, juste après les vacances d'automne. La proviseure, qui le préside, vous demande de préparer la <b>convocation</b>, le <b>dossier préparatoire</b> et la <b>liste des pièces manquantes</b>.</p>
+<p>Tout semble prêt : un ordre du jour provisoire, le modèle de convocation de juin, la composition du conseil issue des élections d'octobre, l'annexe financière du DAF. Mais depuis, douze courriels sont arrivés : une démission, une procuration, des demandes de points, une question de vote… Et le règlement intérieur fixe des règles précises que personne n'a encore vérifiées.</p>
+<div class='note stop'><b>Pourquoi c'est important.</b> Une convocation envoyée hors délai, un membre mal convoqué, une annexe financière fausse : une délibération du CE peut être contestée pour moins que ça. Et c'est le secrétariat qui prépare tout, en engageant la présidente.</div>
+
+<h3>Qui est qui dans ce dossier</h3>
+<div class='tw'><table class='who'>
+<tr><th>Personne</th><th>Fonction</th><th>Ce qu'il faut savoir pour l'atelier</th></tr>
+<tr><td>Catherine Delorme</td><td>Proviseure, présidente du CE</td><td>Elle arrête l'ordre du jour et signe la convocation. Elle a donné des consignes de date… à vérifier.</td></tr>
+<tr><td>Patrice Aubertin</td><td>DAF, membre du CE</td><td>Auteur de l'annexe financière (DBM). Lui seul peut la corriger.</td></tr>
+<tr><td>Thomas Reynaud</td><td>Proviseur adjoint</td><td>Il pilote un groupe de travail dont les propositions sont attendues au CE.</td></tr>
+<tr><td>Les membres élus</td><td>Parents, personnels, élèves, membres de droit</td><td>Ils écrivent : démission, procuration, demandes d'inscription, questions.</td></tr>
+<tr><td><b>Vous</b></td><td>Secrétariat de direction</td><td>Vous préparez tout, en brouillon. Vous ne décidez rien, n'envoyez rien, ne votez pas.</td></tr>
+</table></div>
+<p><a class='btn dark' href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement ↗</a> <small style='color:var(--gray)'>Instances, calendrier des vacances, délégations. Il est inclus dans les archives.</small></p>
+<div class='note'><b>Parcours au choix du jour 2 · secrétariat de direction :</b> cet atelier se déroule en parallèle de l'atelier 06 (gestion).</div>
+</div></section>
+
+<!-- ============ 2. OBJECTIFS ============ -->
+<section class='section alt' id='objectifs'><div class='wrap'>
+<div class='eyebrow'>2 · Ce que vous allez apprendre</div>
+<h2>Les objectifs de l'atelier</h2>
+<p class='intro'>Dans les ateliers précédents, un prompt de départ vous était donné. Ici, vous êtes seul·e face à la tâche, comme au bureau lundi prochain. C'est l'atelier qui montre ce que vous avez vraiment acquis.</p>
+<div class='grid'>
+<div class='card'><div class='num'>À la fin, vous saurez…</div><ul>
+<li>analyser une tâche métier complète <b>avant</b> d'ouvrir l'IA ;</li>
+<li>écrire <b>seul·e</b> une consigne complète : rôle, sources, règles, productions, contrôles, interdits ;</li>
+<li>faire appliquer un <b>règlement</b> à la lettre (délais en jours francs, remplacements, votes) ;</li>
+<li>contrôler chaque <b>date</b>, chaque <b>nom</b> et chaque <b>total</b> produit par l'agent ;</li>
+<li>distinguer ce que vous préparez de ce que la présidente décide ;</li>
+<li>protéger les données personnelles des membres.</li></ul></div>
+<div class='card'><div class='num'>Outils et fonctions utilisés</div><ul>
+<li><b>ChatGPT ou Claude</b>, avec un <b>projet</b> si possible (vos sources et votre consigne restent attachées) ;</li>
+<li>lecture de PDF, Word et Excel ;</li>
+<li>Word pour la convocation (à partir du modèle de juin) ;</li>
+<li>le <b>gabarit de contrôle</b> Excel fourni : il sert à vérifier l'agent, pas à le guider.</li></ul></div>
+<div class='card'><div class='num'>Compétences du passeport</div><ul>
+<li>☐ Préparer une instance sans prompt fourni</li>
+<li>☐ Hiérarchiser un corpus hétérogène</li>
+<li>☐ Connecter une source autorisée et exiger des preuves</li></ul>
+<p>Vous les cocherez dans le <a href='../../index.html#passeport'>passeport d'agent IA</a> à la fin de la formation, seulement si vous les avez réellement pratiquées.</p></div>
+</div>
+<div class='note ok'><b>Pas de prompt, mais pas sans aide :</b> la page vous donne une <a href='#consigne'>liste de ce que doit contenir une bonne consigne</a>, des coups de pouce, et un gabarit de contrôle. Ce qui n'est pas fourni, c'est le texte de la consigne : c'est votre production.</div>
+</div></section>
+
+<!-- ============ 3. DÉMARRER ============ -->
+<section class='section' id='demarrer'><div class='wrap'>
+<div class='eyebrow'>3 · Avant de commencer · 5 min</div>
+<h2>Préparez votre poste de travail</h2>
+<ol>
+<li><b>Choisissez votre niveau</b> (<a href='#niveaux'>section 4</a>) et <b>téléchargez son dossier</b>. Décompressez-le.</li>
+<li><b>Ouvrez un projet</b> (ChatGPT ou Claude) nommé « CE du 17 novembre » et ajoutez-y les fichiers du dossier et le dossier de contexte. À défaut, une conversation avec les fichiers joints.</li>
+<li><b>Gardez le règlement intérieur ouvert</b> à côté de vous (1 page, 9 articles) : c'est lui qui tranche, pas l'agent.</li>
+<li><b>Ayez un calendrier</b> d'octobre-novembre 2026 sous les yeux (celui de votre ordinateur suffit).</li>
+</ol>
+<div class='success'><b>C'est prêt quand</b> l'agent liste correctement les fichiers qu'il a reçus et vous dit lesquels il n'a pas pu lire.</div>
+<div class='note'><b>Règle commune à tous les ateliers :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div>
+</div></section>
+
+<!-- ============ 4. NIVEAUX ============ -->
+<section class='section alt' id='niveaux'><div class='wrap'>
+<div class='eyebrow'>4 · Choisissez votre niveau</div>
+<h2>Trois niveaux, la même mission</h2>
+<div class='grid levels'>
+<div class='card lvl-bronze'><div class='num'>Pour découvrir</div><h3>Bronze</h3>
+<p><b>8 pièces</b> : le règlement intérieur, l'ordre du jour provisoire, le modèle de convocation, trois courriels (proviseure, salle, PV de juin), le dossier de contexte et le gabarit.</p>
+<p><b>Vous rendez :</b></p><ul><li>votre consigne ;</li><li>un projet de convocation et d'ordre du jour conformes aux <b>articles 3 et 4</b> du règlement ;</li><li>le calendrier d'envoi (onglet 1 du gabarit).</li></ul>
+<a class='btn dark' href='dossier-atelier-08-bronze.zip' download>↧ Dossier Bronze (264 Ko)</a></div>
+<div class='card lvl-argent'><div class='num'>Le niveau de référence</div><h3>Argent</h3>
+<p><b>22 pièces</b> : le dossier complet (composition, PV des élections, PV de juin, annexe financière, calendrier des séances, 12 courriels).</p>
+<p><b>Vous rendez :</b></p><ul><li>votre consigne ;</li><li>la convocation et l'ordre du jour ;</li><li>le calendrier d'envoi ;</li><li>la liste des membres à convoquer ;</li><li>les pièces manquantes et les arbitrages.</li></ul>
+<a class='btn dark' href='dossier-atelier-08.zip' download>↧ Dossier complet (682 Ko)</a></div>
+<div class='card lvl-or'><div class='num'>Pour aller plus loin</div><h3>Or</h3>
+<p>Le niveau Argent, et en plus :</p><ul><li>le <b>projet de procès-verbal</b> de la séance, à partir des notes de séance remises par le formateur (carte surprise) ;</li><li>conforme à l'article 8 du règlement, sans rien inventer.</li></ul>
+<a class='btn dark' href='dossier-atelier-08.zip' download>↧ Dossier complet (682 Ko)</a></div>
+</div>
+<p class='intro'>Tous les niveaux utilisent le <a href='gabarit-controle-CE-atelier-08.xlsx' download><b>gabarit de contrôle</b></a> (calendrier d'envoi, membres, pièces manquantes, arbitrages), inclus dans les deux archives.</p>
+</div></section>
+
+<!-- ============ 5. MISSION ============ -->
+<section class='section' id='mission'><div class='wrap'>
+<div class='eyebrow'>5 · Votre mission · 95 min</div>
+<h2>Cinq étapes, à suivre dans l'ordre</h2>
+<p class='intro'>Chaque étape indique son but, les questions à vous poser, comment faire, et à quoi vous savez qu'elle est terminée. Le chronomètre vous aide à tenir le temps.</p>
+
+<div class='step' id='e1'><div class='step-head'><div><div class='step-num'>ÉTAPE 1 · SANS IA</div><h3>Lister les productions attendues et les règles qui s'appliquent</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> avoir en tête tout ce qu'il faut produire et toutes les règles à respecter. Votre consigne de l'étape 2 ne pourra pas être meilleure que cette liste.</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Lisez le <b>règlement intérieur</b> du CE, article par article. Pour chacun, notez en une ligne ce qu'il impose.</li>
+<li>Lisez le courriel de la <b>proviseure</b> (02) : ce qu'elle demande, et quand.</li>
+<li>Lisez l'<b>ordre du jour provisoire</b> et le <b>modèle de convocation</b> de juin. Comparez-les.</li>
+<li>Argent : parcourez les autres courriels et notez, pour chacun, l'article du règlement qu'il met en jeu.</li></ul></div>
+<div><h4>Les questions à vous poser</h4><ul>
+<li>Que doit comporter obligatoirement l'ordre du jour ?</li>
+<li>Combien de jours avant la séance part la convocation ? les documents ? Comment compte-t-on ces jours ?</li>
+<li>Qui est convoqué : les titulaires seulement ?</li>
+<li>Que se passe-t-il quand un élu démissionne ?</li>
+<li>Peut-on voter par procuration ? voter en questions diverses ?</li>
+<li>Qu'est-ce qui relève de la présidente, et non de vous ?</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> vous avez la liste des 5 productions attendues et une ligne par article du règlement.</div>
+</div>
+
+<div class='step' id='e2'><div class='step-head'><div><div class='step-num'>ÉTAPE 2 · SANS IA</div><h3>Écrire votre propre consigne</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> écrire, seul·e, la consigne complète de votre agent. Aucun modèle n'est fourni : utilisez la <a href='#consigne'>liste de vérification</a> ci-dessous pour ne rien oublier.</p>
+<ul>
+<li>Écrivez dans un document texte, pas directement dans la conversation : vous pourrez la corriger et la comparer.</li>
+<li>Relisez-la avec la liste de vérification : chaque case doit être couverte.</li>
+<li>Demandez-vous : un·e collègue intérimaire qui lirait seulement ce texte saurait-il·elle faire le travail ?</li></ul>
+<div class='success'><b>Étape terminée quand</b> votre consigne couvre les 8 points de la liste de vérification et cite au moins quatre articles du règlement.</div>
+</div>
+
+<div class='step' id='e3'><div class='step-head'><div><div class='step-num'>ÉTAPE 3 · AVEC L'AGENT</div><h3>Faire exécuter, puis contrôler chaque date et chaque nom</h3></div><div class='timer' data-min='30'><span class='t'>30:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> obtenir les productions, puis les vérifier vous-même contre le règlement et les pièces. L'agent propose ; vous validez.</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Envoyez votre consigne. Si votre outil le permet, demandez d'abord un plan, puis l'exécution.</li>
+<li>Reportez les résultats dans le <a href='gabarit-controle-CE-atelier-08.xlsx' download>gabarit de contrôle</a>, en refaisant <b>vous-même</b> les calculs de dates.</li>
+<li>Contrôlez <b>chaque nom</b> de la liste des membres contre la composition, le PV des élections et les courriels.</li>
+<li>Contrôlez <b>chaque total</b> de l'annexe financière en refaisant l'addition.</li>
+<li>Quand l'agent se trompe, corrigez votre <b>consigne</b> (pas seulement sa réponse) et notez ce que vous avez ajouté.</li></ul></div>
+<div><h4>Des relances utiles (à adapter)</h4><ul>
+<li>« Montre-moi le calcul des jours francs, jour par jour. »</li>
+<li>« Quel article du règlement as-tu appliqué pour ce membre ? »</li>
+<li>« Additionne toi-même les lignes de l'annexe, avec un outil de calcul. »</li>
+<li>« Quelles demandes reçues par courriel ne relèvent pas de toi ? À qui reviennent-elles ? »</li>
+<li>« Y a-t-il dans tes productions des informations personnelles inutiles ? »</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> les 4 onglets du gabarit sont remplis et vérifiés par vous, et le projet de convocation rédigé (en brouillon, non signé).</div>
+</div>
+
+<div class='step' id='e4'><div class='step-head'><div><div class='step-num'>ÉTAPE 4 · IMPRÉVU</div><h3>La carte surprise : la séance a eu lieu</h3></div><div class='timer' data-min='25'><span class='t'>25:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> passer de la préparation au compte rendu. Le formateur remet les <b>notes prises en séance</b>, en vrac. Vous préparez le <b>projet de procès-verbal</b> (niveau Or ; facultatif aux autres niveaux).</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Relisez l'<b>article 8</b> du règlement : ce que le PV doit mentionner.</li>
+<li>Complétez votre consigne pour cette nouvelle tâche, puis donnez les notes à l'agent.</li>
+<li>Vérifiez chaque chiffre du PV contre les notes <b>et</b> contre le règlement.</li></ul></div>
+<div><h4>Les questions à vous poser</h4><ul>
+<li>Le nombre de présents est-il cohérent du début à la fin ? Et le quorum ?</li>
+<li>Chaque vote est-il cohérent avec le nombre de présents à ce moment-là ?</li>
+<li>Ce que disent les notes est-il conforme au règlement (remplacements, procurations, questions diverses) ?</li>
+<li>Quand une information manque ou est douteuse, l'agent l'a-t-il signalée au lieu de l'inventer ?</li></ul></div></div>
+<p><small style='color:var(--gray)'>Sans formateur : les notes de séance ne sont pas dans le dossier public. Passez directement à l'étape 5.</small></p>
+<div class='success'><b>Étape terminée quand</b> le projet de PV respecte l'article 8, et que chaque incohérence des notes est signalée « à vérifier », pas corrigée au hasard.</div>
+</div>
+
+<div class='step' id='e5'><div class='step-head'><div><div class='step-num'>ÉTAPE 5 · COMPARAISON</div><h3>Échanger vos consignes et comparer</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> voir ce qui, dans une consigne, fait la différence sur le résultat.</p>
+<ul>
+<li><b>En groupe :</b> échangez votre consigne avec un autre binôme. Comparez vos productions : qui a trouvé quoi, et grâce à quelle phrase de la consigne ?</li>
+<li><b>Seul·e :</b> ouvrez une conversation neuve, envoyez votre consigne <b>de départ</b> (avant corrections) et comparez le résultat avec celui de votre consigne <b>finale</b>.</li>
+<li>Préparez trois phrases :</li></ul>
+<pre class='tpl' id='tplResti'>1. La phrase de ma consigne qui a le plus amélioré le résultat : …
+2. Ce que l'agent a fait de faux, et que j'ai rattrapé en contrôlant : …
+3. Ce que je mettrais dans un assistant « instances » réutilisable : …</pre>
+<button class='copy' data-copy='tplResti'>Copier la trame</button>
+<div class='success'><b>Étape terminée quand</b> vous avez fait l'<a href='#bilan'>autocontrôle</a> et préparé vos trois phrases.</div>
+</div>
+
+<h3 id='consigne' style='margin-top:45px'>Pas de prompt fourni : la liste de vérification de votre consigne</h3>
+<p class='intro'>Dans cet atelier, c'est vous qui écrivez toute la consigne. Avant de l'envoyer, vérifiez qu'elle contient :</p>
+<div class='card check' id='consigneList'>
+<label><input type='checkbox'> <span><b>Le rôle et le contexte</b> : qui est l'agent, pour quel établissement, quelle instance, quelle date de séance, et la date d'aujourd'hui.</span></label>
+<label><input type='checkbox'> <span><b>Les sources autorisées</b>, et elles seules, en disant laquelle l'emporte en cas de contradiction.</span></label>
+<label><input type='checkbox'> <span><b>Les règles à appliquer</b>, avec renvoi aux articles du règlement intérieur.</span></label>
+<label><input type='checkbox'> <span><b>Les productions attendues</b> et leur format (liste, tableau, modèle à suivre).</span></label>
+<label><input type='checkbox'> <span><b>Les contrôles</b> que l'agent doit faire : dates et manière de les compter, composition, quorum, totaux.</span></label>
+<label><input type='checkbox'> <span><b>Ce qu'il ne doit pas faire</b> : envoyer, décider, voter, accepter une demande à la place de la présidente, reproduire des données personnelles.</span></label>
+<label><input type='checkbox'> <span><b>La demande de signaler</b> ce qui manque, ce qui est incohérent et ce qui doit être arbitré, sans le corriger lui-même.</span></label>
+<label><input type='checkbox'> <span><b>La demande de montrer ses calculs et ses sources</b>, pour que vous puissiez vérifier.</span></label>
+</div>
+</div></section>
+
+<!-- ============ 6. LIVRABLE ============ -->
+<section class='section alt' id='livrable'><div class='wrap'>
+<div class='eyebrow'>6 · Ce que vous rendez</div>
+<h2>Le livrable et les critères de réussite</h2>
+<div class='grid2'>
+<div class='card'><div class='num'>① Votre consigne · ② Les productions</div>
+<p><b>Votre consigne</b>, version de départ et version finale.</p>
+<table class='cols-table'>
+<tr><td>Convocation</td><td>Projet de convocation et d'ordre du jour, à partir du modèle de juin, non signé.</td></tr>
+<tr><td>Calendrier</td><td>Dates limites d'envoi calculées selon le règlement (onglet 1).</td></tr>
+<tr><td>Membres</td><td>Titulaires et suppléants à convoquer, à jour (onglet 2).</td></tr>
+<tr><td>Pièces</td><td>Pièces manquantes ou à corriger, avec leur auteur (onglet 3).</td></tr>
+<tr><td>Arbitrages</td><td>Ce que la présidente doit trancher, avec échéance (onglet 4).</td></tr>
+<tr><td>PV (Or)</td><td>Projet de procès-verbal, après la carte surprise.</td></tr>
+</table></div>
+<div class='card'><div class='num'>Critères de réussite</div>
+<ul>
+<li>Chaque date et chaque nom sont vérifiés contre le règlement et la composition.</li>
+<li>Les pièces manquantes et les arbitrages sont listés.</li>
+<li>Rien n'est envoyé ni décidé à la place de la présidente.</li>
+<li>Aucune donnée personnelle superflue.</li>
+<li>La consigne a été améliorée au moins une fois après un contrôle.</li></ul></div>
+</div>
+<p class='intro'>Le formateur détient la carte surprise et le corrigé : ils ne sont pas publiés.</p>
+</div></section>
+
+<!-- ============ GLOSSAIRE ============ -->
+<section class='section' id='glossaire'><div class='wrap'>
+<div class='eyebrow'>Glossaire</div>
+<h2>Les mots de l'atelier</h2>
+<dl class='glos'>
+<dt>Conseil d'établissement (CE)</dt><dd>Instance de l'établissement (22 membres) présidée par la proviseure : administration, personnels, parents, élèves, membres de droit.</dd>
+<dt>Règlement intérieur du CE</dt><dd>Texte adopté par le CE qui fixe ses règles de fonctionnement. Il s'impose à tous, y compris à la présidente.</dd>
+<dt>Ordre du jour (ODJ)</dt><dd>Liste des points traités en séance, arrêtée par la présidente.</dd>
+<dt>Convocation</dt><dd>Courrier qui invite les membres à la séance, avec l'ordre du jour.</dd>
+<dt>Documents préparatoires</dt><dd>Pièces envoyées avant la séance pour que les membres puissent se préparer (annexes, notes, projets).</dd>
+<dt>Jours francs</dt><dd>Jours entiers : on ne compte ni le jour de l'envoi ni le jour de la séance. Le règlement le précise.</dd>
+<dt>Titulaire / suppléant</dt><dd>Le suppléant remplace le titulaire absent, avec voix délibérative. Le règlement dit qui est convoqué.</dd>
+<dt>Quorum</dt><dd>Nombre minimal de membres présents pour que le conseil puisse délibérer.</dd>
+<dt>Suffrages exprimés</dt><dd>Votes « pour » et « contre ». Les abstentions n'en font pas partie.</dd>
+<dt>Procuration</dt><dd>Mandat donné à quelqu'un pour voter à sa place. Le règlement dit si c'est admis.</dd>
+<dt>Questions diverses</dt><dd>Questions posées en fin de séance, dans un délai fixé par le règlement, et sans vote.</dd>
+<dt>DBM</dt><dd>Décision budgétaire modificative : modification du budget en cours d'année, votée par le CE. Recettes et dépenses doivent s'équilibrer, ou le solde être expliqué.</dd>
+<dt>Procès-verbal (PV)</dt><dd>Compte rendu officiel de la séance, approuvé à la séance suivante.</dd>
+<dt>Secrétaire de séance</dt><dd>Membre désigné en début de séance pour établir le PV, avec l'appui du secrétariat.</dd>
+</dl>
+</div></section>
+
+<!-- ============ COUPS DE POUCE ============ -->
+<section class='section alt' id='aide'><div class='wrap'>
+<div class='eyebrow'>Coups de pouce</div>
+<h2>Vous êtes bloqué·e ? Ouvrez un indice à la fois</h2>
+<p class='intro'>Chaque blocage a trois niveaux d'indice, du plus léger au plus précis. Aucun ne donne la réponse, ni le texte de la consigne.</p>
+
+<details><summary>Je ne sais pas par où commencer ma consigne</summary>
+<details><summary>Indice 1</summary><p>Reprenez la liste de vérification et écrivez une phrase par case. Vous aurez déjà une consigne en huit phrases.</p></details>
+<details><summary>Indice 2</summary><p>Inspirez-vous des prompts de départ des ateliers précédents : quelles rubriques revenaient à chaque fois ?</p></details>
+<details><summary>Indice 3</summary><p>Demandez d'abord à l'agent de reformuler votre consigne et de lister ce qui lui semble flou. Corrigez, puis seulement lancez la tâche.</p></details>
+</details>
+
+<details><summary>Les dates de la proviseure sont-elles bonnes ?</summary>
+<details><summary>Indice 1</summary><p>Relisez l'article 4, jusqu'à la dernière phrase : elle dit comment compter.</p></details>
+<details><summary>Indice 2</summary><p>Comptez à rebours sur un calendrier, en partant de la veille de la séance, et n'oubliez pas les vacances d'automne.</p></details>
+<details><summary>Indice 3</summary><p>Si la date demandée par la proviseure ne respecte pas le règlement, vous ne la changez pas de vous-même : vous l'alertez et vous proposez une date conforme.</p></details>
+</details>
+
+<details><summary>Qui convoquer ?</summary>
+<details><summary>Indice 1</summary><p>L'article 4 dit à qui la convocation est adressée. Ce n'est pas seulement aux titulaires.</p></details>
+<details><summary>Indice 2</summary><p>Une démission change deux sièges, pas un seul. L'article 2 dit lesquels, et le PV des élections dit qui.</p></details>
+<details><summary>Indice 3</summary><p>Un membre peut croire qu'il remplace quelqu'un alors que le règlement dit autre chose. Répondez-lui en brouillon, règlement à l'appui.</p></details>
+</details>
+
+<details><summary>L'annexe financière est-elle utilisable ?</summary>
+<details><summary>Indice 1</summary><p>Le DAF affirme une chose dans son courriel. Vérifiez-la vous-même dans le fichier.</p></details>
+<details><summary>Indice 2</summary><p>Refaites les additions, ligne par ligne. Un total peut être saisi à la main au lieu d'être calculé.</p></details>
+<details><summary>Indice 3</summary><p>Ce n'est pas à vous de corriger une annexe financière : vous la signalez à son auteur avant diffusion, et vous la mettez dans les pièces à corriger.</p></details>
+</details>
+
+<details><summary>Des membres demandent des choses (vote, point, procuration)</summary>
+<p>Pour chaque demande : quel article du règlement s'applique ? la demande est-elle dans le délai ? qui décide ? Rangez chaque demande soit dans les arbitrages (la présidente tranche), soit dans les réponses en brouillon (le règlement répond déjà). Ne répondez jamais « oui » à la place de la présidente.</p>
+</details>
+
+<details><summary>Un point de l'ordre du jour me semble prématuré ou incomplet</summary>
+<p>Cherchez la pièce qui devrait accompagner ce point. Existe-t-elle ? Les conditions annoncées en juin sont-elles réunies ? Proposez à la présidente une option (information plutôt que vote, report) dans les arbitrages.</p>
+</details>
+
+<details><summary>Je suis en retard sur le temps</summary>
+<p>Priorité : le calendrier d'envoi juste et l'ordre du jour conforme à l'article 3. Ce sont les deux points qui rendraient la séance contestable.</p>
+</details>
+</div></section>
+
+<!-- ============ AUTOCONTRÔLE ============ -->
+<section class='section' id='bilan'><div class='wrap'>
+<div class='eyebrow'>Autocontrôle avant la restitution</div>
+<h2>Votre livrable est-il prêt ?</h2>
+<p class='intro'>Cochez honnêtement. Les cases restent sur votre appareil, rien n'est envoyé.</p>
+<div class='card check' id='checklist'></div>
+<p id='checkmsg' style='font-weight:800;color:var(--teal)'></p>
+</div></section>
+
+<!-- ============ PIÈCES ============ -->
+<section class='section alt' id='pieces'><div class='wrap'>
+<div class='eyebrow'>Pièces du dossier</div>
+<h2>22 documents professionnels fictifs</h2>
+<p class='intro'>Formats réels : PDF, Word, Excel, courriels imprimés en PDF. Les anomalies ne sont pas signalées : à vous et à votre agent de les trouver. Les pièces marquées <span class='bz'>BRONZE</span> composent le dossier Bronze.</p>
+<a class='btn dark' href='dossier-atelier-08-bronze.zip' download>↧ Dossier Bronze (264 Ko)</a>
+<a class='btn dark' href='dossier-atelier-08.zip' download>↧ Dossier complet (682 Ko)</a>
+<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th><th>Niveau</th></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Annexe-DBM-2-2026.xlsx' download>Annexe-DBM-2-2026.xlsx</a></td><td>—</td><td>6 Ko</td><td></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Composition-CE-2026-2027.xlsx' download>Composition-CE-2026-2027.xlsx</a></td><td>—</td><td>7 Ko</td><td></td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Convocation-CE-juin-2026-modele.docx' download>Convocation-CE-juin-2026-modele.docx</a></td><td>—</td><td>38 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/ODJ-provisoire-CE-17-11-2026.docx' download>ODJ-provisoire-CE-17-11-2026.docx</a></td><td>—</td><td>37 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/PV-CE-16-06-2026-projet.pdf' download>PV-CE-16-06-2026-projet.pdf</a></td><td>—</td><td>37 Ko</td><td></td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/PV-elections-CE-06-10-2026.pdf' download>PV-elections-CE-06-10-2026.pdf</a></td><td>—</td><td>36 Ko</td><td></td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Projet-calendrier-seances-2026-2027.docx' download>Projet-calendrier-seances-2026-2027.docx</a></td><td>—</td><td>37 Ko</td><td></td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Reglement-interieur-CE.pdf' download>Reglement-interieur-CE.pdf</a></td><td>—</td><td>37 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/01-Fontaine_demission.pdf' download>01-Fontaine_demission.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/02-Proviseure_convocation.pdf' download>02-Proviseure_convocation.pdf</a></td><td>courriels</td><td>34 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/03-Valette_procuration.pdf' download>03-Valette_procuration.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/04-Garnier_question.pdf' download>04-Garnier_question.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/05-DAF_DBM.pdf' download>05-DAF_DBM.pdf</a></td><td>courriels</td><td>51 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/06-Moreau_point-ODJ.pdf' download>06-Moreau_point-ODJ.pdf</a></td><td>courriels</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/07-Martin_documents.pdf' download>07-Martin_documents.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/08-Reynaud_groupe-travail.pdf' download>08-Reynaud_groupe-travail.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/09-Kaplan_question.pdf' download>09-Kaplan_question.pdf</a></td><td>courriels</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/10-Reynaud_salle.pdf' download>10-Reynaud_salle.pdf</a></td><td>courriels</td><td>34 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/11-Dvorak_excuse.pdf' download>11-Dvorak_excuse.pdf</a></td><td>courriels</td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/12-Laurent_ODJ.pdf' download>12-Laurent_ODJ.pdf</a></td><td>courriels</td><td>34 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a> <small>(ressource commune)</small></td><td>—</td><td>60 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-controle-CE-atelier-08.xlsx' download>gabarit-controle-CE-atelier-08.xlsx</a> <small>(gabarit de contrôle)</small></td><td>—</td><td>10 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+</table></div>
+</div></section>
+</main>
+<footer><div class='wrap'>✳ IA ADMINISTRATIVE 2.0 · Formation niveau 2 · Établissement, personnes et documents fictifs (LFI Marie-Curie de Valmont) · <a href='https://github.com/xseorkly/ia-administratif'>Dépôt GitHub ↗</a></div></footer>
+<script>
+(function(){
+// Onglets
+document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
+document.querySelectorAll('[data-tab]').forEach(function(x){x.classList.toggle('active',x===b)});
+document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!==b.dataset.tab});});});
+// Copier
+document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+var t=document.getElementById(b.dataset.copy).innerText,old=b.textContent;
+function done(){b.textContent='Copié ✓';setTimeout(function(){b.textContent=old},1800)}
+if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}});});
+function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+// Chronomètres
+document.querySelectorAll('.timer').forEach(function(el){
+var total=+el.dataset.min*60,left=total,id=null,disp=el.querySelector('.t'),btn=el.querySelector('button');
+function fmt(s){var n=Math.abs(s);return (s<0?'+':'')+String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+btn.addEventListener('click',function(){
+if(id){clearInterval(id);id=null;btn.textContent='Reprendre';return}
+btn.textContent='Pause';id=setInterval(function(){left--;disp.textContent=fmt(left);disp.classList.toggle('over',left<0)},1000);});
+});
+// Autocontrôle
+var items=["J'ai listé les productions attendues et les règles du règlement avant d'ouvrir l'IA.", "Ma consigne couvre les 8 points de la liste de vérification.", "J'ai recalculé moi-même chaque date limite, en jours francs, sur un calendrier.", "L'ordre du jour comporte tout ce que l'article 3 rend obligatoire.", "Titulaires et suppléants à convoquer sont à jour des changements depuis l'élection.", "J'ai refait moi-même les totaux de l'annexe financière.", "Chaque demande d'un membre est rangée : réponse en brouillon ou arbitrage de la présidente.", "Aucune demande n'a été acceptée ou refusée à la place de la présidente.", "Aucun numéro de téléphone personnel ni donnée personnelle superflue dans mes productions.", "Rien n'est envoyé : convocation et réponses sont des brouillons non signés.", "J'ai amélioré ma consigne au moins une fois après un contrôle."];
+var KEY='atelier08-autocontrole',state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}}
+var box=document.getElementById('checklist'),msg=document.getElementById('checkmsg');
+function draw(){var n=items.filter(function(_,i){return state[i]}).length;
+box.innerHTML='<b>'+n+' / '+items.length+' points vérifiés</b><div class="progress"><span style="width:'+(n/items.length*100)+'%"></span></div>'+items.map(function(s,i){return '<label><input type="checkbox" data-i="'+i+'"'+(state[i]?' checked':'')+'> <span>'+s+'</span></label>'}).join('');
+msg.textContent=n===items.length?'Livrable prêt : passez à la restitution.':'';
+box.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){state[c.dataset.i]=c.checked;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}draw()})});}
+draw();
+})();
+</script>
+</body>
+</html>
