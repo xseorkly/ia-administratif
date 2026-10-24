@@ -2,6 +2,12 @@
 
 Site statique de la formation de niveau 2 « IA administrative » destinée aux assistantes et assistants de direction, secrétaires et personnels administratifs et comptables ayant suivi le niveau 1.
 
+## Auteurs
+
+Formation créée par **Fehmi Klabi**, EF2D Technologie, et **Cédric Deanaz**, EF2D EPS — Institut régional de formation Europe centrale et orientale (IRF ZECO), AEFE.
+
+Contenu élaboré avec l'outil d'IA Claude (Anthropic).
+
 ## Contenu
 
 - 10 ateliers (9 + 1 grand défi, dont un atelier d'ouverture et un parcours au choix le jour 2), 216 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
