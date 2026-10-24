@@ -4,9 +4,9 @@ Site statique de la formation de niveau 2 « IA administrative » destinée aux 
 
 ## Contenu
 
-- 8 ateliers (7 + 1 grand défi, dont un parcours au choix le jour 2), 198 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
+- 9 ateliers (8 + 1 grand défi, dont un atelier d'ouverture et un parcours au choix le jour 2), 206 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
 - un établissement fictif unique : le Lycée français international Marie-Curie de Valmont (EGD de l'AEFE) — voir `ressources/contexte-etablissement-LFI-Marie-Curie.pdf` ;
-- trois niveaux de difficulté par atelier ; un logiciel de démonstration (`ateliers/02-computer-use/dossier/logiciel/reservequip.html`) ;
+- trois niveaux de difficulté par atelier ; un logiciel de démonstration (`ateliers/02-computer-use/dossier/logiciel/reservequip.html`) ; un outil de pseudonymisation hors ligne de référence (`ateliers/00-pseudonymisation/outil/pseudonymiseur-hors-ligne.html`) ;
 - une banque de prompts (`ressources/banque-de-prompts.pdf` et `.md`) et un passeport de compétences.
 
 ## Ce qui n'est pas dans ce dépôt
@@ -15,6 +15,7 @@ Les corrigés, le manifeste des anomalies, les cartes surprise et le guide forma
 
 ## Ateliers
 
+- `00-pseudonymisation` — Je fabrique mon outil de pseudonymisation (8 pièces, ouverture, sans prompt fourni)
 - `01-radar-contrats` — Radar contrats (37 pièces)
 - `02-computer-use` — L'IA prend mon ordinateur en main (18 pièces)
 - `03-passation` — Passation du savoir-faire du service (25 pièces)
