@@ -4,7 +4,7 @@ Site statique de la formation de niveau 2 « IA administrative » destinée aux 
 
 ## Auteurs
 
-Formation créée par **Fehmi Klabi**, EF2D Technologie, et **Cédric Deanaz**, EF2D EPS — Institut régional de formation Europe centrale et orientale (IRF ZECO), AEFE.
+Formation créée par **Fehmi Klabi**, EF2D Technologie, et **Cédric Deanaz**, EF2D EPS — Institut régional de formation Europe du Sud-Est (IRF ZESE), AEFE.
 
 Contenu élaboré avec l'outil d'IA Claude (Anthropic).
 
