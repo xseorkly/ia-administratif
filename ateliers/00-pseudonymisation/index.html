@@ -3,8 +3,8 @@
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Atelier 00 · Je fabrique mon outil de pseudonymisation – IA administrative 2.0</title>
-<meta name='description' content="Avant de confier un fichier à l'IA, protégez les données. Faites fabriquer par l'IA, sans prompt fourni, un outil hors ligne qui code, chiffre et décode les données personnelles… puis faites-le tester et améliorer.">
+<title>Atelier 00 · Je fais fabriquer mon outil d'anonymisation – IA administrative 2.0</title>
+<meta name='description' content="Faites fabriquer par l'IA un outil qui anonymise vos documents avant de les lui confier, essayez-le sur quatre documents, puis imaginez votre propre logiciel maison.">
 <style>
 :root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#5d6b7b;--teal:#078879;--line:#dce4e4;--warn:#fff7e0;--warnb:#c49317;--ok:#e7f6ec;--okb:#2f8a52;--stop:#fdeceb;--stopb:#b23a2a}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -60,7 +60,14 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 @media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}header .wrap{display:block}nav{margin-top:8px}dl.glos{grid-template-columns:1fr}dl.glos dt{border-bottom:0;padding-bottom:0}}
 @media(max-width:550px){.wrap{padding:0 16px}.grid,.grid2,.summary{grid-template-columns:1fr}.section{padding:55px 0}.files td:nth-child(3),.files th:nth-child(3){display:none}.who td:nth-child(3),.who th:nth-child(3){display:none}}
 @media print{header,.timer,.copy,.toc,.btn{display:none!important}.hero{background:#fff;color:var(--navy);padding:20px 0}.summary div{background:#fff}.summary span{color:var(--navy)}details{break-inside:avoid}details:not([open]) > *:not(summary){display:none}}
-.credits{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding-bottom:18px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}.credits .logos{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.credits .logos img{height:84px;width:auto;display:block;border-radius:4px}.credits p{margin:0;flex:1 1 300px;min-width:0;color:#e6eef3;font-size:14px;line-height:1.55}.credits b{color:#fff}.hero-logos{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:26px}.hero-logos img{height:84px;width:auto;display:block;border-radius:4px}</style>
+.credits{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding-bottom:18px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}.credits .logos{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.credits .logos img{height:84px;width:auto;display:block;border-radius:4px}.credits p{margin:0;flex:1 1 300px;min-width:0;color:#e6eef3;font-size:14px;line-height:1.55}.credits b{color:#fff}.hero-logos{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:26px}.hero-logos img{height:84px;width:auto;display:block;border-radius:4px}.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:18px 0 24px}
+.idea{text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;font:inherit;color:inherit}
+.idea:hover,.idea:focus-visible{border-color:var(--teal);outline:none;box-shadow:0 0 0 2px rgba(7,136,121,.25)}
+.idea b{display:block;margin-bottom:4px}.idea span{font-size:14px;color:var(--gray)}
+.maison label{display:block;font-weight:700;margin:14px 0 6px}.maison input[type=text],.maison textarea{width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.maison label.chk{display:flex;gap:10px;align-items:flex-start;font-weight:400}.maison label.chk input{margin-top:5px}
+.maison .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.maison .small{font-size:14px;color:var(--gray);margin-top:14px}
+</style>
 <style>code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}</style>
 </head>
 <body>
@@ -70,391 +77,208 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 <!-- ============ EN-TÊTE ============ -->
 <section class='hero'><div class='wrap'>
 <div class='crumbs'><a href='../../index.html#ateliers'>← Tous les ateliers</a> · <a href='../../dossiers.html'>Toutes les mallettes</a></div>
-<div class='eyebrow'>Atelier 00 · Ouverture · Création d'outil · Sans prompt fourni · 90 min</div>
-<h1>Je fabrique mon outil de pseudonymisation</h1>
-<p class='lead'>Avant de confier un seul fichier à l'IA, il faut pouvoir protéger les données des élèves et des familles. Vous faites fabriquer par l'IA l'outil qui le permet : il remplace les noms par des codes, garde la correspondance sous clé, puis remet les vraies informations dans ce que l'IA vous rend. Aucun prompt n'est fourni. Votre outil sera testé par quelqu'un d'autre, puis amélioré.</p>
+<div class='eyebrow'>Atelier 00 · Ouverture · 90 min · en binôme</div>
+<h1>Je fais fabriquer mon outil d'anonymisation</h1>
+<p class='lead'>Aucune donnée réelle d'élève ou de famille ne doit partir vers une IA. Vous faites fabriquer par l'IA un petit outil qui remplace les noms par des codes avant l'envoi, puis remet les vrais noms au retour. Vous l'essayez sur quatre documents… et votre voisin cherche ce qui a échappé.</p>
 <a class='btn' href='#demarrer'>Commencer l'atelier ↓</a>
-<a class='btn ghost' href='#pieces'>Voir les pièces ↓</a>
+<a class='btn ghost' href='#maison'>Mon logiciel maison ↓</a>
 <div class='summary'>
-<div><b>Votre rôle</b><span>Maître d'œuvre : vous pilotez l'IA, qui code à votre place</span></div>
-<div><b>Votre mission</b><span>Un outil hors ligne qui code, chiffre et décode les données</span></div>
-<div><b>La difficulté</b><span>Pas de prompt, des conditions RGPD strictes, des pièges dans les fichiers</span></div>
-<div><b>Vous rendez</b><span>Votre consigne · votre outil · la recette · le journal des améliorations</span></div>
-<div><b>Votre outil</b><span>Artefacts de Claude ou Canvas de ChatGPT, puis votre navigateur</span></div>
+<div><b>Votre rôle</b><span>Vous décrivez l'outil, l'IA le fabrique</span></div>
+<div><b>Votre mission</b><span>Anonymiser quatre documents avant de les confier à l'IA</span></div>
+<div><b>La difficulté</b><span>Ce qui identifie quelqu'un n'est pas toujours un nom</span></div>
+<div><b>Vous rendez</b><span>Votre outil · vos documents anonymisés · la recette</span></div>
+<div><b>Votre outil</b><span>Claude ou ChatGPT, puis votre navigateur</span></div>
 </div>
-<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#objectifs'>2 · Objectifs</a><a href='#demarrer'>3 · Démarrer</a><a href='#niveaux'>4 · Niveau</a><a href='#mission'>5 · Mission</a><a href='#livrable'>6 · Livrable</a><a href='#reference'>Outil de référence</a><a href='#glossaire'>Glossaire</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
+<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#demarrer'>2 · Démarrer</a><a href='#niveaux'>3 · Niveau</a><a href='#mission'>4 · Mission</a><a href='#livrable'>5 · Livrable</a><a href='#maison'>6 · Mon logiciel maison</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
 </div></section>
 
 <!-- ============ 1. SITUATION ============ -->
 <section class='section' id='situation'><div class='wrap'>
 <div class='eyebrow'>1 · La situation</div>
-<h2>Lundi 19 octobre 2026, 9 h, LFI Marie-Curie de Valmont</h2>
-<p class='intro'>Le service veut gagner du temps avec l'IA : synthèses pour les conseils de classe, comptes rendus, courriers aux familles. Mais la règle de l'établissement est claire : <b>aucune donnée réelle d'élève ou de famille ne part vers un outil d'IA</b> (dossier de contexte, § 7).</p>
-<p>La proviseure ne veut pas choisir entre les deux. Elle demande au secrétariat de faire fabriquer par l'IA un petit outil maison, un simple fichier que l'on ouvre dans le navigateur. Il remplace dans un fichier Excel ou Word les données personnelles par des <b>codes</b> avant l'envoi à l'IA, et remet les vraies informations dans ce que l'IA rend. Le référent RGPD a posé ses conditions. La CPE attend la synthèse de sa 4e B pour le conseil de classe.</p>
-<div class='note stop'><b>Pourquoi c'est important.</b> Une seule colonne oubliée, un nom cité dans une observation, l'auteur resté dans les propriétés d'un fichier Word : la donnée part quand même. Et si la table de correspondance se perd, plus personne ne peut relire ce que l'IA a produit. Un outil de protection qui protège mal donne un faux sentiment de sécurité, ce qui est pire que pas d'outil du tout.</div>
-
-<h3>Qui est qui dans ce dossier</h3>
-<div class='tw'><table class='who'>
-<tr><th>Personne</th><th>Fonction</th><th>Ce qu'il faut savoir pour l'atelier</th></tr>
-<tr><td>Catherine Delorme</td><td>Proviseure</td><td>Commanditaire de l'outil. Elle exige qu'il soit testé par quelqu'un d'autre que son auteur avant usage.</td></tr>
-<tr><td>Marc Duval</td><td>Référent RGPD</td><td>Il pose sept conditions. Chacune est une exigence, et il veut voir la recette.</td></tr>
-<tr><td>Nadia Ferhat</td><td>CPE</td><td>Elle fournit les fichiers de travail, avec quelques mises en garde… et quelques oublis.</td></tr>
-<tr><td>Elena Varga</td><td>Secrétaire de gestion</td><td>Niveau Or : elle ne marque pas ses fichiers comme le reste du service.</td></tr>
-<tr><td><b>Vous</b></td><td>Secrétariat de direction</td><td>Vous faites fabriquer l'outil, vous le faites tester, vous le faites corriger. Uniquement avec les fichiers fictifs du dossier.</td></tr>
-</table></div>
-<p><a class='btn dark' href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement ↗</a> <small style='color:var(--gray)'>Règles d'usage de l'IA (§ 7), organisation, calendrier. Il est inclus dans les archives.</small></p>
-<div class='note'><b>Atelier d'ouverture :</b> l'outil que vous fabriquez ici sert de fil rouge. Dans les ateliers suivants, chaque fois qu'un fichier contient des données personnelles, demandez-vous s'il faut le pseudonymiser avant de le donner à l'IA.</div>
+<h2>Quatre documents à confier à l'IA… mais pas tels quels</h2>
+<p class='intro'>Le service veut utiliser l'IA pour répondre à un parent, résumer un compte rendu, préparer une lettre. La règle du lycée est simple : <b>aucune donnée réelle d'élève ou de famille ne part vers une IA</b>. Vous allez donc faire fabriquer un outil qui anonymise les documents avant l'envoi, et qui remet les vrais noms au retour.</p>
+<div class='grid2'>
+<div class='card'><div class='num'>Les 3 règles de l'outil</div><ol>
+<li>Il fonctionne <b>sans connexion</b> : rien ne sort du poste.</li>
+<li>La <b>table de correspondance</b> (vrai nom ↔ code) reste sur le poste, jamais envoyée à l'IA.</li>
+<li>Ce qui est <b>sensible</b> (santé, situation familiale) est <b>supprimé</b>, pas seulement codé.</li></ol></div>
+<div class='card'><div class='num'>Les 4 documents (fictifs)</div><ul>
+<li><b>Liste-5eC.xlsx</b> : la liste d'une classe, avec les coordonnées des familles ;</li>
+<li><b>Lettre-famille-HADDAD.docx</b> : une convocation envoyée à une famille ;</li>
+<li><b>Compte-rendu-reunion-5eC.docx</b> : la réunion de l'équipe pédagogique ;</li>
+<li><b>Courriel-parent-SOW.pdf</b> : un parent prévient d'une absence.</li></ul>
+<p style='margin:10px 0 0'>Chaque document cache <b>un piège</b> : une information qui identifie quelqu'un sans en avoir l'air.</p></div>
+</div>
+<div class='note'><b>Anonymiser ou pseudonymiser ?</b> Remplacer les noms par des codes en gardant la table pour revenir en arrière, c'est <b>pseudonymiser</b>. C'est ce que fait votre outil. Anonymiser, c'est rendre toute identification impossible, définitivement. Dans les deux cas, on relit : un outil ne sait pas tout seul qu'« hôpital » ou « la gardienne de l'école » permettent de reconnaître quelqu'un.</div>
+<p><b>Compétence du passeport :</b> ☐ Protéger les données avant de les confier à l'IA. <a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement ↗</a></p>
 </div></section>
 
-<!-- ============ 2. OBJECTIFS ============ -->
-<section class='section alt' id='objectifs'><div class='wrap'>
-<div class='eyebrow'>2 · Ce que vous allez apprendre</div>
-<h2>Les objectifs de l'atelier</h2>
-<p class='intro'>L'IA sait fabriquer en quelques minutes un outil qui « a l'air » de protéger les données. Votre valeur ajoutée : <b>savoir exactement ce qu'il doit faire</b>, le <b>faire tester</b> sans complaisance et le <b>faire corriger</b> jusqu'à ce qu'il tienne.</p>
-<div class='grid'>
-<div class='card'><div class='num'>À la fin, vous saurez…</div><ul>
-<li>distinguer <b>pseudonymiser</b> et <b>anonymiser</b>, et savoir ce qui ne doit jamais partir, même codé ;</li>
-<li>transformer des conditions RGPD en <b>exigences vérifiables</b> ;</li>
-<li>écrire <b>seul·e</b> la consigne complète qui fait fabriquer un outil ;</li>
-<li>faire construire par <b>petites itérations</b>, chacune testée ;</li>
-<li><b>tester</b> un outil avec une recette écrite à l'avance, et l'<b>améliorer</b> sans casser ce qui marchait ;</li>
-<li>utiliser l'outil en situation : coder, faire travailler l'IA, décoder.</li></ul></div>
-<div class='card'><div class='num'>Outils et fonctions utilisés</div><ul>
-<li><b>Claude</b> : les <b>artefacts</b> ; <b>ChatGPT</b> : le <b>Canvas</b> ;</li>
-<li>votre <b>navigateur</b>, pour ouvrir l'outil téléchargé <b>hors connexion</b> (Wi-Fi coupé ou mode avion) ;</li>
-<li>Excel et Word, pour vérifier les fichiers produits (y compris <i>Fichier › Informations</i> dans Word) ;</li>
-<li>le Bloc-notes, pour vérifier qu'un fichier chiffré est illisible.</li></ul></div>
-<div class='card'><div class='num'>Compétences du passeport</div><ul>
-<li>☐ Protéger les données avant de les confier à l'IA</li>
-<li>☐ Créer et recetter une application</li></ul>
-<p>Vous les cocherez dans le <a href='../../index.html#passeport'>passeport d'agent IA</a> à la fin de la formation, seulement si vous les avez réellement pratiquées.</p></div>
-</div>
-<div class='note ok'><b>Aucune compétence en programmation n'est nécessaire.</b> Si l'IA vous montre du code, vous n'avez pas à le lire : testez l'outil, décrivez ce qui ne va pas avec des mots simples, et demandez la correction. Pas de prompt fourni, mais pas sans aide : une <a href='#consigne'>liste de vérification de votre consigne</a>, des coups de pouce et une recette prête à l'emploi.</div>
-</div></section>
-
-<!-- ============ 3. DÉMARRER ============ -->
-<section class='section' id='demarrer'><div class='wrap'>
-<div class='eyebrow'>3 · Avant de commencer · 5 min</div>
-<h2>Préparez votre poste de travail</h2>
+<!-- ============ 2. DÉMARRER ============ -->
+<section class='section alt' id='demarrer'><div class='wrap'>
+<div class='eyebrow'>2 · Avant de commencer · 5 min</div>
+<h2>Préparez votre poste</h2>
 <ol>
-<li><b>Choisissez votre niveau</b> (<a href='#niveaux'>section 4</a>) et <b>téléchargez son dossier</b>. Décompressez-le.</li>
-<li><b>Formez un binôme testeur</b> avec une autre équipe : vous testerez son outil, elle testera le vôtre. Seul·e, vous ferez une recette « à froid » (étape 4).</li>
-<li><b>Préparez votre outil d'IA</b> (onglets ci-dessous).</li>
-<li><b>Repérez comment couper le Wi-Fi</b> de votre poste (ou passer en mode avion) : c'est le premier test de la recette.</li>
+<li><b>Téléchargez le dossier</b> de votre niveau (<a href='#niveaux'>section 3</a>) et décompressez-le.</li>
+<li><b>Trouvez un voisin</b> : il vérifiera votre travail à l'étape 4, vous vérifierez le sien.</li>
+<li><b>Repérez comment couper le Wi-Fi</b> de votre poste (ou passer en mode avion).</li>
 </ol>
-<div class='tabs' role='tablist'><button class='active' data-tab='optA' role='tab'>Claude · artefacts</button><button data-tab='optB' role='tab'>ChatGPT · Canvas</button><button data-tab='optC' role='tab'>Plan B · fichier HTML</button></div>
-<div class='panel' id='optA'>
-<ol>
-<li>Vérifiez que les <b>artefacts</b> sont activés (paramètres du compte). Créez éventuellement un <b>projet</b> « Outil de pseudonymisation ».</li>
-<li>Ne joignez <b>que</b> les courriels et votre liste d'exigences. Les fichiers de données servent à tester l'outil, pas à le fabriquer : ils n'ont pas à être envoyés à l'IA.</li>
-<li>L'outil apparaît dans le panneau de droite. Pour les tests, <b>téléchargez-le</b> (fichier <code>.html</code>) et ouvrez-le dans votre navigateur, connexion coupée.</li>
-</ol>
-<div class='success'><b>C'est prêt quand</b> vous avez demandé « Fais-moi une page de test avec un bouton qui affiche Bonjour », que vous l'avez téléchargée et qu'elle fonctionne dans votre navigateur, Wi-Fi coupé.</div>
-</div>
-<div class='panel' id='optB' hidden>
-<ol>
-<li>Ouvrez une conversation et demandez d'utiliser le <b>Canvas</b>.</li>
-<li>Joignez seulement les courriels et votre liste d'exigences, pas les fichiers de données.</li>
-<li>Utilisez l'aperçu pour un premier coup d'œil, puis <b>téléchargez le code</b> (<code>.html</code>) pour tester l'outil dans votre navigateur, connexion coupée.</li>
-</ol>
-<div class='success'><b>C'est prêt quand</b> une page de test « Bonjour » téléchargée fonctionne dans votre navigateur, Wi-Fi coupé.</div>
-</div>
-<div class='panel' id='optC' hidden>
-<p>Ni artefact ni Canvas ? Demandez à l'IA un <b>fichier HTML unique</b>, copiez le code dans le Bloc-notes, enregistrez-le sous <code>pseudonymiseur.html</code> (encodage UTF-8) et ouvrez-le avec votre navigateur. Après chaque correction, remplacez le fichier et rechargez la page.</p>
-<div class='success'><b>C'est prêt quand</b> la page de test « Bonjour » s'ouvre dans votre navigateur, Wi-Fi coupé.</div>
-</div>
+<div class='tabs' role='tablist'><button class='active' data-tab='optA' role='tab'>Claude</button><button data-tab='optB' role='tab'>ChatGPT</button><button data-tab='optC' role='tab'>Plan B</button></div>
+<div class='panel' id='optA'><p>L'outil apparaît dans un <b>artefact</b>, à droite de la conversation. Pour l'utiliser, téléchargez-le (fichier .html) et ouvrez-le dans votre navigateur, Wi-Fi coupé.</p>
+<div class='success'><b>C'est prêt quand</b> une page de test « Bonjour » demandée à Claude s'ouvre dans votre navigateur, Wi-Fi coupé.</div></div>
+<div class='panel' id='optB' hidden><p>Demandez à ChatGPT d'utiliser le <b>Canvas</b>, puis téléchargez le code (.html) et ouvrez-le dans votre navigateur, Wi-Fi coupé.</p>
+<div class='success'><b>C'est prêt quand</b> une page de test « Bonjour » s'ouvre dans votre navigateur, Wi-Fi coupé.</div></div>
+<div class='panel' id='optC' hidden><p>Ni artefact ni Canvas : demandez un fichier HTML unique, copiez le code dans le Bloc-notes, enregistrez-le sous <code>outil.html</code> (UTF-8) et ouvrez-le dans votre navigateur. Si rien ne marche, utilisez l'<a href='#reference'>outil de référence</a> pour les étapes 3 à 5.</p></div>
 <div class='note'><b>Règle commune à tous les ateliers :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div>
 </div></section>
 
-<!-- ============ 4. NIVEAUX ============ -->
-<section class='section alt' id='niveaux'><div class='wrap'>
-<div class='eyebrow'>4 · Choisissez votre niveau</div>
-<h2>Trois niveaux, la même mission</h2>
-<p class='intro'>Les niveaux se distinguent par les fichiers que l'outil doit traiter et par les tests de la recette à réussir (onglet 2 du gabarit).</p>
+<!-- ============ 3. NIVEAUX ============ -->
+<section class='section' id='niveaux'><div class='wrap'>
+<div class='eyebrow'>3 · Choisissez votre niveau</div>
+<h2>Trois niveaux, la même démarche</h2>
 <div class='grid levels'>
 <div class='card lvl-bronze'><div class='num'>Pour découvrir</div><h3>Bronze</h3>
-<p><b>6 pièces</b> : les courriels de la proviseure, du référent RGPD et de la CPE, l'export Excel des absences, le dossier de contexte et le gabarit.</p>
-<p><b>Vous rendez :</b></p><ul><li>votre consigne ;</li><li>un outil qui traite les fichiers <b>Excel</b> et passe les tests <b>bloquants</b> (T-01 à T-08) ;</li><li>la recette faite par un autre, et le journal des améliorations.</li></ul>
-<a class='btn dark' href='dossier-atelier-00-bronze.zip' download>↧ Dossier Bronze (172 Ko)</a></div>
+<p><b>2 documents</b> : la liste Excel et la lettre.</p><p>L'outil code et décode. Tests T1 à T5.</p>
+<a class='btn dark' href='dossier-atelier-00-bronze.zip' download>↧ Dossier Bronze (104 Ko)</a></div>
 <div class='card lvl-argent'><div class='num'>Le niveau de référence</div><h3>Argent</h3>
-<p><b>10 pièces</b> : le dossier complet, avec le <b>compte rendu Word</b> repéré selon la convention et les <b>fiches de signalement</b> (un élève par colonne).</p>
-<p><b>Vous rendez :</b></p><ul><li>un outil qui traite Excel <b>et Word</b>, et passe les tests <b>bloquants et majeurs</b> (T-01 à T-17) ;</li><li>la preuve du cycle complet : fichier codé, synthèse de l'IA, synthèse décodée ;</li><li>la recette et le journal des améliorations.</li></ul>
-<a class='btn dark' href='dossier-atelier-00.zip' download>↧ Dossier complet (250 Ko)</a></div>
+<p><b>Les 4 documents.</b></p><p>L'outil code et décode ; une même personne garde le même code dans tous les documents. Tests T1 à T5.</p>
+<a class='btn dark' href='dossier-atelier-00.zip' download>↧ Dossier complet (171 Ko)</a></div>
 <div class='card lvl-or'><div class='num'>Pour aller plus loin</div><h3>Or</h3>
-<p>Le niveau Argent, et en plus :</p><ul><li>la demande d'<b>Elena Varga</b> (courriel 04) : une règle de repérage <b>réglable</b> (couleur, gras, taille) et le repérage dans Excel ;</li><li><b>tous</b> les tests, y compris T-18 à T-20 ;</li><li>une <b>aide intégrée</b> qui permet à un débutant de réussir le cycle en dix minutes.</li></ul>
-<a class='btn dark' href='dossier-atelier-00.zip' download>↧ Dossier complet (250 Ko)</a></div>
+<p>Le niveau Argent, et en plus : la table de correspondance <b>protégée par un mot de passe</b>. Test T6.</p>
+<a class='btn dark' href='dossier-atelier-00.zip' download>↧ Dossier complet (171 Ko)</a></div>
 </div>
-<p class='intro'>Tous les niveaux utilisent le <a href='gabarit-recette-atelier-00.xlsx' download><b>gabarit Excel</b></a> : exigences, recette (20 tests), journal des améliorations, votre consigne. Il est inclus dans les deux archives.</p>
+<p class='intro'>Tous les niveaux utilisent le <a href='gabarit-recette-atelier-00.xlsx' download><b>gabarit Excel</b></a> (repérage, consigne, recette), inclus dans les archives.</p>
 </div></section>
 
-<!-- ============ 5. MISSION ============ -->
-<section class='section' id='mission'><div class='wrap'>
-<div class='eyebrow'>5 · Votre mission · 85 min</div>
-<h2>Sept étapes, à suivre dans l'ordre</h2>
-<p class='intro'>Chaque étape indique son but, les questions à vous poser, comment faire, et à quoi vous savez qu'elle est terminée. Le chronomètre vous aide à tenir le temps.</p>
+<!-- ============ 4. MISSION ============ -->
+<section class='section alt' id='mission'><div class='wrap'>
+<div class='eyebrow'>4 · Votre mission · 80 min</div>
+<h2>Cinq étapes</h2>
 
-<div class='step' id='e1'><div class='step-head'><div><div class='step-num'>ÉTAPE 1 · SANS IA</div><h3>Lire les courriels et numéroter les exigences</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> savoir précisément ce que l'outil doit faire et ne pas faire. Vous ne pourrez ni le demander ni le tester sans cette liste.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Lisez le courriel de la <b>proviseure</b> (01) : le besoin, les formats, la convention de repérage, la condition de test.</li>
-<li>Lisez le courriel du <b>référent RGPD</b> (02) : chaque point numéroté devient au moins une exigence.</li>
-<li>Lisez le courriel de la <b>CPE</b> (03) : ses mises en garde annoncent des pièges.</li>
-<li>Ouvrez l'<b>onglet 2 du gabarit</b> (la recette) : ce sont les tests que l'outil devra passer.</li>
-<li>Remplissez l'<b>onglet 1</b> : une exigence par ligne, sa source et le test lié.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>Que veut dire « fonctionne sans connexion » ? Comment le vérifier ?</li>
-<li>Où va la table de correspondance ? Qui garde la clé ?</li>
-<li>Que doit faire l'outil d'une donnée de santé : la coder ou la retirer ?</li>
-<li>Pourquoi une même personne doit-elle toujours avoir le même code ?</li>
-<li>Où peut-il rester un nom, en dehors des colonnes « Nom » et « Prénom » ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> chacun des sept points du référent RGPD correspond à au moins une exigence numérotée, et que chaque test bloquant de la recette est relié à une exigence.</div>
-</div>
-
-<div class='step' id='e2'><div class='step-head'><div><div class='step-num'>ÉTAPE 2 · SANS IA</div><h3>Écrire votre propre consigne</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> écrire, seul·e, la consigne qui fera fabriquer l'outil. Aucun modèle n'est fourni : utilisez la <a href='#consigne'>liste de vérification</a> ci-dessous pour ne rien oublier.</p>
+<div class='step' id='e1'><div class='step-head'><div><div class='step-num'>ÉTAPE 1 · SANS IA</div><h3>Repérer ce qui identifie quelqu'un</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> savoir ce que l'outil devra cacher. Cette liste devient votre cahier des charges.</p>
 <ul>
-<li>Écrivez dans un document texte (ou l'onglet 4 du gabarit), pas directement dans la conversation : vous pourrez la corriger et la comparer.</li>
-<li>Relisez-la avec la liste de vérification : chaque case doit être couverte.</li>
-<li>Demandez-vous : une personne qui ne lirait <b>que</b> ce texte saurait-elle quel outil fabriquer, et comment il sera testé ?</li></ul>
-<div class='success'><b>Étape terminée quand</b> votre consigne couvre les 9 points de la liste de vérification et reprend les sept conditions du référent RGPD.</div>
-</div>
+<li>Ouvrez les documents de votre niveau et notez dans l'onglet 1 du gabarit tout ce qui permet de reconnaître une personne : noms, dates de naissance, adresses, téléphones, mails… et tout ce qui, sans nom, permet de deviner de qui on parle.</li>
+<li>Pour chaque information, décidez : <b>CODER</b> (remplacer par un code) ou <b>SUPPRIMER</b> (santé, situation familiale).</li>
+<li>Pensez à regarder aussi les colonnes de remarques et les propriétés des fichiers Word (Fichier › Informations).</li></ul>
+<div class='success'><b>Étape terminée quand</b> vous avez au moins une ligne par document, et que chaque ligne dit CODER ou SUPPRIMER.</div></div>
 
-<div class='step' id='e3'><div class='step-head'><div><div class='step-num'>ÉTAPE 3 · L'IA CODE, VOUS VÉRIFIEZ</div><h3>Faire construire l'outil, par petites itérations</h3></div><div class='timer' data-min='25'><span class='t'>25:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> obtenir un outil qui marche, morceau par morceau, en vérifiant chaque morceau avant de passer au suivant.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Envoyez votre consigne. Demandez d'abord un <b>plan sans code</b> (écrans, étapes, ce qui est conservé où), vérifiez-le contre vos exigences, puis validez.</li>
-<li>Faites construire dans un ordre logique : le codage d'un fichier Excel, puis la clé et la table, puis le décodage, puis Word (Argent).</li>
-<li>Après chaque itération, <b>téléchargez</b> l'outil et faites un essai rapide avec l'export de la CPE, connexion coupée.</li>
-<li>Notez chaque correction demandée dans l'onglet 3 du gabarit.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>L'outil marche-t-il encore quand je coupe le Wi-Fi ?</li>
-<li>Le fichier codé contient-il encore un nom quelque part ? Je fais une recherche (Ctrl + F) sur trois noms.</li>
-<li>Où est la colonne de l'infirmerie dans le fichier codé ?</li>
-<li>Si je ferme l'onglet, ai-je perdu la table ? Comment la retrouver ?</li>
-<li>Est-ce que je comprends l'outil sans explication ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> vous avez fait vous-même, avec l'export de la CPE, un aller-retour complet : coder, enregistrer la table, rouvrir l'outil, recharger la table, décoder un texte.</div>
-</div>
+<div class='step' id='e2'><div class='step-head'><div><div class='step-num'>ÉTAPE 2 · AVEC L'IA</div><h3>Faire fabriquer l'outil</h3></div><div class='timer' data-min='25'><span class='t'>25:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> obtenir un outil qui s'ouvre dans le navigateur et fait le travail. Pas de prompt tout fait : vous écrivez la consigne, avec la liste de vérification ci-dessous.</p>
+<div class='card' style='margin:14px 0'><div class='num'>Ma consigne contient…</div><ol>
+<li><b>Le but</b> : remplacer les données personnelles par des codes avant l'envoi à l'IA, puis remettre les vraies données dans ce que l'IA rend.</li>
+<li><b>Les documents</b> : Excel et Word, et ce qu'il faut repérer (votre onglet 1). <b>Sans joindre les documents eux-mêmes.</b></li>
+<li><b>Coder ou supprimer</b> : ce qui devient un code, ce qui disparaît.</li>
+<li><b>La table de correspondance</b> : une même personne = un même code partout ; la table reste sur le poste.</li>
+<li><b>Hors connexion</b> : un seul fichier HTML, en français, sans installation ni connexion.</li>
+<li><b>La méthode</b> : d'abord un plan sans code, que vous validez ; puis l'outil ; et ce qu'il ne sait pas faire.</li></ol></div>
+<div class='success'><b>Étape terminée quand</b> l'outil téléchargé s'ouvre dans votre navigateur, Wi-Fi coupé, et code un premier document.</div></div>
 
-<div class='step' id='e4'><div class='step-head'><div><div class='step-num'>ÉTAPE 4 · TESTER</div><h3>Faire tester votre outil par quelqu'un d'autre</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> la proviseure l'exige. Un outil est accepté quand quelqu'un d'autre l'a testé avec une grille écrite à l'avance, pas quand son auteur le trouve bien.</p>
-<ul>
-<li><b>En groupe :</b> échangez vos outils avec votre binôme testeur (le fichier <code>.html</code>). Chacun déroule l'<b>onglet 2 du gabarit</b> sur l'outil de l'autre, sans aide, et remplit « Résultat obtenu », « Conforme » et « Testeur ».</li>
-<li><b>Seul·e :</b> fermez tout, ouvrez votre outil dans une <b>fenêtre privée</b>, Wi-Fi coupé, et déroulez la recette ligne par ligne comme si vous ne le connaissiez pas.</li>
-<li>Testez <b>vraiment</b> : ouvrez la table enregistrée dans le Bloc-notes, cherchez les noms dans le fichier codé, regardez les propriétés du Word, essayez une mauvaise clé.</li>
-<li>Pour chaque test non conforme, décrivez précisément ce que vous avez vu : c'est ce qui permettra de corriger.</li></ul>
-<div class='success'><b>Étape terminée quand</b> la recette est remplie pour tous les tests de votre niveau, par quelqu'un d'autre que l'auteur de l'outil (ou à froid).</div>
-</div>
+<div class='step' id='e3'><div class='step-head'><div><div class='step-num'>ÉTAPE 3 · AVEC VOTRE OUTIL</div><h3>Anonymiser les documents</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<ul><li>Wi-Fi coupé, passez les documents de votre niveau dans l'outil.</li>
+<li>Enregistrez les fichiers produits et la table de correspondance <b>dans deux dossiers séparés</b>.</li>
+<li>Le courriel est un PDF : copiez son texte dans l'outil, ou demandez à l'IA de prévoir une zone « texte à coder ».</li></ul>
+<div class='success'><b>Étape terminée quand</b> chaque document a sa version anonymisée.</div></div>
 
-<div class='step' id='e5'><div class='step-head'><div><div class='step-num'>ÉTAPE 5 · AMÉLIORER</div><h3>Corriger, puis refaire les tests</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> un outil qui échoue à un test n'est pas un échec, c'est le moment de l'améliorer. Mais une correction ne doit pas casser ce qui marchait.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Récupérez la recette remplie par votre testeur. Commencez par les tests <b>bloquants</b> non conformes.</li>
-<li><b>Carte surprise</b> : avec formateur, il vous remet un export mis à jour au début de l'étape. Sans formateur : ajoutez vous-même à l'export une colonne « Aide sociale / bourse » et une ligne pour un nouvel élève, puis recodez-le avec la table de ce matin. Les élèves déjà codés doivent garder exactement leurs codes.</li>
-<li>Demandez à l'IA une correction <b>ciblée</b> : décrivez le test, ce qui était attendu, ce qui s'est passé, et ce qui ne doit pas bouger.</li>
-<li>Après chaque correction, refaites le test concerné <b>et</b> tous les tests bloquants (non-régression).</li>
-<li>Notez chaque correction dans l'onglet 3 du gabarit, puis reportez dans votre <b>consigne</b> ce qui manquait (onglet 4).</li>
-<li>Or : traitez aussi la demande d'Elena Varga (courriel 04).</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>Ce défaut vient-il d'une exigence oubliée dans ma consigne ?</li>
-<li>Ma demande de correction est-elle assez précise pour que l'IA ne réécrive pas tout ?</li>
-<li>Les tests qui passaient passent-ils toujours ?</li>
-<li>Après la carte surprise, les codes des élèves déjà présents ont-ils changé ?</li>
-<li>Reste-t-il un défaut que je n'arrive pas à corriger ? Je l'écris dans les limites connues de l'outil.</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> les tests bloquants passent tous, que chaque correction figure dans le journal, et qu'aucun test conforme n'est devenu non conforme.</div>
-</div>
+<div class='step' id='e4'><div class='step-head'><div><div class='step-num'>ÉTAPE 4 · EN BINÔME</div><h3>Faire vérifier par votre voisin</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<ul><li>Échangez vos fichiers anonymisés (jamais la table). Votre voisin fait les <b>5 tests</b> de l'onglet 3 et cherche ce qui a échappé.</li>
+<li>Pour chaque fuite, une demande de correction à l'IA : « Dans le compte rendu, [ce qui a échappé] est resté lisible. Corrige l'outil pour que… ».</li>
+<li>Seul·e ? Faites la vérification vous-même, dix minutes plus tard, avec Ctrl+F sur trois noms de chaque document.</li></ul>
+<div class='success'><b>Étape terminée quand</b> les 5 tests sont OK, ou que ce qui reste est noté dans l'onglet 4.</div></div>
 
-<div class='step' id='e6'><div class='step-head'><div><div class='step-num'>ÉTAPE 6 · EN SITUATION</div><h3>Le cycle complet, pour de vrai</h3></div><div class='timer' data-min='5'><span class='t'>05:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> se servir de l'outil comme au bureau, pour la demande de la CPE.</p>
-<ul>
-<li>Codez l'export des absences avec votre outil. <b>Relisez</b> le fichier codé avant de le donner à l'IA : que reste-t-il de sensible que l'outil ne pouvait pas voir ?</li>
-<li>Dans une conversation neuve, donnez à l'IA <b>seulement</b> le fichier codé et demandez la synthèse par élève voulue par la CPE.</li>
-<li>Décodez la réponse de l'IA avec votre outil. Les noms reviennent-ils tous ? Un code a-t-il été inventé ?</li>
-<li>Comparez avec l'<a href='#reference'>outil de référence</a> : qu'a-t-il que le vôtre n'a pas, et inversement ?</li></ul>
-<div class='success'><b>Étape terminée quand</b> vous avez une synthèse décodée, et que ni la table de correspondance ni la clé ne sont jamais passées par l'IA.</div>
-</div>
-
-<div class='step' id='e7'><div class='step-head'><div><div class='step-num'>ÉTAPE 7 · RESTITUTION</div><h3>Deux minutes pour rendre compte</h3></div><div class='timer' data-min='5'><span class='t'>05:00</span><button>Démarrer</button></div></div>
-<pre class='tpl' id='tplResti'>1. Le test qui a révélé le défaut le plus grave de notre outil : …
-2. La phrase que nous avons ajoutée à notre consigne après la recette : …
-3. Ce qu'un outil ne pourra jamais faire à notre place avant d'envoyer un fichier à l'IA : …</pre>
-<button class='copy' data-copy='tplResti'>Copier la trame</button>
-<div class='success'><b>Étape terminée quand</b> vous avez fait l'<a href='#bilan'>autocontrôle</a> et préparé vos trois phrases.</div>
-</div>
-
-<h3 id='consigne' style='margin-top:45px'>Pas de prompt fourni : la liste de vérification de votre consigne</h3>
-<p class='intro'>Dans cet atelier, c'est vous qui écrivez toute la consigne. Avant de l'envoyer, vérifiez qu'elle contient :</p>
-<div class='card check' id='consigneList'>
-<label><input type='checkbox'> <span><b>Le rôle et le contexte</b> : pour qui est l'outil (un secrétariat, sans informaticien), dans quel établissement, et pourquoi il existe.</span></label>
-<label><input type='checkbox'> <span><b>Ce que l'outil doit faire</b>, étape par étape, du fichier d'origine jusqu'au fichier décodé.</span></label>
-<label><input type='checkbox'> <span><b>Les formats</b> à traiter et la façon de désigner ce qu'il faut masquer : colonnes pour Excel, convention de mise en forme pour Word.</span></label>
-<label><input type='checkbox'> <span><b>Les sept conditions du référent RGPD</b>, une par une, formulées comme des exigences.</span></label>
-<label><input type='checkbox'> <span><b>La forme du livrable</b> : un seul fichier, en français, qui s'ouvre dans le navigateur, sans installation et sans connexion.</span></label>
-<label><input type='checkbox'> <span><b>Ce qui se passe dans les cas difficiles</b> : un nom dans un texte libre, une colonne de santé, une mauvaise clé, un code que l'IA aurait inventé.</span></label>
-<label><input type='checkbox'> <span><b>Comment l'outil sera testé</b> : la recette et le type de fichiers d'essai (avec leurs pièges), sans envoyer les données elles-mêmes.</span></label>
-<label><input type='checkbox'> <span><b>La méthode</b> : un plan sans code d'abord, à valider, puis une construction par étapes.</span></label>
-<label><input type='checkbox'> <span><b>Ce que l'outil ne doit jamais faire</b> : envoyer des données, garder la table en clair, effacer sans prévenir, deviner.</span></label>
-</div>
+<div class='step' id='e5'><div class='step-head'><div><div class='step-num'>ÉTAPE 5 · LE CYCLE COMPLET</div><h3>Utiliser l'IA, puis décoder</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<ul><li>Donnez à l'IA une version anonymisée et une vraie tâche : rédiger la réponse au parent, résumer le compte rendu, reformuler la lettre.</li>
+<li>Copiez la réponse de l'IA dans votre outil et décodez-la : les vrais noms reviennent.</li>
+<li>Relisez : l'IA a-t-elle inventé un code ou déformé un nom ?</li></ul>
+<div class='success'><b>Étape terminée quand</b> vous avez un texte final avec les vrais noms, sans qu'aucun ne soit parti vers l'IA.</div></div>
 </div></section>
 
-<!-- ============ 6. LIVRABLE ============ -->
-<section class='section alt' id='livrable'><div class='wrap'>
-<div class='eyebrow'>6 · Ce que vous rendez</div>
-<h2>Le livrable et les critères de réussite</h2>
+<!-- ============ 5. LIVRABLE ============ -->
+<section class='section' id='livrable'><div class='wrap'>
+<div class='eyebrow'>5 · Ce que vous rendez</div>
+<h2>Le livrable</h2>
 <div class='grid2'>
-<div class='card'><div class='num'>① La consigne · ② L'outil</div>
-<p><b>Votre consigne</b>, version de départ et version finale (onglet 4).</p>
-<p><b>Votre outil</b> : le fichier <code>.html</code>, qui s'ouvre sans installation et fonctionne Wi-Fi coupé. Il contient :</p>
-<table class='cols-table'>
-<tr><td>Coder</td><td>Excel (Bronze), Excel et Word (Argent), règle réglable (Or).</td></tr>
-<tr><td>Protéger</td><td>Clé, table de correspondance chiffrée, enregistrée à part.</td></tr>
-<tr><td>Décoder</td><td>Texte collé (Bronze), fichiers rendus par l'IA (Argent).</td></tr>
-<tr><td>Expliquer</td><td>Mode d'emploi et limites connues, dans l'outil.</td></tr>
-</table></div>
-<div class='card'><div class='num'>③ La recette · ④ Le journal des améliorations</div>
-<p><b>La recette</b> (onglet 2), remplie par quelqu'un d'autre que l'auteur.</p>
-<p><b>Le journal des améliorations</b> (onglet 3) : chaque défaut, la correction demandée, les tests refaits.</p>
-<div class='num' style='margin-top:18px'>Critères de réussite</div>
-<ul>
-<li>Tous les tests bloquants de la recette sont conformes.</li>
-<li>Aucun nom, téléphone ou courriel dans le fichier codé ; aucune donnée de santé.</li>
-<li>La table est illisible sans la clé, et la clé n'est jamais passée par l'IA.</li>
-<li>L'outil a été testé par un autre, puis amélioré au moins une fois.</li>
-<li>Après les corrections, les tests bloquants passent toujours.</li></ul></div>
+<div class='card'><div class='num'>À rendre</div><ul>
+<li>votre outil (fichier .html) ;</li>
+<li>les documents anonymisés et le texte final décodé ;</li>
+<li>le <a href='gabarit-recette-atelier-00.xlsx' download>gabarit</a> rempli : repérage, consigne, recette, ce qui a échappé.</li></ul></div>
+<div class='card'><div class='num'>Critères de réussite</div><ul>
+<li>l'outil fonctionne hors connexion ;</li>
+<li>aucun nom des documents ne reste lisible dans les versions anonymisées ;</li>
+<li>la santé et la situation familiale ont disparu ;</li>
+<li>la table n'a jamais été envoyée à l'IA.</li></ul></div>
 </div>
-<p class='intro'>Le formateur détient le corrigé et la liste des pièges du dossier : ils ne sont pas publiés.</p>
 </div></section>
 
 <!-- ============ OUTIL DE RÉFÉRENCE ============ -->
-<section class='section' id='reference'><div class='wrap'>
+<section class='section alt' id='reference'><div class='wrap'>
 <div class='eyebrow'>L'outil de référence</div>
-<h2>Un outil complet, pour comparer… après</h2>
-<p class='intro'>Le formateur a fait fabriquer cet outil avec l'IA, en suivant la même démarche que vous. Il passe les 20 tests de la recette. Ouvrez-le <b>après</b> avoir fait tester le vôtre (étape 6), pour comparer. Vous pouvez aussi le garder pour votre service, une fois validé par votre référent RGPD.</p>
-<div class='grid2'>
-<div class='card'><div class='num'>Ce qu'il fait</div><ul>
-<li>Excel (colonnes ou lignes, mise en forme) et Word (gras, italique, souligné, couleur, taille) ;</li>
-<li>colonnes sensibles retirées, propriétés Word effacées, âge à la place de la date ;</li>
-<li>table chiffrée (AES-256), clé à part, un même nom = un même code dans tous les fichiers ;</li>
-<li>décodage des fichiers et des textes rendus par l'IA, codes inventés signalés.</li></ul></div>
-<div class='card'><div class='num'>Comment l'utiliser</div><ul>
-<li>Téléchargez le fichier, puis ouvrez-le avec Chrome, Edge ou Firefox ;</li>
-<li>coupez le Wi-Fi : il fonctionne exactement pareil ;</li>
-<li>ses boutons « Exemple » produisent des fichiers fictifs pour s'entraîner ;</li>
-<li>onglet « Aide » : le cycle complet et les limites connues.</li></ul>
-<a class='btn dark' href='outil/pseudonymiseur-hors-ligne.html' download>↧ Télécharger l'outil de référence (1 Mo)</a></div>
-</div>
-<div class='note'><b>Même avec un bon outil, on relit.</b> L'outil ne peut pas savoir qu'« hospitalisation » ou « garde sa petite sœur le matin » sont des informations sensibles. Pseudonymiser n'est pas anonymiser.</div>
+<h2>Pour comparer, après l'étape 4</h2>
+<p class='intro'>Le formateur a fait fabriquer cet outil avec l'IA, en suivant la même démarche. Il traite Excel et Word, chiffre la table de correspondance et décode les réponses de l'IA. Ouvrez-le <b>après</b> avoir fait vérifier le vôtre.</p>
+<a class='btn dark' href='outil/pseudonymiseur-hors-ligne.html' download>↧ Télécharger l'outil de référence (1 Mo)</a>
 </div></section>
 
-<!-- ============ GLOSSAIRE ============ -->
-<section class='section alt' id='glossaire'><div class='wrap'>
-<div class='eyebrow'>Glossaire</div>
-<h2>Les mots de l'atelier</h2>
-<dl class='glos'>
-<dt>Pseudonymiser</dt><dd>Remplacer les données qui identifient une personne par des codes, en gardant à part le moyen de revenir en arrière. Les données restent personnelles au sens du RGPD.</dd>
-<dt>Anonymiser</dt><dd>Rendre toute identification impossible, définitivement, même en croisant les informations. Bien plus difficile, et irréversible.</dd>
-<dt>Code (ou jeton)</dt><dd>Ce qui remplace une donnée, par exemple <code>[NOM_001]</code>. Une même donnée reçoit toujours le même code.</dd>
-<dt>Table de correspondance</dt><dd>La liste « code ↔ vraie donnée ». Elle seule permet de décoder. Elle ne quitte jamais le poste.</dd>
-<dt>Clé de chiffrement</dt><dd>Le mot de passe qui verrouille la table enregistrée. Sans elle, la table est illisible, pour tout le monde.</dd>
-<dt>Chiffrer</dt><dd>Transformer un fichier pour qu'il soit illisible sans la clé. Un fichier chiffré ouvert dans le Bloc-notes ne montre que des caractères sans sens.</dd>
-<dt>Ré-identifier (décoder)</dt><dd>Remettre les vraies données à la place des codes, dans ce que l'IA a produit.</dd>
-<dt>Hors ligne</dt><dd>Qui fonctionne sans connexion. Se vérifie Wi-Fi coupé ou en mode avion.</dd>
-<dt>Données sensibles</dt><dd>Santé, handicap, situation sociale, religion, origine… Elles ne partent jamais vers une IA, même codées : on les retire.</dd>
-<dt>Texte libre</dt><dd>Zone où l'on écrit ce que l'on veut (observations, remarques). Des noms et des numéros s'y cachent souvent.</dd>
-<dt>Propriétés du fichier</dt><dd>Informations cachées dans un fichier Word ou Excel : auteur, titre, société, commentaires (<i>Fichier › Informations</i>).</dd>
-<dt>Convention de repérage</dt><dd>Mise en forme convenue dans le service pour signaler ce qu'il faut masquer (ici : gras, italique, souligné, bleu).</dd>
-<dt>Recette</dt><dd>Vérification formelle qu'un outil fait ce qui est demandé, à l'aide d'une liste de tests écrite à l'avance.</dd>
-<dt>Non-régression</dt><dd>Vérifier qu'une correction n'a pas cassé ce qui marchait avant.</dd>
-</dl>
+<!-- ============ 6. LOGICIEL MAISON ============ -->
+<section class='section' id='maison'><div class='wrap'>
+<div class='eyebrow'>6 · Et maintenant ?</div>
+<h2>Quel petit logiciel maison voulez-vous fabriquer ?</h2>
+<p class='intro'>Vous venez de faire fabriquer un outil par l'IA, sans écrire une ligne de code. La même démarche marche pour beaucoup de petits besoins du service. Choisissez une idée ou écrivez la vôtre : la page prépare la consigne à donner à l'IA.</p>
+<div class='ideas' id='ideas'></div>
+<div class='card maison'>
+<div class='num'>Mon idée de logiciel maison</div>
+<label for='m-nom'>Nom de mon logiciel</label><input id='m-nom' type='text' placeholder='Ex. : Générateur d&#x27;attestations de scolarité'>
+<label for='m-pb'>Le problème qu'il résout</label><textarea id='m-pb' rows='2' placeholder='Ex. : je tape chaque attestation à la main, une vingtaine par semaine en septembre.'></textarea>
+<label for='m-qui'>Qui l'utilise ?</label><input id='m-qui' type='text' placeholder='Ex. : moi et ma collègue de l&#x27;accueil'>
+<label for='m-quoi'>Ce qu'il doit faire, étape par étape</label><textarea id='m-quoi' rows='3' placeholder='Ex. : je choisis un élève dans une liste, l&#x27;attestation se remplit, je l&#x27;imprime.'></textarea>
+<label for='m-donnees'>Les données qu'il manipule</label><input id='m-donnees' type='text' placeholder='Ex. : nom, prénom, classe, date de naissance'>
+<label class='chk'><input id='m-perso' type='checkbox'> Ces données sont personnelles : l'outil fonctionne hors connexion et ne garde rien en ligne</label>
+<label for='m-jamais'>Ce qu'il ne doit jamais faire</label><input id='m-jamais' type='text' placeholder='Ex. : envoyer quoi que ce soit, garder les données après fermeture'>
+<div class='row'><button class='btn' id='m-gen' type='button'>Préparer ma consigne</button><button class='btn dark' id='m-raz' type='button'>Effacer</button></div>
+<pre class='prompt' id='m-out' hidden></pre>
+<button class='copy' id='m-copy' data-copy='m-out' hidden>Copier la consigne</button>
+<p class='small'>Votre idée reste sur cet appareil : rien n'est envoyé. Collez la consigne dans Claude ou ChatGPT, puis suivez la même démarche qu'à l'étape 2 : plan d'abord, outil ensuite, test par un voisin. Présentez votre idée au bilan de fin de journée.</p>
+</div>
 </div></section>
 
 <!-- ============ COUPS DE POUCE ============ -->
-<section class='section' id='aide'><div class='wrap'>
+<section class='section alt' id='aide'><div class='wrap'>
 <div class='eyebrow'>Coups de pouce</div>
-<h2>Vous êtes bloqué·e ? Ouvrez un indice à la fois</h2>
-<p class='intro'>Chaque blocage a trois niveaux d'indice, du plus léger au plus précis. Aucun ne donne la réponse, ni le texte de la consigne.</p>
-
-<details><summary>Je ne sais pas par où commencer ma consigne</summary>
-<details><summary>Indice 1</summary><p>Reprenez la liste de vérification et écrivez une phrase par case. Vous aurez déjà une consigne en neuf phrases.</p></details>
-<details><summary>Indice 2</summary><p>Recopiez les sept conditions du référent RGPD, puis transformez chacune en « L'outil doit… » ou « L'outil ne doit jamais… ».</p></details>
-<details><summary>Indice 3</summary><p>Demandez d'abord à l'IA de reformuler votre consigne et de lister ce qui lui semble flou ou contradictoire. Corrigez, puis seulement lancez la fabrication.</p></details>
+<h2>Bloqué·e ? Ouvrez un indice à la fois</h2>
+<details><summary>Je ne sais pas quoi mettre dans l'onglet 1</summary>
+<details><summary>Indice 1</summary><p>Posez-vous la question : « Si je lis cette phrase sans le nom, est-ce que je peux deviner de qui on parle ? »</p></details>
+<details><summary>Indice 2</summary><p>Regardez aussi les colonnes de remarques, l'en-tête de la lettre et les propriétés des fichiers Word.</p></details>
+<details><summary>Indice 3</summary><p>Une information de santé ou une situation de famille ne se code pas : elle se supprime.</p></details>
 </details>
-
-<details><summary>L'outil ne marche plus quand je coupe le Wi-Fi</summary>
-<details><summary>Indice 1</summary><p>Il va sans doute chercher quelque chose sur internet au démarrage (une « bibliothèque » pour lire Excel ou Word). Demandez à l'IA ce que la page charge depuis internet.</p></details>
-<details><summary>Indice 2</summary><p>Pour un premier essai, enregistrez l'onglet Excel en CSV UTF-8 : un CSV se lit sans aucune bibliothèque. Mais ce n'est qu'un contournement.</p></details>
-<details><summary>Indice 3</summary><p>Un fichier .xlsx ou .docx est une archive zip qui contient du texte XML, et les navigateurs récents savent décompresser et lire du XML sans aide. Demandez une solution sans aucune ressource externe. L'outil de référence, lui, embarque ses bibliothèques dans le fichier : c'est pour cela qu'il pèse 1 Mo.</p></details>
+<details><summary>L'outil ne s'ouvre pas ou ne fait rien</summary>
+<p>Dites à l'IA exactement ce qui se passe (« page blanche », « rien quand je clique ») et demandez-lui d'afficher un message à chaque étape. Si l'import de Word ou d'Excel ne marche pas, demandez une zone où coller le texte.</p>
 </details>
-
-<details><summary>Un même élève n'a pas le même code partout</summary>
-<details><summary>Indice 1</summary><p>Comparez les deux lignes des jumeaux KOVAČ : le responsable est le même. Son code l'est-il ?</p></details>
-<details><summary>Indice 2</summary><p>Une majuscule, un espace en trop ou un accent suffisent à faire croire à l'outil qu'il s'agit de deux personnes.</p></details>
-<details><summary>Indice 3</summary><p>Demandez que les valeurs soient comparées sans tenir compte des majuscules ni des espaces, et que le code soit réutilisé d'un fichier à l'autre tant que la table est chargée.</p></details>
+<details><summary>Un nom passe encore</summary>
+<p>Recopiez à l'IA la phrase où il apparaît (avec un nom inventé à la place du vrai) et demandez une correction ciblée. Puis refaites les 5 tests.</p>
 </details>
-
-<details><summary>Des noms restent dans les observations</summary>
-<details><summary>Indice 1</summary><p>Cherchez (Ctrl + F) « HADDAD », « Ines » et « Hugo » dans le fichier codé.</p></details>
-<details><summary>Indice 2</summary><p>Dans le texte libre, un nom peut être écrit en majuscules, sans accent, ou être celui d'un autre élève de la classe.</p></details>
-<details><summary>Indice 3</summary><p>Les noms déjà codés dans les colonnes forment une liste : l'outil peut la rechercher dans tout le texte libre. Pour les numéros et les adresses électroniques, il faut une détection de motif.</p></details>
-</details>
-
-<details><summary>Que faire de la colonne « Suivi infirmerie » ?</summary>
-<details><summary>Indice 1</summary><p>Relisez le point 4 du courriel du référent RGPD.</p></details>
-<details><summary>Indice 2</summary><p>Coder une donnée de santé ne suffit pas : l'IA lirait quand même « PAI asthme ».</p></details>
-<details><summary>Indice 3</summary><p>L'outil doit permettre de retirer une colonne entière, et idéalement le proposer de lui-même quand l'en-tête parle de santé. Regardez aussi les autres colonnes : un motif ou une observation peut contenir une information médicale.</p></details>
-</details>
-
-<details><summary>Dans le compte rendu Word, un nom marqué n'est pas trouvé</summary>
-<details><summary>Indice 1</summary><p>Dans Word, regardez la mise en forme exacte du nom oublié : remplit-il vraiment les quatre conditions ?</p></details>
-<details><summary>Indice 2</summary><p>Word découpe souvent un mot en plusieurs morceaux invisibles (« HAD » + « DAD »). L'outil doit recoller les morceaux voisins qui ont la même mise en forme.</p></details>
-<details><summary>Indice 3</summary><p>N'oubliez ni l'en-tête de page, ni le tableau, ni les propriétés du fichier (<i>Fichier › Informations</i>).</p></details>
-</details>
-
-<details><summary>Le décodage oublie des codes</summary>
-<details><summary>Indice 1</summary><p>Regardez comment l'IA a réécrit les codes : a-t-elle gardé les crochets, les majuscules, le numéro ?</p></details>
-<details><summary>Indice 2</summary><p>L'outil peut fournir une consigne à coller avec le fichier pour demander à l'IA de garder les codes à l'identique.</p></details>
-<details><summary>Indice 3</summary><p>Un code absent de la table ne doit pas être remplacé au hasard : l'outil le signale et le laisse tel quel.</p></details>
-</details>
-
-<details><summary>Où ranger la clé ?</summary>
-<p>Jamais dans le même dossier que la table, jamais dans la conversation avec l'IA. Un gestionnaire de mots de passe, ou une feuille rangée sous clé. Sans la clé, la table est perdue, même pour vous.</p>
-</details>
-
-<details><summary>L'IA a tout réécrit et ce qui marchait est cassé</summary>
-<p>Revenez à la version précédente (historique de l'artefact ou du Canvas), puis demandez une modification <b>ciblée</b> : « Ne modifie que … ; ne touche ni à la clé ni au décodage. » Refaites les tests bloquants après chaque modification.</p>
-</details>
-
-<details><summary>Je suis en retard sur le temps</summary>
-<p>Priorité : le codage de l'export Excel, la table chiffrée et le décodage d'un texte, testés Wi-Fi coupé. Un outil simple qui protège vraiment vaut mieux qu'un outil complet qui laisse passer un nom.</p>
+<details><summary>Je suis en retard</summary>
+<p>Passez au niveau Bronze : deux documents suffisent. Si l'outil ne fonctionne toujours pas, faites les étapes 3 à 5 avec l'<a href='#reference'>outil de référence</a>.</p>
 </details>
 </div></section>
 
 <!-- ============ AUTOCONTRÔLE ============ -->
-<section class='section alt' id='bilan'><div class='wrap'>
-<div class='eyebrow'>Autocontrôle avant la restitution</div>
-<h2>Votre livrable est-il prêt ?</h2>
-<p class='intro'>Cochez honnêtement. Les cases restent sur votre appareil, rien n'est envoyé.</p>
+<section class='section' id='bilan'><div class='wrap'>
+<div class='eyebrow'>Autocontrôle</div>
+<h2>Votre travail est-il prêt ?</h2>
+<p class='intro'>Les cases restent sur votre appareil, rien n'est envoyé.</p>
 <div class='card check' id='checklist'></div>
 <p id='checkmsg' style='font-weight:800;color:var(--teal)'></p>
 </div></section>
 
 <!-- ============ PIÈCES ============ -->
-<section class='section' id='pieces'><div class='wrap'>
+<section class='section alt' id='pieces'><div class='wrap'>
 <div class='eyebrow'>Pièces du dossier</div>
-<h2>10 documents professionnels fictifs</h2>
-<p class='intro'>Formats réels : Excel, Word, courriels imprimés en PDF. Les pièges ne sont pas signalés : c'est la recette qui les révélera. Les pièces marquées <span class='bz'>BRONZE</span> composent le dossier Bronze. Toutes les personnes et données sont inventées.</p>
-<a class='btn dark' href='dossier-atelier-00-bronze.zip' download>↧ Dossier Bronze (172 Ko)</a>
-<a class='btn dark' href='dossier-atelier-00.zip' download>↧ Dossier complet (250 Ko)</a>
-<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th><th>Niveau</th></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/01-Delorme_un-outil-a-nous.pdf' download>01-Delorme_un-outil-a-nous.pdf</a></td><td>courriels</td><td>35 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/02-Duval_conditions-RGPD.pdf' download>02-Duval_conditions-RGPD.pdf</a></td><td>courriels</td><td>36 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/03-Ferhat_export-absences.pdf' download>03-Ferhat_export-absences.pdf</a></td><td>courriels</td><td>35 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/04-Varga_mes-listes-en-rouge.pdf' download>04-Varga_mes-listes-en-rouge.pdf</a></td><td>courriels</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Export-absences-4eB-2026-10-16.xlsx' download>Export-absences-4eB-2026-10-16.xlsx</a></td><td>—</td><td>8 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Fiches-signalement-4eB-octobre.xlsx' download>Fiches-signalement-4eB-octobre.xlsx</a></td><td>—</td><td>6 Ko</td><td></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Liste-sortie-Opera-3eA.xlsx' download>Liste-sortie-Opera-3eA.xlsx</a></td><td>—</td><td>6 Ko</td><td></td></tr>
-<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/CR-equipe-educative-4eB-2026-10-14.docx' download>CR-equipe-educative-4eB-2026-10-14.docx</a></td><td>—</td><td>38 Ko</td><td></td></tr>
-<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a> <small>(ressource commune)</small></td><td>—</td><td>60 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-recette-atelier-00.xlsx' download>gabarit-recette-atelier-00.xlsx</a> <small>(gabarit du livrable)</small></td><td>—</td><td>12 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<h2>4 documents fictifs à anonymiser</h2>
+<p class='intro'>Toutes les personnes sont inventées. Les pièges ne sont pas signalés : à vous de les trouver. Les pièces marquées <span class='bz'>BRONZE</span> composent le dossier Bronze.</p>
+<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Taille</th><th>Niveau</th></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Compte-rendu-reunion-5eC.docx' download>Compte-rendu-reunion-5eC.docx</a></td><td>38 Ko</td><td></td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/Courriel-parent-SOW.pdf' download>Courriel-parent-SOW.pdf</a></td><td>35 Ko</td><td></td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Lettre-famille-HADDAD.docx' download>Lettre-famille-HADDAD.docx</a></td><td>37 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Liste-5eC.xlsx' download>Liste-5eC.xlsx</a></td><td>6 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-recette-atelier-00.xlsx' download>gabarit-recette-atelier-00.xlsx</a> <small>(gabarit)</small></td><td>9 Ko</td><td><span class="bz">BRONZE</span></td></tr>
 </table></div>
 </div></section>
 </main>
@@ -480,7 +304,7 @@ if(id){clearInterval(id);id=null;btn.textContent='Reprendre';return}
 btn.textContent='Pause';id=setInterval(function(){left--;disp.textContent=fmt(left);disp.classList.toggle('over',left<0)},1000);});
 });
 // Autocontrôle
-var items=["Chacun des sept points du référent RGPD correspond à une exigence numérotée.", "Ma consigne couvre les 9 points de la liste de vérification.", "L'IA a proposé un plan sans code que j'ai validé avant la fabrication.", "Mon outil fonctionne Wi-Fi coupé (test T-01).", "Aucun nom, téléphone ni courriel ne reste dans le fichier codé : j'ai cherché moi-même.", "La colonne de santé n'est pas dans le fichier destiné à l'IA.", "La table enregistrée est illisible dans le Bloc-notes, et une mauvaise clé est refusée.", "Mon outil a été testé par quelqu'un d'autre (ou à froid), avec la recette.", "Chaque test non conforme a donné lieu à une correction notée dans le journal.", "Après mes corrections, les tests bloquants passent toujours (non-régression).", "J'ai relu le fichier codé avant de le donner à l'IA, et je n'ai jamais donné la table ni la clé."];
+var items=["J'ai noté dans l'onglet 1 ce qui identifie quelqu'un dans chaque document, avec CODER ou SUPPRIMER.", "Ma consigne contient les 6 points, et je n'ai joint aucun document à l'IA pour fabriquer l'outil.", "Mon outil fonctionne Wi-Fi coupé.", "La table de correspondance est dans un dossier à part et n'a jamais été envoyée à l'IA.", "Mon voisin a fait les 5 tests ; ce qui a échappé a été corrigé ou noté.", "La santé et la situation familiale ont disparu des documents anonymisés.", "J'ai fait le cycle complet : document anonymisé, travail de l'IA, texte décodé avec les vrais noms.", "J'ai noté une idée de logiciel maison."];
 var KEY='atelier00-autocontrole',state={};
 try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}}
 var box=document.getElementById('checklist'),msg=document.getElementById('checkmsg');
@@ -489,6 +313,28 @@ box.innerHTML='<b>'+n+' / '+items.length+' points vérifiés</b><div class="prog
 msg.textContent=n===items.length?'Livrable prêt : passez à la restitution.':'';
 box.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){state[c.dataset.i]=c.checked;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}draw()})});}
 draw();
+})();
+</script>
+<script>
+(function(){
+var IDEAS=[["Générateur d'attestations", "Choisir un élève, l'attestation de scolarité se remplit et s'imprime."], ["Planning des salles", "Voir qui occupe quelle salle et repérer les conflits de réservation."], ["Suivi des prêts de clés", "Qui a emprunté quelle clé, depuis quand, et les retards."], ["Convocations en série", "À partir d'une liste, préparer toutes les convocations d'une réunion."], ["Check-list de rentrée", "Les tâches de la rentrée, cochées au fur et à mesure, avec les échéances."], ["Minuteur de réunion", "Un ordre du jour avec le temps de chaque point, affiché à l'écran."], ["Calculateur de frais de sortie", "Coût par élève d'une sortie selon le car, les entrées et les accompagnateurs."], ["Quiz RGPD du service", "Dix questions pour vérifier les bons réflexes avant d'utiliser l'IA."]];
+var box=document.getElementById('ideas');
+box.innerHTML=IDEAS.map(function(x,i){return '<button class="idea" type="button" data-i="'+i+'"><b>'+x[0]+'</b><span>'+x[1]+'</span></button>'}).join('');
+var F=['m-nom','m-pb','m-qui','m-quoi','m-donnees','m-jamais'],K='atelier00-logiciel-maison';
+function $(id){return document.getElementById(id)}
+function save(){var o={};F.forEach(function(f){o[f]=$(f).value});o.perso=$('m-perso').checked;try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}}
+try{var o=JSON.parse(localStorage.getItem(K)||'{}');F.forEach(function(f){if(o[f])$(f).value=o[f]});$('m-perso').checked=!!o.perso}catch(e){}
+F.forEach(function(f){$(f).addEventListener('input',save)});$('m-perso').addEventListener('change',save);
+box.querySelectorAll('.idea').forEach(function(b){b.addEventListener('click',function(){var x=IDEAS[+b.dataset.i];$('m-nom').value=x[0];$('m-quoi').value=x[1];save();$('m-pb').focus()})});
+$('m-gen').addEventListener('click',function(){
+ var v=function(f,d){return $(f).value.trim()||d};
+ var t='Je travaille dans un établissement scolaire et je ne sais pas programmer. Je voudrais un petit logiciel maison : « '+v('m-nom','[nom]')+' ».\n\n'+
+ 'Le problème : '+v('m-pb','[le problème]')+'\nQui l\'utilise : '+v('m-qui','[qui]')+'\nCe qu\'il doit faire : '+v('m-quoi','[étapes]')+'\nLes données qu\'il manipule : '+v('m-donnees','[données]')+'\n';
+ if($('m-perso').checked) t+='Ces données sont personnelles : le logiciel fonctionne entièrement hors connexion, n\'envoie rien et ne garde rien en ligne.\n';
+ t+='Ce qu\'il ne doit jamais faire : '+v('m-jamais','[interdits]')+'\n\nForme : un seul fichier HTML, en français, qui s\'ouvre dans le navigateur sans installation.\n'+
+ 'Méthode : propose-moi d\'abord un plan (écrans, données, ce que fait chaque bouton) sans code, et attends ma validation. Ensuite construis-le, puis donne-moi 5 tests pour le vérifier et dis-moi ce qu\'il ne sait pas faire.';
+ $('m-out').textContent=t;$('m-out').hidden=false;$('m-copy').hidden=false;save();});
+$('m-raz').addEventListener('click',function(){F.forEach(function(f){$(f).value=''});$('m-perso').checked=false;$('m-out').hidden=true;$('m-copy').hidden=true;try{localStorage.removeItem(K)}catch(e){}});
 })();
 </script>
 </body>

@@ -10,7 +10,7 @@ Contenu élaboré avec l'outil d'IA Claude (Anthropic).
 
 ## Contenu
 
-- 10 ateliers (9 + 1 grand défi, dont un atelier d'ouverture et un parcours au choix le jour 2), 216 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
+- 10 ateliers (9 + 1 grand défi, dont un atelier d'ouverture et un parcours au choix le jour 2), 212 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
 - un établissement fictif unique : le Lycée français international Marie-Curie de Valmont (EGD de l'AEFE) — voir `ressources/contexte-etablissement-LFI-Marie-Curie.pdf` ;
 - trois niveaux de difficulté par atelier ; un logiciel de démonstration (`ateliers/02-computer-use/dossier/logiciel/reservequip.html`) ; un outil de pseudonymisation hors ligne de référence (`ateliers/00-pseudonymisation/outil/pseudonymiseur-hors-ligne.html`) ;
 - une banque de prompts (`ressources/banque-de-prompts.pdf` et `.md`) et un passeport de compétences.
@@ -21,7 +21,7 @@ Les corrigés, le manifeste des anomalies, les cartes surprise et le guide forma
 
 ## Ateliers
 
-- `00-pseudonymisation` — Je fabrique mon outil de pseudonymisation (8 pièces, ouverture, sans prompt fourni)
+- `00-pseudonymisation` — Je fais fabriquer mon outil d'anonymisation (4 pièces, ouverture)
 - `01-radar-contrats` — Radar contrats (37 pièces)
 - `02-computer-use` — L'IA prend mon ordinateur en main (18 pièces)
 - `03-passation` — Passation du savoir-faire du service (25 pièces)
