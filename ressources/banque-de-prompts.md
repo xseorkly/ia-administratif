@@ -1,6 +1,6 @@
 # Banque de prompts – IA administrative 2.0
 
-Ces prompts sont des points de départ : adaptez-les à votre situation et vérifiez toujours le résultat sur les pièces. L'atelier 08 se fait sans prompt fourni.
+Ces prompts sont des points de départ : adaptez-les à votre situation et vérifiez toujours le résultat sur les pièces. L'atelier 09 se fait sans prompt fourni.
 
 ## Avant de lancer un agent
 
@@ -34,11 +34,17 @@ Ces prompts sont des points de départ : adaptez-les à votre situation et véri
 
 > À chaque exécution, compare la source à l'état précédent. N'alerte que selon les règles fournies. Si rien de significatif n'a changé, écris seulement « aucun changement significatif ». Ne contacte personne.
 
-## Créer une application (atelier 06)
+## Faire construire un outil dans Excel (atelier 06)
+
+> Avant d'écrire du code, analyse le classeur : décris chaque onglet et liste les anomalies (onglet, ligne, motif), en faisant les comptes avec du code.
+
+> Propose-moi d'abord le plan de la fenêtre (onglets, boutons, ce que fait chacun) et pose-moi tes questions. Les courriels sont préparés en brouillon, notés dans un journal, et aucun n'est préparé deux fois.
+
+## Créer une application (atelier 07)
 
 > Avant d'écrire du code, propose : écrans, modèle de données, contrôles à l'import et messages d'erreur, stockage des données. N'ignore aucune ligne sans la signaler.
 
-## Coordonner plusieurs agents (atelier 07)
+## Coordonner plusieurs agents (atelier 08)
 
 > Analyse uniquement les pièces de ton périmètre. Distingue engagé (bon de commande signé), envisagé (devis non signé) et non approuvé. Présente tes résultats dans le format commun : confirmé / bloquant / contradictions / décisions.
 

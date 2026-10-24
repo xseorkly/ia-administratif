@@ -4,7 +4,7 @@ Site statique de la formation de niveau 2 « IA administrative » destinée aux 
 
 ## Contenu
 
-- 9 ateliers (8 + 1 grand défi, dont un atelier d'ouverture et un parcours au choix le jour 2), 206 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
+- 10 ateliers (9 + 1 grand défi, dont un atelier d'ouverture et un parcours au choix le jour 2), 216 pièces professionnelles fictives (PDF natifs et scannés, Word, Excel, courriels imprimés en PDF, agenda .ics, photo) ;
 - un établissement fictif unique : le Lycée français international Marie-Curie de Valmont (EGD de l'AEFE) — voir `ressources/contexte-etablissement-LFI-Marie-Curie.pdf` ;
 - trois niveaux de difficulté par atelier ; un logiciel de démonstration (`ateliers/02-computer-use/dossier/logiciel/reservequip.html`) ; un outil de pseudonymisation hors ligne de référence (`ateliers/00-pseudonymisation/outil/pseudonymiseur-hors-ligne.html`) ;
 - une banque de prompts (`ressources/banque-de-prompts.pdf` et `.md`) et un passeport de compétences.
@@ -21,9 +21,10 @@ Les corrigés, le manifeste des anomalies, les cartes surprise et le guide forma
 - `03-passation` — Passation du savoir-faire du service (25 pièces)
 - `04-assistant-metier` — Je fabrique mon assistant métier (26 pièces)
 - `05-automatisation` — Mon agent travaille sans moi (20 pièces)
-- `06-application` — Je crée mon logiciel administratif (20 pièces)
-- `07-grand-defi` — Grand défi · Horizon 2030 (32 pièces)
-- `08-conseil-etablissement` — Je prépare le conseil d'établissement (20 pièces)
+- `06-pilotage-excel` — Je fais construire ma fenêtre de pilotage dans Excel (10 pièces)
+- `07-application` — Je crée mon logiciel administratif (20 pièces)
+- `08-grand-defi` — Grand défi · Horizon 2030 (32 pièces)
+- `09-conseil-etablissement` — Je prépare le conseil d'établissement (20 pièces)
 
 ## Déploiement
 
