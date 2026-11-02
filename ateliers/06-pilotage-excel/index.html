@@ -5,7 +5,7 @@
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width,initial-scale=1'>
 <title>Atelier 06 · Je fais construire ma fenêtre de pilotage dans Excel – IA administrative 2.0</title>
-<meta name='description' content="Le DAF veut que le classeur des achats devienne un outil. Faites écrire par l'IA une fenêtre de pilotage en VBA qui contrôle les données, compare les devis et prépare les rappels J-7, J-4, J-3, J-1… sans jamais écrire au mauvais fournisseur.">
+<meta name='description' content="Faites écrire par l'IA une petite fenêtre VBA qui analyse le classeur des achats : contrôle des données, dépenses par rapport au budget, rappels du jour… en respectant les règles cachées dans les courriels.">
 <style>
 :root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#5d6b7b;--teal:#078879;--line:#dce4e4;--warn:#fff7e0;--warnb:#c49317;--ok:#e7f6ec;--okb:#2f8a52;--stop:#fdeceb;--stopb:#b23a2a}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -16,502 +16,378 @@ nav{display:flex;flex-wrap:wrap;gap:19px;font-size:13px;font-weight:700}nav a{te
 .brand{font-size:16px;font-weight:900;text-decoration:none}.brand span{color:var(--teal)}
 .hero{background:var(--navy);color:white;padding:80px 0 70px}
 .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#008f7f}.hero .eyebrow{color:var(--mint)}
-h1,h2,h3{line-height:1.13;letter-spacing:-.04em}h1{font-size:clamp(43px,6vw,76px);max-width:850px;margin:18px 0}
+h1,h2,h3{line-height:1.13;letter-spacing:-.04em}h1{font-size:clamp(40px,6vw,70px);max-width:850px;margin:18px 0}
 h2{font-size:clamp(30px,4vw,46px);margin:12px 0 18px}h3{font-size:22px;margin:8px 0}h4{font-size:15px;margin:18px 0 6px}
 p{max-width:820px}.lead{font-size:19px;color:#c6d3e2;max-width:780px}
 .btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:var(--mint);color:var(--navy);margin:8px 8px 0 0}
 .ghost{background:transparent;color:white;border:1px solid #75879e}.btn.dark{background:var(--navy);color:#fff}
-.section{padding:75px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
-.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px}.card p,.card li{font-size:14.5px;color:var(--gray)}
+.section{padding:70px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px}.card p,.card li{font-size:15px;color:var(--gray)}
 .card .num{font-size:11px;font-weight:900;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
 .crumbs{font-size:13px;margin-bottom:10px}.crumbs a{color:var(--mint)}
-.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#2b3a52;border-radius:14px;overflow:hidden;margin-top:38px}
-.summary div{background:#16243c;padding:16px}.summary b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:4px}.summary span{font-size:14.5px;color:#e4ecf3}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2b3a52;border-radius:14px;overflow:hidden;margin-top:38px}
+.summary div{background:#16243c;padding:16px}.summary b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:4px}.summary span{font-size:15px;color:#e4ecf3}
 .note{background:var(--warn);border-left:4px solid var(--warnb);padding:14px 18px;border-radius:6px;font-size:15px;margin:18px 0;max-width:900px}
 .note.ok{background:var(--ok);border-color:var(--okb)}.note.stop{background:var(--stop);border-color:var(--stopb)}
-.who{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}.who td,.who th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.who th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0 0}.tabs button{border:1px solid #dbe3e4;border-radius:10px 10px 0 0;padding:11px 16px;background:white;font-weight:800;font-size:14px}.tabs button.active{background:var(--navy);color:white;border-color:var(--navy)}
-.panel{border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:22px 24px;background:#fff}.panel[hidden]{display:none}.panel ol li,.panel ul li{margin:6px 0}
-.levels .card h3{font-size:20px}.lvl-bronze{border-top:5px solid #b07a4a}.lvl-argent{border-top:5px solid #98a4ad}.lvl-or{border-top:5px solid #d4a514}
-.levels .card ul{padding-left:18px;margin:8px 0}.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:20px;padding:2px 9px;background:#efe2d4;color:#7b4f25;margin-left:6px}
-.step{border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:18px 0;background:#fff;position:relative}
+.who{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}.who td,.who th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.who th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.step{border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;background:#fff}
 .step-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
 .step-num{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--teal)}.step h3{margin:4px 0 2px}
-.step .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:10px}.step .cols h4{margin-top:6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.step ul{padding-left:18px;margin:6px 0}.step li{margin:5px 0;font-size:15px}.step.done{opacity:.6}
+.step ol,.step ul{padding-left:20px}.step li{margin:7px 0}
 .timer{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.timer button{border:1px solid var(--line);background:var(--light);border-radius:8px;padding:6px 12px;font-weight:800;font-size:13px}
 .timer .t{font-weight:900;font-size:18px;min-width:56px;text-align:right}.timer .t.over{color:var(--stopb)}
-.success{background:var(--ok);border-radius:10px;padding:10px 14px;font-size:14.5px;margin-top:12px}.success b{color:var(--okb)}
-pre.prompt,pre.tpl{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:18px;border-radius:10px;font-size:13.5px;margin:10px 0 6px}
+.success{background:var(--ok);border-radius:10px;padding:10px 14px;font-size:15px;margin-top:14px}.success b{color:var(--okb)}
+pre.prompt,pre.tpl{white-space:pre-wrap;background:var(--navy);color:#e1fbe7;padding:18px;border-radius:10px;font-size:13.5px;margin:10px 0 6px;font-family:ui-monospace,Consolas,monospace}
 pre.tpl{background:#f0f4f2;color:var(--navy);border:1px dashed #9fb1b3}
+pre.prompt mark{background:#cafd7033;color:var(--mint);border-radius:3px;padding:0 2px}
 .copy{border:0;background:var(--mint);border-radius:8px;padding:8px 13px;font-weight:800;font-size:13px}
 details{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:10px 0;background:#fff}details summary{font-weight:800;cursor:pointer}
-details details{margin:8px 0 0;background:var(--light)}details details summary{font-weight:700;font-size:14.5px}details p{margin:8px 0;font-size:15px}
-dl.glos{display:grid;grid-template-columns:220px 1fr;gap:0;border-top:1px solid var(--line)}dl.glos dt,dl.glos dd{margin:0;padding:11px 8px;border-bottom:1px solid var(--line)}dl.glos dt{font-weight:800}dl.glos dd{color:var(--gray);font-size:15px}
-.cols-table{width:100%;border-collapse:collapse;font-size:14.5px}.cols-table td,.cols-table th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.cols-table th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}.cols-table td:first-child{font-weight:800;white-space:nowrap}
-.check label{display:flex;gap:10px;align-items:flex-start;padding:11px 6px;border-bottom:1px solid var(--line);font-size:15px}.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--teal);flex:none}
-.progress{height:9px;background:#e6eded;border-radius:10px;overflow:hidden;margin:10px 0}.progress span{background:var(--teal);height:100%;display:block;transition:width .2s}
+details details{margin:8px 0 0;background:var(--light)}details details summary{font-weight:700;font-size:14.5px}details p,details li{margin:8px 0;font-size:15px}
+dl.glos{display:grid;grid-template-columns:200px 1fr;gap:0;border-top:1px solid var(--line)}dl.glos dt,dl.glos dd{margin:0;padding:11px 8px;border-bottom:1px solid var(--line)}dl.glos dt{font-weight:800}dl.glos dd{color:var(--gray);font-size:15px}
+kbd{border:1px solid #b9c4c6;border-bottom-width:2px;border-radius:5px;padding:0 6px;font-size:13px;background:#fff;font-family:inherit}
+code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}
 .files{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}.files td,.files th{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}.files th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.files .t{font-size:11px;font-weight:900;color:#fff;background:#5b6670;border-radius:4px;padding:2px 6px}.t.pdf{background:#b23a2a}.t.docx{background:#2b5797}.t.xlsx{background:#1d7044}.t.eml{background:#7a4b9a}.t.ics{background:#b06a10}
-.files td:nth-child(2){overflow-wrap:anywhere}.tw{overflow-x:auto}.bz{font-size:10.5px;font-weight:900;color:#7b4f25;background:#efe2d4;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.files .t{font-size:11px;font-weight:900;color:#fff;background:#5b6670;border-radius:4px;padding:2px 6px}.t.pdf{background:#b23a2a}.t.docx{background:#2b5797}.t.xlsx{background:#1d7044}.t.eml{background:#7a4b9a}
+.files td:nth-child(2){overflow-wrap:anywhere}.tw{overflow-x:auto}
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.toc a{font-size:13px;font-weight:700;text-decoration:none;border:1px solid #3a4a63;color:#dbe6ef;border-radius:20px;padding:5px 12px}
+/* Maquette de la fenêtre */
+.mock{max-width:620px;margin:22px 0;border:1px solid #9aa7b0;border-radius:8px;background:#f0f0f0;box-shadow:0 12px 30px #10203018;font:13px "Segoe UI",system-ui,sans-serif}
+.mock .bar{background:#fff;border-bottom:1px solid #c9d0d4;padding:7px 10px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;font-weight:600}
+.mock .bar span:last-child{color:#888;letter-spacing:4px}
+.mock .body{padding:14px}.mock .date{margin-bottom:10px}.mock .date b{background:#fff;border:1px solid #c9d0d4;padding:2px 8px;margin-left:4px}
+.mock .btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.mock .btns span{background:#e1e1e1;border:1px solid #adadad;padding:6px 14px;border-radius:2px}
+.mock .res{background:#fff;border:1px solid #adadad;height:118px;padding:8px 10px;font-family:Consolas,monospace;font-size:12px;color:#333;overflow:hidden;line-height:1.5}
+.mock .close{text-align:right;margin-top:10px}.mock .close span{background:#e1e1e1;border:1px solid #adadad;padding:5px 16px}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0 0}
+.legend div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14.5px;color:var(--gray)}.legend b{display:block;color:var(--navy);font-size:15.5px;margin-bottom:3px}
+/* Fiche des règles */
+.fiche label{display:block;font-weight:700;margin:16px 0 5px}.fiche small{display:block;font-weight:400;color:var(--gray);font-size:13.5px}
+.fiche textarea{width:100%;min-height:52px;border:1px solid #b9c7c9;border-radius:8px;padding:9px 11px;font:15px/1.4 inherit;resize:vertical}
+.fiche textarea:focus{outline:2px solid var(--teal);border-color:transparent}
+/* Tests */
+.tests{width:100%;border-collapse:collapse;font-size:15px}.tests td,.tests th{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}.tests th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.tests td:first-child{font-weight:900;white-space:nowrap}.tests select,.tests input{font:inherit;font-size:14px;border:1px solid #b9c7c9;border-radius:6px;padding:5px 7px;width:100%}
+.tests select.ok{background:var(--ok);border-color:var(--okb)}.tests select.ko{background:var(--stop);border-color:var(--stopb)}
+.days{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.days span{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:14.5px}.days b{color:var(--teal)}
 footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
-@media(max-width:850px){.summary{grid-template-columns:repeat(2,1fr)}.step .cols{grid-template-columns:1fr}}
-@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}header .wrap{display:block}nav{margin-top:8px}dl.glos{grid-template-columns:1fr}dl.glos dt{border-bottom:0;padding-bottom:0}}
-@media(max-width:550px){.wrap{padding:0 16px}.grid,.grid2,.summary{grid-template-columns:1fr}.section{padding:55px 0}.files td:nth-child(3),.files th:nth-child(3){display:none}.who td:nth-child(3),.who th:nth-child(3){display:none}}
+@media(max-width:850px){.legend{grid-template-columns:1fr}}
+@media(max-width:750px){header .wrap{display:block}nav{margin-top:8px}dl.glos{grid-template-columns:1fr}dl.glos dt{border-bottom:0;padding-bottom:0}}
+@media(max-width:600px){.wrap{padding:0 16px}.grid2,.summary{grid-template-columns:1fr}.section{padding:50px 0}.files td:nth-child(3),.files th:nth-child(3){display:none}.tests td:nth-child(4),.tests th:nth-child(4){display:none}}
 @media print{header,.timer,.copy,.toc,.btn{display:none!important}.hero{background:#fff;color:var(--navy);padding:20px 0}.summary div{background:#fff}.summary span{color:var(--navy)}details{break-inside:avoid}details:not([open]) > *:not(summary){display:none}}
-.credits{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding-bottom:18px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}.credits .logos{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.credits .logos img{height:84px;width:auto;display:block;border-radius:4px}.credits p{margin:0;flex:1 1 300px;min-width:0;color:#e6eef3;font-size:14px;line-height:1.55}.credits b{color:#fff}.hero-logos{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:26px}.hero-logos img{height:84px;width:auto;display:block;border-radius:4px}</style>
-<style>code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}</style>
+.credits{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding-bottom:18px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}.credits .logos{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.credits .logos img{height:84px;width:auto;display:block;border-radius:4px}.credits p{margin:0;flex:1 1 300px;min-width:0;color:#e6eef3;font-size:14px;line-height:1.55}.credits b{color:#fff}
+</style>
 </head>
 <body>
 <header><div class='wrap'><a class='brand' href='../../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../../index.html#nouveautes'>Nouveautés</a><a href='../../index.html#programme'>Programme</a><a href='../../index.html#ateliers'>Ateliers</a><a href='../../index.html#ressources'>Ressources</a><a href='../../index.html#formateur'>Formateur</a></nav></div></header>
 <main>
 
 <!-- ============ EN-TÊTE ============ -->
-
 <section class='hero'><div class='wrap'>
 <div class='crumbs'><a href='../../index.html#ateliers'>← Tous les ateliers</a> · <a href='../../dossiers.html'>Toutes les mallettes</a></div>
 <div class='eyebrow'>Atelier 06 · Macros Excel · 90 min · en binôme</div>
 <h1>Je fais construire ma fenêtre de pilotage dans Excel</h1>
-<p class='lead'>Le DAF ne veut pas de nouveau logiciel : il veut que le classeur des achats devienne un outil. Vous allez faire écrire par l'IA une fenêtre de pilotage qui s'ouvre dans Excel, contrôle les données, compare les devis et prépare les rappels aux fournisseurs… sans jamais écrire à celui qu'il ne fallait pas.</p>
-<a class='btn' href='#demarrer'>Commencer l'atelier ↓</a>
-<a class='btn ghost' href='#pieces'>Voir les pièces ↓</a>
+<p class='lead'>Le DAF veut que le classeur des achats s'analyse en un clic, sans nouveau logiciel. Vous allez faire écrire par l'IA une petite fenêtre qui s'ouvre dans Excel et qui fait trois choses : contrôler les données, comparer les dépenses au budget, lister les rappels du jour.</p>
+<a class='btn' href='#etapes'>Commencer l'atelier ↓</a>
+<a class='btn ghost' href='#pieces'>Télécharger le dossier ↓</a>
 <div class='summary'>
-<div><b>Votre rôle</b><span>Secrétariat de direction, maître d'ouvrage de l'outil : vous décrivez, l'IA code</span></div>
-<div><b>Votre mission</b><span>Un classeur .xlsm avec sa fenêtre de pilotage, conforme à la note du DAF</span></div>
-<div><b>La difficulté</b><span>Un prompt complet, des données imparfaites, des règles cachées dans les courriels</span></div>
-<div><b>Vous rendez</b><span>Classeur .xlsm · prompt final · exigences · recette · anomalies</span></div>
-<div><b>Votre outil</b><span>Claude ou ChatGPT avec analyse de fichiers ; Excel et Outlook classique sous Windows</span></div>
+<div><b>Votre rôle</b><span>Vous décrivez, l'IA écrit le code. Vous ne programmez pas.</span></div>
+<div><b>Vous rendez</b><span>Le classeur .xlsm avec sa fenêtre, et votre bilan (fiche + tests)</span></div>
+<div><b>Il vous faut</b><span>Claude ou ChatGPT · Excel sous Windows</span></div>
 </div>
-
-<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#objectifs'>2 · Objectifs</a><a href='#demarrer'>3 · Démarrer</a><a href='#niveaux'>4 · Niveau</a><a href='#mission'>5 · Mission</a><a href='#livrable'>6 · Livrable</a><a href='#glossaire'>Glossaire</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
+<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · La situation</a><a href='#outil'>2 · L'outil à obtenir</a><a href='#etapes'>3 · Les 4 étapes</a><a href='#plus'>Pour aller plus loin</a><a href='#aide'>Coups de pouce</a><a href='#pieces'>Le dossier</a></nav>
 </div></section>
 
 <!-- ============ 1. SITUATION ============ -->
-
 <section class='section' id='situation'><div class='wrap'>
 <div class='eyebrow'>1 · La situation</div>
+<h2>Lundi 19 octobre 2026, LFI Marie-Curie de Valmont</h2>
+<p class='intro'>Tout le suivi des achats tient dans un classeur Excel, <b>Suivi-achats-2026</b> : les fournisseurs, 240 commandes, le budget des services et les échéances à surveiller. Tout se fait à la main. Le DAF, Patrice Aubertin, a écrit une note : il veut une <b>fenêtre de pilotage</b> qui s'ouvre avec le classeur.</p>
+<p>Excel sait le faire avec ses macros (le langage VBA). L'IA peut écrire ce code, à condition que vous lui disiez <b>précisément</b> ce que vous voulez et <b>quelles règles</b> respecter. Et justement, certaines règles ne sont pas dans la note du DAF : elles sont dans des courriels reçus ce matin.</p>
 
-<h2>Lundi 19 octobre 2026, 14 h, LFI Marie-Curie de Valmont</h2>
-<p class='intro'>Le suivi des achats tient dans un seul classeur, <b>Suivi-achats-2026</b>, qu'Elena Varga met à jour depuis deux ans : fournisseurs, 240 commandes, devis, budget des services, échéances. Tout s'y fait à la main. Chaque mois, le DAF refait ses synthèses ; chaque semaine, quelqu'un doit penser à relancer un fournisseur dont le devis expire.</p>
-<p>Patrice Aubertin a écrit ce qu'il attend : une <b>fenêtre de pilotage</b> qui s'ouvre avec le classeur, dans Excel, sans nouveau logiciel. Excel sait le faire depuis longtemps avec ses macros (le langage VBA). Ce qui manquait, c'est quelqu'un pour écrire le code. L'IA peut l'écrire, à condition qu'on sache lui décrire précisément le besoin, les données et les règles.</p>
-<p>Vous ne programmez pas. Vous êtes le <b>maître d'ouvrage</b> : vous rassemblez les exigences, vous écrivez le prompt, vous installez ce que l'IA livre, vous testez et vous faites corriger.</p>
-<div class='note stop'><b>Pourquoi c'est important.</b> Une macro qui envoie des courriels agit au nom de l'établissement. Un rappel envoyé à un fournisseur en litige, une relance de paiement écrite par le secrétariat ou un devis comparé en couronnes comme s'il était en euros, et l'outil crée le problème qu'il devait éviter. Les règles qui comptent ne sont pas toutes dans la note du DAF.</div>
-
-<h3>Qui est qui dans ce dossier</h3>
-<div class='tw'>
 <table class='who'>
-<tr><th>Personne</th><th>Fonction</th><th>Ce qu'il faut savoir pour l'atelier</th></tr>
-<tr><td>Patrice Aubertin</td><td>DAF</td><td>Commanditaire. Sa note décrit l'outil ; il a précisé deux points par courriel. Il relit et envoie lui-même chaque courriel.</td></tr>
-<tr><td>Elena Varga</td><td>Secrétaire de gestion</td><td>Elle tient le classeur. Son courriel dit honnêtement ce qu'il contient.</td></tr>
-<tr><td>Sophie Lanvin</td><td>Agente comptable</td><td>Elle fixe ce que le secrétariat a le droit d'écrire aux fournisseurs.</td></tr>
-<tr><td>Julien Castel</td><td>Responsable informatique</td><td>Il dit ce qui est installé et autorisé sur les postes du service.</td></tr>
-<tr><td>Marc Duval</td><td>Référent RGPD</td><td>Il a rendu un avis sur ce qu'on peut montrer à une IA.</td></tr>
-<tr><td>Dragan Petrović</td><td>Chef d'équipe maintenance</td><td>Son équipe réceptionne et monte le mobilier livré.</td></tr>
-<tr><td><b>Vous</b></td><td>Secrétariat de direction</td><td>Vous livrez un outil testé sur le classeur fictif. Rien n'est envoyé à un vrai fournisseur.</td></tr>
-</table></div>
-<p><a class='btn dark' href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>Dossier de contexte de l'établissement ↗</a> <small style='color:var(--gray)'>Délégations de signature, taux de chancellerie, outils du service. Il est inclus dans les archives.</small></p>
-<div class='note'><b>Avant tout : la protection des données.</b> Le classeur contient le nom, l'adresse et le téléphone des interlocuteurs des fournisseurs. Ce sont des données personnelles. Avant de le joindre à une IA, passez ces colonnes dans le pseudonymiseur que vous avez fabriqué à l'<a href='../00-pseudonymisation/index.html'>atelier 00</a>, ou supprimez-les dans une copie. L'IA n'a besoin que de la structure du classeur pour écrire le code ; le code s'exécutera ensuite sur le vrai fichier, sur votre poste.</div>
+<tr><th>Personne</th><th>Ce qu'il faut savoir</th></tr>
+<tr><td><b>Patrice Aubertin</b>, DAF</td><td>Il demande l'outil (sa note) et a ajouté une précision par courriel.</td></tr>
+<tr><td><b>Sophie Lanvin</b>, agente comptable</td><td>Elle dit ce que le secrétariat n'a pas le droit d'écrire aux fournisseurs.</td></tr>
+<tr><td><b>Elena Varga</b>, secrétaire de gestion</td><td>Elle tient le classeur et prévient : il n'est pas parfait.</td></tr>
+<tr><td><b>Julien Castel</b>, informatique</td><td>Il dit ce qui est autorisé sur les ordinateurs du service.</td></tr>
+</table>
+
+<div class='note'><b>Protection des données.</b> L'onglet Fournisseurs contient des noms, des adresses et des téléphones. Avant de donner le classeur à l'IA, faites-en une <b>copie</b> et pseudonymisez les colonnes Contact, Mail et Téléphone avec l'outil de l'<a href='../00-pseudonymisation/index.html'>atelier 00</a> (ou remplacez-les par des valeurs fictives). L'IA a seulement besoin de voir comment le classeur est organisé. Le code fonctionnera ensuite sur le vrai fichier, sur votre ordinateur.</div>
 </div></section>
 
-<!-- ============ 2. OBJECTIFS ============ -->
+<!-- ============ 2. L'OUTIL ============ -->
+<section class='section alt' id='outil'><div class='wrap'>
+<div class='eyebrow'>2 · Ce que vous allez obtenir</div>
+<h2>Une fenêtre, trois boutons</h2>
+<p class='intro'>Voici à quoi ressemblera votre outil. Il ne modifie rien, ne supprime rien et n'envoie rien : il <b>analyse</b> et il <b>affiche</b>.</p>
 
-<section class='section alt' id='objectifs'><div class='wrap'>
-<div class='eyebrow'>2 · Ce que vous allez apprendre</div>
+<div class='mock' aria-label='Maquette de la fenêtre de pilotage'>
+<div class='bar'><span>Pilotage des achats</span><span>✕</span></div>
+<div class='body'>
+<div class='date'>Date du jour utilisée : <b>19/10/2026</b></div>
+<div class='btns'><span>Contrôler</span><span>Analyser</span><span>Rappels du jour</span></div>
+<div class='res'>RAPPELS À PRÉPARER LE 19/10/2026<br>E.. · Fournisseur · Objet · J-.. · mail · copie<br>E.. · …<br><br>ÉCHÉANCES DÉPASSÉES<br>E.. · …</div>
+<div class='close'><span>Fermer</span></div>
+</div></div>
 
-<h2>Les objectifs de l'atelier</h2>
-<p class='intro'>À l'atelier 05, l'agent travaillait seul dans l'outil d'IA. Ici, l'IA vous livre un outil qui travaillera <b>dans Excel</b>, sur le poste du service, sans elle. Tout ce qui n'est pas dans votre prompt ne sera pas dans l'outil.</p>
-<div class='grid'>
-<div class='card'><div class='num'>À la fin, vous saurez…</div><ul>
-<li>rassembler les exigences d'un outil, y compris celles qui ne sont écrites que dans un <b>courriel</b> ;</li>
-<li>faire <b>analyser</b> des données par l'IA avant de lui faire écrire du code ;</li>
-<li>écrire un <b>prompt de construction</b> complet : données, fonctions, règles, sécurité, contraintes, format ;</li>
-<li>installer et lancer un code VBA <b>sans le modifier vous-même</b> ;</li>
-<li>conduire une <b>recette</b> et faire corriger par le dialogue ;</li>
-<li>garder la main : brouillons, journal, sauvegarde, envoi test sur soi.</li></ul></div>
-<div class='card'><div class='num'>Outils et fonctions utilisés</div><ul>
-<li><b>Claude</b> ou <b>ChatGPT</b>, avec analyse de fichiers (l'IA lit le classeur avec du code) ;</li>
-<li>un <b>projet</b> pour garder la note du DAF et les courriels sous la main ;</li>
-<li><b>Excel sous Windows</b> : classeur .xlsm, éditeur VBA (<kbd>Alt</kbd>+<kbd>F11</kbd>), tableaux croisés dynamiques ;</li>
-<li><b>Outlook classique</b> pour les brouillons ; <b>tâche planifiée</b> Windows au niveau Or.</li></ul></div>
-<div class='card'><div class='num'>Compétences du passeport</div><ul>
-<li>☐ Faire construire un outil dans Excel et le vérifier</li>
-<li>☐ Protéger les données avant de les confier à l'IA</li></ul>
-<p>Vous les cocherez dans le <a href='../../index.html#passeport'>passeport d'agent IA</a> à la fin de la formation, seulement si vous les avez réellement pratiquées.</p></div>
+<div class='legend'>
+<div><b>Contrôler</b>Liste ce qui cloche dans le classeur : doublons, noms mal écrits, dates mal saisies, montants vides, adresses mail invalides.</div>
+<div><b>Analyser</b>Dépenses de chaque service par rapport à son budget, et fournisseurs qui livrent trop souvent en retard.</div>
+<div><b>Rappels du jour</b>Les échéances qui demandent un rappel aujourd'hui (7, 4, 3 ou 1 jour avant), en respectant les règles.</div>
 </div>
-<div class='note ok'><b>Aucune compétence en programmation n'est nécessaire.</b> Vous n'avez pas à lire le code. Si une erreur apparaît, vous renvoyez à l'IA le message exact et la ligne surlignée : c'est elle qui corrige.</div>
+<div class='note ok'><b>Aucune compétence en programmation n'est nécessaire.</b> Vous n'avez pas à lire le code. Si une erreur apparaît, vous recopiez le message à l'IA : c'est elle qui corrige.</div>
 </div></section>
 
-<!-- ============ 3. DÉMARRER ============ -->
+<!-- ============ 3. ÉTAPES ============ -->
+<section class='section' id='etapes'><div class='wrap'>
+<div class='eyebrow'>3 · Votre mission · 90 min</div>
+<h2>Quatre étapes, dans l'ordre</h2>
+<p class='intro'>Commencez par <a href='#pieces'>télécharger le dossier</a> et le décompresser dans un dossier à vous. Ce que vous écrivez sur cette page reste sur votre appareil.</p>
 
-<section class='section' id='demarrer'><div class='wrap'>
-<div class='eyebrow'>3 · Avant de commencer · 5 min</div>
-
-<h2>Préparez votre poste de travail</h2>
-<ol>
-<li><b>Choisissez votre niveau</b> (<a href='#niveaux'>section 4</a>) et <b>téléchargez son dossier</b>. Décompressez-le dans un dossier à vous.</li>
-<li>Ouvrez <code>Suivi-achats-2026.xlsx</code> et <b>enregistrez-le aussitôt au format .xlsm</b> (« Classeur Excel prenant en charge les macros »), dans le même dossier. Parcourez les onglets sans tout lire.</li>
-<li>Préparez une <b>copie pseudonymisée</b> du classeur pour l'IA (colonnes Contact, Mail, Téléphone de l'onglet Fournisseurs).</li>
-<li><b>Préparez votre outil</b> (onglets ci-dessous).</li>
-</ol>
-<div class='tabs' role='tablist'><button class='active' data-tab='optA' role='tab'>Claude</button><button data-tab='optB' role='tab'>ChatGPT</button><button data-tab='optC' role='tab'>Plan B</button></div>
-<div class='panel' id='optA'>
-<ol>
-<li>Créez un <b>projet</b> « Centre de pilotage achats ». Ajoutez à ses connaissances la note du DAF, les courriels, l'avis RGPD et le dossier de contexte.</li>
-<li>Vérifiez que l'<b>analyse de fichiers</b> (exécution de code) est activée : Claude doit lire le classeur avec un outil de calcul, pas « de mémoire ».</li>
-<li>Le classeur pseudonymisé sera joint dans la conversation à l'étape 2.</li>
-</ol>
-<div class='success'><b>C'est prêt quand</b> Claude, à qui vous joignez la copie pseudonymisée, vous donne le nombre de lignes de l'onglet Commandes en indiquant qu'il l'a calculé avec du code.</div>
-</div>
-<div class='panel' id='optB' hidden>
-<ol>
-<li>Créez un <b>projet</b> « Centre de pilotage achats ». Ajoutez-y la note du DAF, les courriels, l'avis RGPD et le dossier de contexte.</li>
-<li>Vérifiez que l'<b>analyse de données</b> est disponible : ChatGPT doit ouvrir le classeur avec du code.</li>
-<li>Le classeur pseudonymisé sera joint dans la conversation à l'étape 2.</li>
-</ol>
-<div class='success'><b>C'est prêt quand</b> ChatGPT vous donne le nombre de lignes de l'onglet Commandes en indiquant qu'il l'a calculé avec du code.</div>
-</div>
-<div class='panel' id='optC' hidden>
-<p><b>Pas d'Excel sous Windows</b> (Mac, Excel en ligne) : travaillez en binôme sur un poste équipé, ou faites tout jusqu'à l'étape 3 et installez sur le poste du formateur.</p>
-<p><b>Pas d'Outlook classique</b> (nouvel Outlook, messagerie web) : demandez à l'IA que les rappels et courriels soient écrits dans un onglet « Courriels à préparer » au lieu d'Outlook. Toutes les autres fonctions restent identiques.</p>
-<div class='success'><b>C'est prêt quand</b> vous savez sur quel poste vous installerez le classeur .xlsm.</div>
-</div>
-<div class='note'><b>Règle commune à tous les ateliers :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div>
-</div></section>
-
-<!-- ============ 4. NIVEAUX ============ -->
-
-<section class='section alt' id='niveaux'><div class='wrap'>
-<div class='eyebrow'>4 · Choisissez votre niveau</div>
-
-<h2>Trois niveaux, la même mission</h2>
-<p class='intro'>Les niveaux se distinguent par les fonctions de la fenêtre et par les tests de la recette (onglet 3 du gabarit).</p>
-<div class='grid levels'>
-<div class='card lvl-bronze'><div class='num'>Pour découvrir</div>
-<h3>Bronze</h3>
-<p><b>5 pièces</b> : le classeur, la note du DAF, l'avis RGPD, le dossier de contexte et le gabarit.</p>
-<p><b>Vous rendez :</b></p><ul><li>une fenêtre à deux onglets : <b>Contrôle</b> (vérifier les données) et <b>Rappels</b> (brouillons J-7, J-4, J-3, J-1 et journal) ;</li><li>vos exigences et votre prompt final ;</li><li>la recette des tests <b>bloquants</b> (R-01 à R-05).</li></ul>
-<a class='btn dark' href='dossier-atelier-06-bronze.zip' download>↧ Dossier Bronze (164 Ko)</a></div>
-<div class='card lvl-argent'><div class='num'>Le niveau de référence</div>
-<h3>Argent</h3>
-<p><b>10 pièces</b> : le dossier complet, avec les cinq courriels.</p>
-<p><b>Vous rendez :</b></p><ul><li>la fenêtre complète : contrôle et nettoyage avec sauvegarde, saisie contrôlée, tableaux croisés, comparaison des devis, alertes, rappels et publipostage ;</li><li>les anomalies du classeur repérées (onglet 4) ;</li><li>la recette des tests <b>bloquants et majeurs</b> (R-01 à R-12) ;</li><li>le journal des itérations.</li></ul>
-<a class='btn dark' href='dossier-atelier-06.zip' download>↧ Dossier complet (325 Ko)</a></div>
-<div class='card lvl-or'><div class='num'>Pour aller plus loin</div>
-<h3>Or</h3>
-<p>Le niveau Argent, et en plus :</p><ul><li>la <b>programmation quotidienne</b> des rappels par une tâche planifiée Windows, en mode brouillon ;</li><li>un bouton de <b>copie pseudonymisée</b> du classeur, avec table de correspondance séparée ;</li><li>une installation qui fonctionne <b>sur les postes du service</b>, dans les limites décrites par le responsable informatique.</li></ul>
-<a class='btn dark' href='dossier-atelier-06.zip' download>↧ Dossier complet (325 Ko)</a></div>
-</div>
-<p class='intro'>Tous les niveaux utilisent le <a href='gabarit-pilotage-atelier-06.xlsx' download><b>gabarit Excel</b></a> (exigences, grille du prompt, recette, anomalies, itérations), inclus dans les deux archives.</p>
-</div></section>
-
-<!-- ============ 5. MISSION ============ -->
-
-<section class='section' id='mission'><div class='wrap'>
-<div class='eyebrow'>5 · Votre mission · 80 min</div>
-
-<h2>Six étapes, à suivre dans l'ordre</h2>
-<p class='intro'>Chaque étape indique son but, les questions à vous poser, comment faire, et à quoi vous savez qu'elle est terminée. Le chronomètre vous aide à tenir le temps.</p>
-
+<!-- ÉTAPE 1 -->
 <div class='step' id='e1'>
-<div class='step-head'><div>
-<div class='step-num'>ÉTAPE 1 · SANS IA</div>
-<h3>Rassembler les exigences</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> savoir exactement ce que l'outil doit faire et ne pas faire, avant d'en parler à l'IA. Une règle oubliée ici sera absente de l'outil.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Lisez la <b>note du DAF</b> (une page).</li>
-<li>Lisez les <b>courriels</b> et l'<b>avis RGPD</b> (niveaux Argent et Or).</li>
-<li>Retrouvez dans le <b>dossier de contexte</b> ce que la note du DAF cite sans le détailler.</li>
-<li>Remplissez l'onglet 1 du gabarit : une exigence vérifiable par ligne, avec sa source et le test de recette lié.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>À qui l'outil a-t-il le droit d'écrire, et à qui jamais ?</li>
-<li>Quels courriels l'outil ne doit-il jamais préparer ?</li>
-<li>Quelle information du classeur n'est peut-être plus à jour ?</li>
-<li>Tous les montants sont-ils dans la même monnaie ?</li>
-<li>Quel montant fait passer une décision du DAF à la proviseure ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> chaque test bloquant de votre niveau correspond à au moins une exigence, et qu'au moins trois exigences viennent d'une autre pièce que la note du DAF (Argent et Or).</div>
+<div class='step-head'><div><div class='step-num'>ÉTAPE 1 · SANS IA</div><h3>Lire le dossier et noter les règles</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p>Lisez la <b>note du DAF</b> (une page), puis les <b>cinq courriels</b>. Ils contiennent des règles que l'outil devra respecter. Répondez ci-dessous : vos réponses seront ajoutées <b>automatiquement</b> au prompt de l'étape 3.</p>
+<div class='fiche'>
+<label for='q1'>1. Pour quel fournisseur l'outil ne doit-il préparer <u>aucun</u> rappel ? Pourquoi ?<small>Cherchez dans le courriel de l'agente comptable.</small></label>
+<textarea id='q1' data-rule placeholder='Aucun rappel pour…'></textarea>
+<label for='q2'>2. Quel type d'échéance le secrétariat n'a-t-il jamais le droit de relancer ?<small>Même courriel.</small></label>
+<textarea id='q2' data-rule placeholder='Aucun rappel pour les échéances de type…'></textarea>
+<label for='q3'>3. Qui faut-il mettre en copie des rappels, et pour quelles échéances ?<small>Cherchez dans le courriel du DAF.</small></label>
+<textarea id='q3' data-rule placeholder='Mettre … en copie des rappels concernant…'></textarea>
+<label for='q4'>4. Une date de l'onglet Échéances n'est plus à jour. Laquelle, et quelle est la bonne ?<small>Ce n'est pas à l'outil de la corriger : <b>corrigez-la vous-même</b> dans le classeur avant l'étape 4.</small></label>
+<textarea id='q4' placeholder='L&#x27;échéance … est désormais le…'></textarea>
+<label for='q5'>5. Autre règle repérée (facultatif)</label>
+<textarea id='q5' data-rule placeholder='…'></textarea>
+</div>
+<div class='success'><b>C'est terminé quand</b> vous avez répondu aux questions 1 à 4 et corrigé la date dans le classeur.</div>
 </div>
 
+<!-- ÉTAPE 2 -->
 <div class='step' id='e2'>
-<div class='step-head'><div>
-<div class='step-num'>ÉTAPE 2 · AVEC L'IA, SANS CODE</div>
-<h3>Faire analyser le classeur</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> que l'IA connaisse les données avant d'écrire du code. Un outil construit sur des données qu'elle n'a pas regardées calcule faux sans le dire.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Joignez la <b>copie pseudonymisée</b> du classeur et envoyez le <a href='#prompt'>prompt d'analyse</a>.</li>
-<li>Exigez que les comptes soient faits avec du code, onglet par onglet.</li>
-<li>Recopiez les anomalies trouvées dans l'onglet 4 du gabarit. Vérifiez-en trois vous-même dans Excel.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>L'IA a-t-elle vu les fournisseurs écrits de plusieurs façons ?</li>
-<li>A-t-elle vu les dates qui n'en sont pas pour Excel ?</li>
-<li>Qu'a-t-elle remarqué dans l'onglet Devis ? dans l'onglet Modèles ?</li>
-<li>Qu'a-t-elle manqué que vous aviez repéré à l'étape 1 ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> l'onglet 4 contient au moins six anomalies, dont trois vérifiées à la main.</div>
-</div>
+<div class='step-head'><div><div class='step-num'>ÉTAPE 2 · AVEC L'IA, SANS CODE</div><h3>Préparer le classeur et le faire analyser</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<ol>
+<li>Ouvrez <code>Suivi-achats-2026.xlsx</code> et faites <b>Fichier › Enregistrer sous</b>, type « <b>Classeur Excel (prenant en charge les macros) (*.xlsm)</b> ». C'est ce fichier .xlsm qui recevra l'outil.</li>
+<li>Faites une <b>copie pseudonymisée</b> pour l'IA (colonnes Contact, Mail, Téléphone de l'onglet Fournisseurs).</li>
+<li>Dans Claude ou ChatGPT, ouvrez une nouvelle conversation, joignez la <b>copie pseudonymisée</b> et la <b>note du DAF</b>, puis envoyez ce prompt :</li>
+</ol>
+<pre class='prompt' id='pr'>Je suis assistante de direction dans un lycée. Je te joins le classeur de suivi des achats (les contacts des fournisseurs sont pseudonymisés) et la note du DAF.
 
-<div class='step' id='e3'>
-<div class='step-head'><div>
-<div class='step-num'>ÉTAPE 3 · LE PROMPT</div>
-<h3>Écrire le prompt de construction</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> décrire l'outil assez précisément pour qu'une machine le réalise du premier coup. C'est le cœur de l'atelier.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Partez du <a href='#squelette'>squelette</a> et remplissez chaque rubrique avec vos exigences.</li>
-<li>Contrôlez-le avec la grille (onglet 2 du gabarit) : 6 sur 8 au minimum, rubrique Sécurité obligatoire.</li>
-<li>Envoyez-le. Exigez d'abord le <b>plan</b> de la fenêtre (onglets, boutons, ce que fait chacun) et répondez aux questions de l'IA.</li>
-<li>Corrigez le plan par écrit avant de le valider.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>Ai-je donné les noms exacts des onglets et des colonnes ?</li>
-<li>Comment l'outil connaît-il la date du jour pendant la formation ?</li>
-<li>Que fait l'outil quand l'adresse d'un fournisseur est invalide ?</li>
-<li>Comment s'installera-t-il sur un poste du service ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> l'IA vous a proposé un plan de la fenêtre et que vous l'avez validé, après correction si nécessaire.</div>
-</div>
+Avant d'écrire du code, aide-moi à connaître ce classeur :
+1. Pour chaque onglet : le nom exact des colonnes et le nombre de lignes. Compte avec du code, pas à l'œil.
+2. La liste des problèmes dans les données (onglet, ligne, problème).
 
-<div class='step' id='e4'>
-<div class='step-head'><div>
-<div class='step-num'>ÉTAPE 4 · AVEC L'IA, LE CODE</div>
-<h3>Faire coder et installer</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> obtenir un classeur .xlsm où la fenêtre s'ouvre. Vous suivez le pas-à-pas de l'IA, sans retoucher le code.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Demandez le code complet, <b>fichier par fichier</b> (modules, classe, code du classeur), et le pas-à-pas d'installation.</li>
-<li>Dans Excel : <kbd>Alt</kbd>+<kbd>F11</kbd>, puis importez ou collez chaque élément là où l'IA l'indique.</li>
-<li>Enregistrez, fermez, rouvrez le classeur et activez les macros.</li>
-<li>Si l'IA s'arrête au milieu d'un fichier, demandez-lui de reprendre ce fichier en entier.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>Le pas-à-pas exige-t-il un réglage que le responsable informatique n'autorise pas sur les postes du service ?</li>
-<li>Où sera stocké le code : dans le classeur, ou ailleurs ?</li>
-<li>Que se passe-t-il si quelqu'un ouvre le classeur sans activer les macros ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> la fenêtre s'ouvre à l'ouverture du classeur (test R-01).</div>
-</div>
-
-<div class='step' id='e5'>
-<div class='step-head'><div>
-<div class='step-num'>ÉTAPE 5 · RECETTE</div>
-<h3>Tester, faire corriger, retester</h3></div><div class='timer' data-min='25'><span class='t'>25:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> prouver que l'outil fait ce qui est demandé, et rien d'autre. Un outil qui « marche » n'est pas un outil juste.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li><b>Avant</b> de cliquer sur « Rappels », calculez à la main, dans l'onglet Échéances, les rappels qui doivent partir le 19/10/2026. Notez-les.</li>
-<li>Faites les tests de votre niveau (onglet 3 du gabarit), dans l'ordre. Notez ce que vous constatez.</li>
-<li>Vérifiez les brouillons dans Outlook : destinataire, copie, objet, montant, date.</li>
-<li>Pour chaque test non conforme, envoyez le <a href='#debogage'>message de correction</a> à l'IA, puis refaites <b>tous</b> les tests bloquants (onglet 5).</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>Combien de rappels l'outil a-t-il préparés, et combien en attendiez-vous ? Pourquoi l'écart ?</li>
-<li>Un courriel préparé est-il interdit par une des pièces ?</li>
-<li>Le total d'un tableau croisé est-il égal à celui que vous calculez dans Excel ?</li>
-<li>Qu'est-ce qui ne doit pas être corrigé par l'outil, mais par une personne ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> tous les tests bloquants de votre niveau sont conformes, et qu'aucun brouillon ne contredit une pièce du dossier.</div>
-</div>
-
-<div class='step' id='e6'>
-<div class='step-head'><div>
-<div class='step-num'>ÉTAPE 6 · RESTITUTION</div>
-<h3>Deux minutes pour rendre compte</h3></div><div class='timer' data-min='5'><span class='t'>05:00</span><button>Démarrer</button></div></div>
-<pre class='tpl' id='tplResti'>1. Ce que l'IA a fait seule : …
-2. Ce que notre prompt avait oublié (et comment la recette l'a révélé) : …
-3. Pour l'installer sur un poste du service, il faudrait encore : …</pre>
-<button class='copy' data-copy='tplResti'>Copier la trame</button>
-<div class='success'><b>Étape terminée quand</b> vous avez fait l'<a href='#bilan'>autocontrôle</a> et préparé vos trois phrases.</div>
-</div>
-
-<h3 id='prompt' style='margin-top:45px'>Le prompt d'analyse</h3>
-<p class='intro'>Pour l'étape 2. Il ne demande aucun code.</p>
-<pre class='prompt' id='pr'>Je travaille au secrétariat de direction d'un lycée. Je te joins le classeur de suivi des achats (les contacts des fournisseurs sont pseudonymisés) et la note du DAF qui décrit l'outil qu'il souhaite.
-
-Avant d'écrire la moindre ligne de code :
-1. Décris chaque onglet : colonnes, type de données, nombre de lignes. Fais les comptes avec du code.
-2. Liste toutes les anomalies de données, avec l'onglet, la ligne et le motif.
-3. Dis-moi ce qui, dans la note du DAF, te semble ambigu ou incomplet.
-
-Ne code rien pour l'instant.</pre>
+Réponds simplement, sans jargon. N'écris aucun code pour l'instant.</pre>
 <button class='copy' data-copy='pr'>Copier le prompt</button>
-
-<h3 id='squelette' style='margin-top:35px'>Le squelette du prompt de construction</h3>
-<p class='intro'>Pour l'étape 3. Remplacez chaque [crochet] par vos exigences. Il n'y a pas de version toute faite : c'est votre prompt qui fera la qualité de l'outil.</p>
-<pre class='prompt' id='sq'>Rôle et contexte : [qui je suis, pour qui est l'outil, à quoi sert le classeur]
-
-Données : le classeur contient les onglets [noms exacts], avec les colonnes [noms exacts]. Tiens compte des anomalies que tu as trouvées : [ce qui doit être signalé, ce qui peut être corrigé, ce qui ne doit jamais être modifié].
-
-L'outil : une fenêtre VBA qui s'ouvre dans Excel [quand ? comment ?], avec les onglets suivants :
-[onglet 1 – boutons – ce que fait chacun]
-[onglet 2 – …]
-
-Règles de sécurité : [brouillons, confirmation, envoi test, journal, sauvegarde…]
-
-Règles venues des autres pièces : [courriels, avis RGPD, dossier de contexte]
-
-Date du jour : [comment l'outil la connaît pendant la formation]
-
-Contraintes techniques : Excel et Outlook classique sous Windows ; [ce que le responsable informatique autorise ou non].
-
-Format de réponse : code complet, commenté en français, découpé en fichiers ; pas-à-pas d'installation pour quelqu'un qui ne sait pas programmer.
-
-Avant de coder : propose-moi le plan de la fenêtre et pose-moi tes questions. Attends ma validation.</pre>
-<button class='copy' data-copy='sq'>Copier le squelette</button>
-
-<h3 id='debogage' style='margin-top:35px'>Le message de correction</h3>
-<p class='intro'>Pour l'étape 5. Une erreur, un résultat faux : on ne touche pas au code, on décrit.</p>
-<pre class='tpl' id='dbg'>Test [R-..] : en cliquant sur [bouton], j'obtiens [message exact, avec son numéro / résultat obtenu].
-La ligne surlignée en jaune est : [copier la ligne, s'il y en a une].
-J'attendais : [résultat attendu, et la pièce qui le justifie].
-Corrige seulement ce qui est nécessaire et redonne-moi la procédure modifiée en entier, en m'indiquant où la remplacer. Ne change rien d'autre.</pre>
-<button class='copy' data-copy='dbg'>Copier le message</button>
-</div></section>
-
-<!-- ============ 6. LIVRABLE ============ -->
-<section class='section alt' id='livrable'><div class='wrap'>
-<div class='eyebrow'>6 · Ce que vous rendez</div>
-<h2>Le livrable et les critères de réussite</h2>
-<div class='grid2'>
-<div class='card'><div class='num'>① Le classeur · ② Le prompt</div>
-<p><b>Le classeur .xlsm</b>, avec sa fenêtre de pilotage, son onglet Journal rempli par vos tests et ses sauvegardes éventuelles.</p>
-<p><b>Le prompt final</b>, tel que vous l'avez envoyé, et la liste des corrections demandées ensuite.</p>
-<table class='cols-table'>
-<tr><td>Fenêtre</td><td>Les onglets de votre niveau, accessibles à l'ouverture et par clic droit.</td></tr>
-<tr><td>Journal</td><td>Chaque brouillon préparé, avec sa référence.</td></tr>
-<tr><td>Données</td><td>Aucune ligne supprimée ; ce qui demande une décision est signalé.</td></tr>
-</table></div>
-<div class='card'><div class='num'>③ Le gabarit rempli</div>
-<p>Exigences (onglet 1), grille du prompt (onglet 2), recette (onglet 3), anomalies (onglet 4), itérations (onglet 5) : <a href='gabarit-pilotage-atelier-06.xlsx' download>gabarit</a>.</p>
-<div class='num' style='margin-top:18px'>Critères de réussite</div>
-<ul>
-<li>Tous les tests bloquants de votre niveau sont conformes.</li>
-<li>Les rappels préparés le 19/10/2026 sont exactement ceux que vous aviez calculés à la main.</li>
-<li>Aucun brouillon ne contredit une pièce du dossier.</li>
-<li>Le prompt final obtient au moins 6 sur 8 à la grille, Sécurité comprise.</li>
-<li>Aucune donnée personnelle non pseudonymisée n'a été envoyée à l'IA.</li></ul></div>
+<p>Lisez la réponse. <b>Vérifiez vous-même deux problèmes</b> dans Excel : sont-ils vraiment là ?</p>
+<div class='success'><b>C'est terminé quand</b> l'IA vous a décrit les onglets et vous avez vérifié deux problèmes à la main.</div>
 </div>
-<p class='intro'>Le formateur détient le corrigé, le manifeste des anomalies et la carte surprise : ils ne sont pas publiés.</p>
+
+<!-- ÉTAPE 3 -->
+<div class='step' id='e3'>
+<div class='step-head'><div><div class='step-num'>ÉTAPE 3 · AVEC L'IA</div><h3>Faire écrire la fenêtre et l'installer</h3></div><div class='timer' data-min='25'><span class='t'>25:00</span><button>Démarrer</button></div></div>
+<p><b>A. Envoyez le prompt de construction</b>, dans la même conversation. Il est déjà écrit : les lignes en vert sont vos réponses de l'étape 1. Relisez-le avant de l'envoyer.</p>
+<pre class='prompt' id='pc'></pre>
+<button class='copy' data-copy='pc'>Copier le prompt</button>
+<p>L'IA résume ce qu'elle a compris et vous pose des questions. <b>Répondez</b>, corrigez si elle s'est trompée, puis écrivez : « C'est bon, donne-moi les trois blocs de code. »</p>
+
+<p style='margin-top:22px'><b>B. Installez le code</b> en suivant ces étapes (elles sont les mêmes pour tout le monde) :</p>
+<ol>
+<li>Ouvrez votre fichier <b>.xlsm</b>, puis appuyez sur <kbd>Alt</kbd>+<kbd>F11</kbd> : l'éditeur VBA s'ouvre.</li>
+<li>Menu <b>Insertion › UserForm</b>. Une fenêtre vide apparaît. Dans le cadre <b>Propriétés</b> (en bas à gauche, sinon <kbd>F4</kbd>), remplacez <code>(Name)</code> <code>UserForm1</code> par <code>frmPilotage</code>.</li>
+<li>Clic droit sur <b>frmPilotage</b> dans la liste de gauche › <b>Code</b>. Collez le <b>bloc A</b>.</li>
+<li>Menu <b>Insertion › Module</b>. Collez le <b>bloc B</b>.</li>
+<li>Dans la liste de gauche, double-cliquez sur <b>ThisWorkbook</b>. Collez le <b>bloc C</b>.</li>
+<li>Enregistrez (<kbd>Ctrl</kbd>+<kbd>S</kbd>), fermez Excel, rouvrez le fichier .xlsm et cliquez sur <b>Activer le contenu</b> dans le bandeau jaune.</li>
+</ol>
+<div class='success'><b>C'est terminé quand</b> la fenêtre « Pilotage des achats » s'ouvre toute seule et affiche la date du 19/10/2026.</div>
+</div>
+
+<!-- ÉTAPE 4 -->
+<div class='step' id='e4'>
+<div class='step-head'><div><div class='step-num'>ÉTAPE 4 · VÉRIFIER</div><h3>Tester, faire corriger, retester</h3></div><div class='timer' data-min='30'><span class='t'>30:00</span><button>Démarrer</button></div></div>
+<p><b>Avant de cliquer sur « Rappels du jour »</b>, cherchez vous-même dans l'onglet Échéances les rappels attendus. Le 19/10/2026, un rappel est dû pour les échéances tombant à ces dates :</p>
+<div class='days'><span><b>J-1</b> · 20/10</span><span><b>J-3</b> · 22/10</span><span><b>J-4</b> · 23/10</span><span><b>J-7</b> · 26/10</span></div>
+<p>Barrez ensuite celles qu'une règle de votre fiche interdit, et notez les références qui restent : c'est votre résultat attendu. Puis faites les six tests.</p>
+<div class='tw'><table class='tests' id='tests'>
+<tr><th>Test</th><th>Ce que je vérifie</th><th style='width:150px'>Résultat</th><th style='width:30%'>Ce que j'ai constaté</th></tr>
+</table></div>
+<p style='margin-top:18px'>Un test ne passe pas ? Ne touchez pas au code : envoyez ce message à l'IA, puis <b>refaites tous les tests</b>.</p>
+<pre class='tpl' id='dbg'>Test [n°] : quand je clique sur [bouton], j'obtiens [message exact ou résultat obtenu].
+J'attendais : [résultat attendu, et pourquoi].
+Corrige seulement ce problème et redonne-moi le bloc modifié en entier (A, B ou C). Ne change rien d'autre.</pre>
+<button class='copy' data-copy='dbg'>Copier le message</button>
+<div class='success'><b>C'est terminé quand</b> les six tests sont conformes.</div>
+</div>
+
+<!-- BILAN -->
+<div class='step' id='bilan'>
+<div class='step-head'><div><div class='step-num'>POUR FINIR · 5 MIN</div><h3>Le bilan</h3></div></div>
+<p>Préparez trois phrases pour la restitution :</p>
+<div class='fiche'>
+<label for='b1'>1. Qu'est-ce que l'IA a fait toute seule ?</label><textarea id='b1'></textarea>
+<label for='b2'>2. Quelle règle aurait été oubliée sans les courriels ? Quel test l'a montré ?</label><textarea id='b2'></textarea>
+<label for='b3'>3. Que manque-t-il pour l'utiliser vraiment au service ?</label><textarea id='b3'></textarea>
+</div>
+<p style='margin-top:16px'><button class='btn dark' id='copyBilan' type='button'>Copier tout mon bilan</button> <small style='color:var(--gray)'>Fiche, prompt, tests et phrases, à coller dans un courriel au formateur ou dans un document.</small></p>
+<p><b>Vous rendez :</b> votre fichier <b>.xlsm</b> et ce bilan.</p>
+</div>
 </div></section>
 
-<!-- ============ GLOSSAIRE ============ -->
-<section class='section' id='glossaire'><div class='wrap'>
-<div class='eyebrow'>Glossaire</div>
-<h2>Les mots de l'atelier</h2>
-<dl class='glos'>
-<dt>Macro / VBA</dt><dd>Programme enregistré dans un classeur Excel. VBA est le langage de ces programmes.</dd>
-<dt>Classeur .xlsm</dt><dd>Format de classeur qui conserve les macros. Un .xlsx les perd à l'enregistrement.</dd>
-<dt>Éditeur VBA</dt><dd>Fenêtre d'Excel où l'on importe ou colle le code (<kbd>Alt</kbd>+<kbd>F11</kbd>).</dd>
-<dt>Module, classe</dt><dd>Les « fichiers » de code à l'intérieur du classeur. L'IA vous dit lesquels créer et où coller quoi.</dd>
-<dt>Fenêtre (UserForm)</dt><dd>Boîte de dialogue avec onglets, listes et boutons, qui s'ouvre par-dessus le classeur.</dd>
-<dt>Brouillon Outlook</dt><dd>Courriel préparé et enregistré dans le dossier Brouillons, qui ne part que si une personne clique sur « Envoyer ».</dd>
-<dt>Outlook classique</dt><dd>Version installée d'Outlook que les macros peuvent piloter. Le « nouvel Outlook » et la messagerie web ne le peuvent pas.</dd>
-<dt>Journal</dt><dd>Onglet où l'outil note chaque courriel préparé. Il permet de ne jamais préparer deux fois le même rappel.</dd>
-<dt>Date simulée</dt><dd>Date du jour fixée dans l'onglet Paramètres pour que tous les participants obtiennent les mêmes rappels.</dd>
-<dt>Tableau croisé dynamique</dt><dd>Tableau de synthèse calculé par Excel (sommes, moyennes par fournisseur, par service…).</dd>
-<dt>Segment</dt><dd>Bouton de filtre posé à côté d'un tableau croisé.</dd>
-<dt>Tâche planifiée</dt><dd>Programme que Windows lance seul à heure fixe, ici pour préparer les rappels chaque matin.</dd>
-<dt>Pseudonymisation</dt><dd>Remplacement des données personnelles par des codes, avec une table de correspondance gardée à part (atelier 00).</dd>
-<dt>Délégation de signature</dt><dd>Montant jusqu'auquel une personne peut engager l'établissement à la place de la proviseure (dossier de contexte).</dd>
-<dt>Taux de chancellerie</dt><dd>Taux de change officiel entre l'euro et la couronne valdave (KVL), révisé chaque trimestre.</dd>
-<dt>Recette</dt><dd>Vérification formelle qu'un outil fait ce qui est demandé, à l'aide d'une liste de tests.</dd>
-</dl>
+<!-- ============ POUR ALLER PLUS LOIN ============ -->
+<section class='section alt' id='plus'><div class='wrap'>
+<div class='eyebrow'>Pour aller plus loin · si vous avez fini en avance</div>
+<h2>Ajoutez une fonction à la fois</h2>
+<p class='intro'>Demandez chaque ajout séparément, puis refaites les six tests : ce qui marchait doit marcher encore.</p>
+<details><summary>Préparer les rappels en brouillons Outlook</summary>
+<p>Un 4<sup>e</sup> bouton qui crée un brouillon Outlook par rappel, avec le modèle « Rappel échéance » de l'onglet Modèles. Pensez à demander : <b>brouillons seulement</b> (jamais d'envoi), un onglet <b>Journal</b> pour ne jamais préparer deux fois le même rappel, et la personne en copie. Relisez le courriel de Julien Castel : quelle adresse utiliser pour les essais ? Quelle version d'Outlook faut-il ?</p></details>
+<details><summary>Comparer les devis</summary>
+<p>Un bouton qui compare les devis d'un même besoin (prix, délai, garantie, note du fournisseur). Attention : certains devis ne sont pas en euros. Le courriel du DAF et le dossier de contexte disent quel taux utiliser. Demandez que le taux utilisé soit affiché.</p></details>
+<details><summary>Créer une copie pseudonymisée en un clic</summary>
+<p>Un bouton qui enregistre une copie du classeur où les contacts, mails et téléphones sont remplacés par des codes, avec la table de correspondance dans un fichier séparé.</p></details>
 </div></section>
 
 <!-- ============ COUPS DE POUCE ============ -->
-<section class='section alt' id='aide'><div class='wrap'>
+<section class='section' id='aide'><div class='wrap'>
 <div class='eyebrow'>Coups de pouce</div>
-<h2>Vous êtes bloqué·e ? Ouvrez un indice à la fois</h2>
-<p class='intro'>Chaque blocage a trois niveaux d'indice, du plus léger au plus précis. Aucun ne donne la réponse.</p>
-
-<details><summary>Excel bloque les macros ou la fenêtre ne s'ouvre pas</summary>
-<details><summary>Indice 1</summary><p>Vérifiez l'extension du fichier : un classeur .xlsx ne garde pas de macros. Enregistrez-le en .xlsm.</p></details>
-<details><summary>Indice 2</summary><p>Un bandeau jaune ou rouge en haut du classeur ? Un fichier venu d'un courriel ou d'Internet est bloqué par Windows : relisez le courriel du responsable informatique.</p></details>
-<details><summary>Indice 3</summary><p>Rien ne s'ouvre à l'ouverture ? Demandez à l'IA dans quel élément mettre le code qui s'exécute à l'ouverture du classeur, et vérifiez que vous l'avez collé là.</p></details>
-</details>
-
-<details><summary>Une erreur apparaît à l'installation</summary>
-<details><summary>Indice 1</summary><p>Ne cherchez pas à comprendre le code : copiez le message exact (avec son numéro) et la ligne surlignée, et utilisez le <a href='#debogage'>message de correction</a>.</p></details>
-<details><summary>Indice 2</summary><p>Un message parle d'« accès au projet Visual Basic » ? Le code essaie de se modifier lui-même. C'est possible en salle de formation, pas sur les postes du service.</p></details>
-<details><summary>Indice 3</summary><p>Demandez à l'IA une installation qui n'a pas besoin de ce réglage : une fenêtre vide insérée à la main, dont les contrôles sont créés par le code à l'ouverture.</p></details>
-</details>
-
-<details><summary>Le nombre de rappels ne correspond pas à mon calcul</summary>
-<details><summary>Indice 1</summary><p>Quelle date l'outil utilise-t-il comme « aujourd'hui » ? Faites-la afficher dans la fenêtre.</p></details>
-<details><summary>Indice 2</summary><p>Reprenez l'onglet Échéances ligne par ligne : type, statut, fournisseur. Pour chaque ligne, une pièce du dossier dit-elle quelque chose ?</p></details>
-<details><summary>Indice 3</summary><p>Trois courriels changent le résultat : l'un sur un type d'échéance, l'un sur un fournisseur, l'un sur une date. Et une adresse ne permet pas d'envoyer quoi que ce soit.</p></details>
-</details>
-
-<details><summary>La comparaison des devis donne un classement étrange</summary>
-<details><summary>Indice 1</summary><p>Regardez toutes les colonnes de l'onglet Devis, pas seulement le prix.</p></details>
-<details><summary>Indice 2</summary><p>Le dossier de contexte donne un taux et une règle de signature. Les deux s'appliquent ici.</p></details>
-<details><summary>Indice 3</summary><p>Faites afficher, pour chaque devis : le prix d'origine, la devise, le taux utilisé, le prix en euros, et la mention « décision de la proviseure » quand il le faut.</p></details>
-</details>
-
-<details><summary>Outlook est introuvable</summary>
-<p>Les macros ne pilotent que l'Outlook classique installé sur le poste. Passez au plan B (onglet « Courriels à préparer ») : la recette reste la même, seuls les brouillons sont remplacés par des lignes dans un onglet.</p>
-</details>
-
+<h2>Vous êtes bloqué·e ?</h2>
+<details><summary>La fenêtre ne s'ouvre pas</summary>
+<ul><li>Le fichier est-il bien en <b>.xlsm</b> ? Un .xlsx perd les macros.</li>
+<li>Avez-vous cliqué sur <b>Activer le contenu</b> ? Si un bandeau rouge parle de « risque de sécurité » : fermez Excel, clic droit sur le fichier › Propriétés › cochez <b>Débloquer</b>.</li>
+<li>Le bloc C est-il bien collé dans <b>ThisWorkbook</b> (et pas dans le module) ?</li></ul></details>
+<details><summary>Un message d'erreur s'affiche</summary>
+<p>Ne cherchez pas à comprendre le code. Notez le message exact (avec son numéro) et, s'il y en a une, la ligne surlignée en jaune. Cliquez sur <b>Fin</b> (ou sur le carré bleu ■ dans l'éditeur), puis envoyez le <a href='#dbg'>message de correction</a> à l'IA.</p></details>
+<details><summary>Le message parle d'« accès au projet Visual Basic »</summary>
+<p>Le code essaie de se modifier lui-même, ce que les ordinateurs du service n'autorisent pas. Rappelez à l'IA la contrainte : « la fenêtre est une UserForm vide nommée frmPilotage, c'est ton code qui crée les boutons à l'ouverture ».</p></details>
+<details><summary>La fenêtre s'ouvre, mais elle est vide</summary>
+<p>Vérifiez le nom de la UserForm : <code>frmPilotage</code>, exactement. Vérifiez que le bloc A est collé dans le code de la fenêtre (clic droit › Code), et pas dans le module.</p></details>
+<details><summary>Je n'ai pas le même nombre de rappels que l'outil</summary>
+<ul><li>Quelle date l'outil affiche-t-il en haut de la fenêtre ?</li>
+<li>Avez-vous corrigé la date de la question 4 dans le classeur ?</li>
+<li>Reprenez chaque rappel en trop : une des règles de votre fiche l'interdit-elle ? Est-elle bien dans le prompt ?</li></ul></details>
 <details><summary>L'IA a tout réécrit et ce qui marchait est cassé</summary>
-<p>Revenez au code précédent, puis demandez une modification <b>ciblée</b> : « Ne modifie que … ; ne touche pas aux rappels ni au journal. » Refaites ensuite tous les tests bloquants.</p>
-</details>
-
-<details><summary>Je suis en retard sur le temps</summary>
-<p>Priorité : la fenêtre s'ouvre, le contrôle des données, les rappels en brouillon avec le journal. Un outil réduit qui prépare exactement les bons rappels vaut mieux qu'une fenêtre complète qui en prépare un de trop.</p>
-</details>
+<p>Recollez l'ancien bloc, puis demandez une correction <b>ciblée</b> : « Ne modifie que le bouton Rappels du jour ; ne touche pas au reste. »</p></details>
+<details><summary>Je n'ai pas Excel sous Windows</summary>
+<p>Les macros de fenêtre ne fonctionnent pas sur Mac ni dans Excel en ligne. Travaillez en binôme sur un ordinateur Windows.</p></details>
 </div></section>
 
-<!-- ============ AUTOCONTRÔLE ============ -->
-<section class='section' id='bilan'><div class='wrap'>
-<div class='eyebrow'>Autocontrôle avant la restitution</div>
-<h2>Votre livrable est-il prêt ?</h2>
-<p class='intro'>Cochez honnêtement. Les cases restent sur votre appareil, rien n'est envoyé.</p>
-<div class='card check' id='checklist'></div>
-<p id='checkmsg' style='font-weight:800;color:var(--teal)'></p>
+<!-- ============ GLOSSAIRE ============ -->
+<section class='section alt' id='glossaire'><div class='wrap'>
+<div class='eyebrow'>Glossaire</div>
+<h2>Les mots de l'atelier</h2>
+<dl class='glos'>
+<dt>Macro / VBA</dt><dd>Petit programme enregistré dans un classeur Excel. VBA est le langage de ces programmes.</dd>
+<dt>Classeur .xlsm</dt><dd>Format de classeur qui garde les macros. Un .xlsx les perd.</dd>
+<dt>Éditeur VBA</dt><dd>La fenêtre d'Excel où l'on colle le code (<kbd>Alt</kbd>+<kbd>F11</kbd>).</dd>
+<dt>UserForm</dt><dd>Une fenêtre (boîte de dialogue) qui s'ouvre par-dessus le classeur, avec des boutons.</dd>
+<dt>Module</dt><dd>Un emplacement pour du code, dans l'éditeur VBA.</dd>
+<dt>Date simulée</dt><dd>La date du 19/10/2026, inscrite dans l'onglet Paramètres, pour que tout le monde obtienne les mêmes rappels.</dd>
+<dt>Pseudonymisation</dt><dd>Remplacer les données personnelles par des codes, en gardant la correspondance à part (atelier 00).</dd>
+</dl>
 </div></section>
 
 <!-- ============ PIÈCES ============ -->
-<section class='section alt' id='pieces'><div class='wrap'>
-<div class='eyebrow'>Pièces du dossier</div>
-<h2>10 documents professionnels fictifs</h2>
-<p class='intro'>Formats réels : Excel, Word, PDF, courriels imprimés en PDF. Les anomalies ne sont pas signalées : à vous et à l'IA de les trouver. Les pièces marquées <span class='bz'>BRONZE</span> composent le dossier Bronze.</p>
-<a class='btn dark' href='dossier-atelier-06-bronze.zip' download>↧ Dossier Bronze (164 Ko)</a>
-<a class='btn dark' href='dossier-atelier-06.zip' download>↧ Dossier complet (325 Ko)</a>
-<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th><th>Niveau</th></tr>
-<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Avis-referent-RGPD-donnees-fournisseurs.pdf' download>Avis-referent-RGPD-donnees-fournisseurs.pdf</a></td><td>—</td><td>35 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Note-DAF-centre-de-pilotage.docx' download>Note-DAF-centre-de-pilotage.docx</a></td><td>—</td><td>38 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Suivi-achats-2026.xlsx' download>Suivi-achats-2026.xlsx</a></td><td>—</td><td>31 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/01-Varga_le-classeur-tel-quel.pdf' download>01-Varga_le-classeur-tel-quel.pdf</a></td><td>courriels</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/02-Lanvin_relances-fournisseurs.pdf' download>02-Lanvin_relances-fournisseurs.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/03-Castel_macros-et-postes.pdf' download>03-Castel_macros-et-postes.pdf</a></td><td>courriels</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/04-Aubertin_un-oubli.pdf' download>04-Aubertin_un-oubli.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/05-TechnoScol_prolongation-devis.pdf' download>05-TechnoScol_prolongation-devis.pdf</a></td><td>courriels</td><td>34 Ko</td><td></td></tr>
-<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a> <small>(ressource commune)</small></td><td>—</td><td>60 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-pilotage-atelier-06.xlsx' download>gabarit-pilotage-atelier-06.xlsx</a> <small>(gabarit du livrable)</small></td><td>—</td><td>11 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<section class='section' id='pieces'><div class='wrap'>
+<div class='eyebrow'>Le dossier</div>
+<h2>9 documents professionnels fictifs</h2>
+<p class='intro'>Les problèmes du classeur ne sont pas signalés : à vous et à l'IA de les trouver.</p>
+<a class='btn dark' href='dossier-atelier-06.zip' download>↧ Télécharger le dossier (315 Ko)</a>
+<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>À lire</th></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Note-DAF-centre-de-pilotage.docx' download>Note-DAF-centre-de-pilotage.docx</a></td><td>Étape 1 – ce que veut le DAF</td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/Suivi-achats-2026.xlsx' download>Suivi-achats-2026.xlsx</a></td><td>Étape 2 – le classeur</td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/01-Varga_le-classeur-tel-quel.pdf' download>01-Varga_le-classeur-tel-quel.pdf</a></td><td>Étape 1</td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/02-Lanvin_relances-fournisseurs.pdf' download>02-Lanvin_relances-fournisseurs.pdf</a></td><td>Étape 1</td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/03-Castel_macros-et-postes.pdf' download>03-Castel_macros-et-postes.pdf</a></td><td>Étape 1</td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/04-Aubertin_un-oubli.pdf' download>04-Aubertin_un-oubli.pdf</a></td><td>Étape 1</td></tr>
+<tr><td><span class='t eml'>COURRIEL</span></td><td><a href='dossier/courriels/05-TechnoScol_prolongation-devis.pdf' download>05-TechnoScol_prolongation-devis.pdf</a></td><td>Étape 1</td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Avis-referent-RGPD-donnees-fournisseurs.pdf' download>Avis-referent-RGPD-donnees-fournisseurs.pdf</a></td><td>Étape 2 – ce qu'on peut montrer à l'IA</td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a></td><td>Pour aller plus loin – taux de change</td></tr>
 </table></div>
+<p class='intro'>Le formateur détient le corrigé : il n'est pas publié.</p>
 </div></section>
 </main>
 <footer><div class='wrap'><div class='credits'><div class='logos'><img src='../../ressources/logos/logo-aefe.png' alt='AEFE – Agence pour l&#x27;enseignement français à l&#x27;étranger'><img src='../../ressources/logos/logo-irf-zese-aefe.png' alt='Institut régional de formation Europe du Sud-Est et AEFE – Agence pour l&#x27;enseignement français à l&#x27;étranger'></div><p>Formation créée par <b>Fehmi Klabi</b>, EF2D Technologie, et <b>Cédric Deanaz</b>, EF2D EPS · Institut régional de formation Europe du Sud-Est (ZESE), AEFE.<br>Contenu élaboré avec l&#x27;outil d&#x27;IA Claude (Anthropic).</p></div>✳ IA ADMINISTRATIVE 2.0 · Formation niveau 2 · Établissement, personnes et documents fictifs (LFI Marie-Curie de Valmont) · <a href='https://github.com/xseorkly/ia-administratif'>Dépôt GitHub ↗</a></div></footer>
 <script>
 (function(){
-// Onglets
-document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
-document.querySelectorAll('[data-tab]').forEach(function(x){x.classList.toggle('active',x===b)});
-document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!==b.dataset.tab});});});
+var KEY='atelier06-v2',state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return s.replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+
+// Prompt de construction (les règles de la fiche y sont insérées)
+var P1="Je suis assistante de direction dans un lycée et je ne sais pas programmer. Tu as analysé le classeur de suivi des achats. Écris-moi une macro VBA pour ce classeur.\n\n"+
+"CE QUE JE VEUX\n"+
+"Une fenêtre « Pilotage des achats » qui s'ouvre automatiquement à l'ouverture du classeur.\n"+
+"En haut : la date du jour utilisée. C'est la date de l'onglet Paramètres (ligne « Date du jour (simulation) ») ; si la cellule est vide, la vraie date du jour.\n"+
+"Trois boutons, une grande zone de résultats et un bouton Fermer :\n"+
+"1. « Contrôler » : liste les problèmes des données (doublons, noms de fournisseurs écrits de plusieurs façons, dates non reconnues par Excel, montants vides, fournisseurs absents de l'onglet Fournisseurs, adresses mail vides ou invalides), avec l'onglet, la ligne et le problème.\n"+
+"2. « Analyser » : pour l'année de référence de l'onglet Paramètres, les dépenses de chaque service comparées à son budget (dépensé, budget, pourcentage), en signalant les services à 90 % ou plus ; puis les fournisseurs dont plus de 20 % des commandes sont livrées en retard ou non conformes.\n"+
+"3. « Rappels du jour » : les échéances pour lesquelles un rappel est à préparer aujourd'hui, c'est-à-dire 7, 4, 3 ou 1 jour avant la date d'échéance. Pour chacune : référence, fournisseur, objet, date, nombre de jours restants, adresse mail, personne en copie. Si l'adresse mail est vide ou invalide, le rappel est signalé « adresse à vérifier ». En dessous, la liste des échéances dépassées et non terminées.\n"+
+"Chaque bouton affiche son résultat dans la fenêtre et l'écrit aussi dans un onglet (« Contrôle », « Analyse » ou « Rappels »), qu'il vide avant de le remplir.\n\n"+
+"RÈGLES À RESPECTER\n"+
+"- Aucun rappel pour une échéance dont le statut est « Terminé ».\n";
+var P2="- L'outil ne modifie aucune donnée, ne supprime aucune ligne et n'envoie aucun courriel.\n\n"+
+"CONTRAINTES TECHNIQUES\n"+
+"- Excel sous Windows. L'outil doit fonctionner sans l'option « Accès approuvé au modèle d'objet du projet VBA ».\n"+
+"- Donne-moi le code en 3 blocs complets, que je collerai moi-même :\n"+
+"  A. le code de la fenêtre : j'insère une UserForm vide nommée frmPilotage, et c'est ton code qui crée les boutons et la zone de résultats à l'ouverture ;\n"+
+"  B. un module avec une macro OuvrirPilotage qui ouvre la fenêtre ;\n"+
+"  C. le code de ThisWorkbook qui ouvre la fenêtre à l'ouverture du classeur.\n"+
+"- Utilise les noms exacts des onglets et des colonnes. Ne mets aucun nom de fournisseur en dur dans le code. Commente le code en français.\n\n"+
+"AVANT DE CODER\n"+
+"Résume-moi en 5 lignes ce que tu as compris et pose-moi tes questions. Attends ma réponse.";
+var pc=document.getElementById('pc');
+var ruleIds=['q1','q2','q3','q5'];
+function buildPrompt(){
+var rules=ruleIds.map(function(id){var v=(state[id]||'').trim().replace(/\s*\n\s*/g,' ');return v?'- '+v+'\n':''}).join('');
+var html=esc(P1)+(rules?'<mark>'+esc(rules)+'</mark>':'<mark>- [vos règles de l\'étape 1 apparaîtront ici]\n</mark>')+esc(P2);
+pc.innerHTML=html;}
+
+// Fiche et bilan : sauvegarde locale
+document.querySelectorAll('.fiche textarea').forEach(function(t){
+t.value=state[t.id]||'';
+t.addEventListener('input',function(){state[t.id]=t.value;save();buildPrompt()});});
+buildPrompt();
+
+// Tests
+var tests=[
+["La fenêtre s'ouvre seule à l'ouverture du classeur et affiche la date du 19/10/2026."],
+["« Contrôler » liste des problèmes avec l'onglet, la ligne et le motif. Le classeur n'a pas changé (même nombre de lignes)."],
+["« Analyser » : pour un service, le montant dépensé est le même que celui que je calcule dans Excel (filtre ou SOMME.SI.ENS)."],
+["« Rappels du jour » donne exactement les références que j'avais trouvées à la main."],
+["Aucun rappel n'apparaît pour le fournisseur en litige, pour un paiement, ni pour une échéance « Terminé »."],
+["Un fournisseur dont l'adresse mail est invalide est signalé, pas oublié."]];
+var tb=document.getElementById('tests');
+tests.forEach(function(t,i){
+var tr=document.createElement('tr'),r=state['t'+i]||'',n=state['n'+i]||'';
+tr.innerHTML='<td>T'+(i+1)+'</td><td>'+t[0]+'</td><td><select data-i="'+i+'"><option value="">À faire</option><option value="ok">Conforme</option><option value="ko">Non conforme</option></select></td><td><input data-n="'+i+'" placeholder="…"></td>';
+tb.appendChild(tr);
+var s=tr.querySelector('select'),inp=tr.querySelector('input');s.value=r;s.className=r;inp.value=n;
+s.addEventListener('change',function(){state['t'+i]=s.value;s.className=s.value;save()});
+inp.addEventListener('input',function(){state['n'+i]=inp.value;save()});});
+
 // Copier
-document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
-var t=document.getElementById(b.dataset.copy).innerText,old=b.textContent;
-function done(){b.textContent='Copié ✓';setTimeout(function(){b.textContent=old},1800)}
-if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}});});
+function copyText(t,b){var old=b.textContent;function done(){b.textContent='Copié ✓';setTimeout(function(){b.textContent=old},1800)}
+if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){fallback(t);done()})}else{fallback(t);done()}}
 function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){copyText(document.getElementById(b.dataset.copy).innerText,b)})});
+document.getElementById('copyBilan').addEventListener('click',function(){
+var lab={ok:'Conforme',ko:'Non conforme','':'À faire'},L=[];
+L.push('ATELIER 06 · BILAN','','FICHE DES RÈGLES');
+['q1','q2','q3','q4','q5'].forEach(function(id,i){L.push((i+1)+'. '+(state[id]||'—'))});
+L.push('','TESTS');tests.forEach(function(t,i){L.push('T'+(i+1)+' : '+lab[state['t'+i]||'']+(state['n'+i]?' – '+state['n'+i]:''))});
+L.push('','BILAN');['b1','b2','b3'].forEach(function(id,i){L.push((i+1)+'. '+(state[id]||'—'))});
+L.push('','PROMPT DE CONSTRUCTION',pc.innerText);
+copyText(L.join('\n'),this);});
+
 // Chronomètres
 document.querySelectorAll('.timer').forEach(function(el){
-var total=+el.dataset.min*60,left=total,id=null,disp=el.querySelector('.t'),btn=el.querySelector('button');
+var left=+el.dataset.min*60,id=null,disp=el.querySelector('.t'),btn=el.querySelector('button');
 function fmt(s){var n=Math.abs(s);return (s<0?'+':'')+String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
 btn.addEventListener('click',function(){
 if(id){clearInterval(id);id=null;btn.textContent='Reprendre';return}
-btn.textContent='Pause';id=setInterval(function(){left--;disp.textContent=fmt(left);disp.classList.toggle('over',left<0)},1000);});
-});
-// Autocontrôle
-var items=["Mes exigences sont numérotées, chacune avec sa source et son test de recette.", "Au moins trois exigences viennent d'une autre pièce que la note du DAF.", "Le classeur envoyé à l'IA était pseudonymisé (contacts, mails, téléphones).", "L'IA a analysé le classeur avec du code avant d'écrire l'outil ; j'ai vérifié trois anomalies à la main.", "Mon prompt obtient au moins 6 sur 8 à la grille, rubrique Sécurité comprise.", "L'IA m'a proposé un plan de la fenêtre que j'ai validé avant tout code.", "La fenêtre s'ouvre à l'ouverture du classeur et par clic droit.", "J'ai calculé les rappels du 19/10/2026 à la main avant de cliquer, et l'outil a préparé exactement ceux-là.", "Un second clic sur « Rappels » n'a rien préparé de plus.", "Aucun courriel n'est parti : tout est en brouillon (ou dans l'onglet de plan B).", "Aucun brouillon ne contredit une pièce du dossier.", "Après chaque correction, j'ai refait tous les tests bloquants."];
-var KEY='atelier06-autocontrole',state={};
-try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){state={}}
-var box=document.getElementById('checklist'),msg=document.getElementById('checkmsg');
-function draw(){var n=items.filter(function(_,i){return state[i]}).length;
-box.innerHTML='<b>'+n+' / '+items.length+' points vérifiés</b><div class="progress"><span style="width:'+(n/items.length*100)+'%"></span></div>'+items.map(function(s,i){return '<label><input type="checkbox" data-i="'+i+'"'+(state[i]?' checked':'')+'> <span>'+s+'</span></label>'}).join('');
-msg.textContent=n===items.length?'Livrable prêt : passez à la restitution.':'';
-box.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){state[c.dataset.i]=c.checked;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}draw()})});}
-draw();
+btn.textContent='Pause';id=setInterval(function(){left--;disp.textContent=fmt(left);disp.classList.toggle('over',left<0)},1000);});});
 })();
 </script>
 </body>
