@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang='fr'>
+<head>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="09bb50e4-e5cd-47d4-b231-1551e99b2df5" data-domains="xseorkly.github.io" data-exclude-search="true"></script>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Diaporama · Créer un agent avec Claude – IA administrative 2.0</title>
+<meta name='description' content="Diaporama : comment créer un agent avec Claude en assemblant un projet, une skill, des connecteurs et une tâche programmée.">
+<style>
+:root{--navy:#101c31;--navy2:#16243c;--mint:#cafd70;--light:#f4f7f5;--gray:#5d6b7b;--teal:#078879;--line:#dce4e4;--warn:#fff7e0;--warnb:#c49317;--ok:#e7f6ec;--okb:#2f8a52;--stop:#fdeceb;--stopb:#b23a2a}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--navy);color:var(--navy);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+a{color:inherit}
+/* Barre */
+.top{position:fixed;inset:0 0 auto 0;height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 18px;color:#dfe8f1;z-index:10;font-size:13px}
+.top a{text-decoration:none;font-weight:800}.top .brand{color:#fff}.top .brand span{color:var(--mint)}
+.top .tools{display:flex;gap:8px;align-items:center}
+.top button{border:1px solid #33476a;background:#1b2b47;color:#fff;border-radius:8px;padding:7px 11px;font:inherit;font-weight:800;cursor:pointer}
+.top button:hover{border-color:var(--mint)}
+.counter{font-variant-numeric:tabular-nums;color:#b9c8d8;min-width:52px;text-align:right}
+/* Scène */
+.stage{position:fixed;inset:52px 0 46px 0;display:grid;place-items:center;padding:0 16px}
+.deck{position:relative;width:min(100%,calc((100vh - 120px)*16/9));aspect-ratio:16/9;max-height:100%}
+.slide{position:absolute;inset:0;background:#fff;border-radius:18px;overflow:hidden;opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .35s,transform .35s,visibility 0s .35s;display:flex;flex-direction:column;container-type:size}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .35s}
+.slide.prev{transform:translateX(-30px)}
+/* Typographie relative à la diapositive */
+.pad{padding:5.5cqh 6cqw;flex:1;display:flex;flex-direction:column;min-height:0}
+.kicker{font-size:2.3cqh;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--teal)}
+h1{font-size:9cqh;line-height:1.05;letter-spacing:-.04em;margin:2.5cqh 0}
+h2{font-size:6.2cqh;line-height:1.08;letter-spacing:-.035em;margin:1.2cqh 0 3cqh}
+h3{font-size:3.4cqh;margin:0 0 1cqh;letter-spacing:-.02em}
+p,li{font-size:2.95cqh}p{margin:0 0 1.6cqh}
+ul,ol{margin:0;padding-left:3.4cqh}li{margin:0 0 1.1cqh}
+.muted{color:var(--gray)}
+small{font-size:2.3cqh}
+.dark{background:var(--navy);color:#fff}.dark .kicker{color:var(--mint)}.dark .muted{color:#b9c8d8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.6cqh 2.6cqw;flex:1;min-height:0}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:2cqw}
+.box{border:1px solid var(--line);border-radius:2.2cqh;padding:2.8cqh 2.2cqw;background:#fff}
+.box p,.box li{font-size:2.6cqh;color:var(--gray)}
+.alt{background:var(--light)}
+.num{display:inline-grid;place-items:center;width:5.4cqh;height:5.4cqh;border-radius:50%;background:var(--navy);color:var(--mint);font-weight:900;font-size:2.8cqh;margin-bottom:1.4cqh}
+.brick{border-radius:2.2cqh;padding:4cqh 1.8cqw 5cqh;display:flex;flex-direction:column;border-top:1.1cqh solid var(--teal);background:var(--light)}
+.brick .ico{font-size:7.5cqh;line-height:1;margin-bottom:1.4cqh}
+.brick p{font-size:2.9cqh;color:var(--gray);margin:0}
+.brick b.q{display:block;font-size:2.4cqh;color:var(--teal);margin-bottom:1cqh;text-transform:uppercase;letter-spacing:.08em}
+.b2{border-color:#6b3fa0}.b2 b.q{color:#6b3fa0}.b3{border-color:#1d5a8a}.b3 b.q{color:#1d5a8a}.b4{border-color:var(--warnb)}.b4 b.q{color:#9a6a00}
+.formula{display:flex;align-items:center;justify-content:center;gap:1.4cqw;flex-wrap:wrap;margin-top:auto;font-weight:900;font-size:3cqh}
+.formula span{background:var(--light);border:1px solid var(--line);border-radius:1.4cqh;padding:1.2cqh 1.6cqw}
+.formula span.eq{background:var(--mint);border-color:var(--mint)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding-left:6.4cqh;margin-bottom:2cqh;min-height:4.6cqh}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-.2cqh;width:4.6cqh;height:4.6cqh;border-radius:50%;background:var(--navy);color:var(--mint);font-weight:900;display:grid;place-items:center;font-size:2.5cqh}
+.ui{font-weight:800;background:#eef2f5;border:1px solid #d6dee5;border-radius:.8cqh;padding:0 .8cqh;white-space:nowrap}
+pre{margin:0;white-space:pre-wrap;background:var(--navy);color:#e1fbe7;border-radius:1.8cqh;padding:2.6cqh 2.2cqw;font:2.45cqh/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+pre .c{color:var(--mint);font-weight:700}
+.note{background:var(--warn);border-left:.8cqh solid var(--warnb);border-radius:1cqh;padding:1.8cqh 2cqw;font-size:2.6cqh;margin-top:auto}
+.note.ok{background:var(--ok);border-color:var(--okb)}.note.stop{background:var(--stop);border-color:var(--stopb)}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:2cqw;align-items:stretch;flex:1;min-height:0}
+.vs .arrow{display:grid;place-items:center;font-size:7cqh;color:var(--teal);font-weight:900}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4cqw;margin:1cqh 0 2.4cqh}
+.flow div{background:var(--light);border-radius:1.8cqh;padding:2.2cqh 1.4cqw;font-size:2.5cqh;color:var(--gray)}
+.flow b{display:block;color:var(--navy);font-size:2.8cqh;margin-bottom:.6cqh}
+.check li{list-style:none;position:relative;padding-left:4.6cqh}
+.check{padding-left:0}.check li::before{content:"✓";position:absolute;left:0;color:var(--okb);font-weight:900}
+.cross li::before{content:"✕";color:var(--stopb)}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:0 6cqw 3cqh;font-size:2cqh;color:#9aa8b5}
+.dark .foot{color:#7f93ab}
+.links{display:flex;gap:1.4cqw;flex-wrap:wrap;margin-top:2cqh}
+.links a{background:var(--mint);color:var(--navy);text-decoration:none;font-weight:900;font-size:2.5cqh;padding:1.4cqh 1.8cqw;border-radius:1.2cqh}
+.links a.g{background:transparent;color:#fff;border:1px solid #75879e}
+/* Navigation */
+.nav{position:fixed;top:50%;transform:translateY(-50%);z-index:9;width:46px;height:46px;border-radius:50%;border:1px solid #33476a;background:#1b2b47cc;color:#fff;font-size:22px;font-weight:900;cursor:pointer;display:grid;place-items:center}
+.nav:hover{border-color:var(--mint)}.nav:disabled{opacity:.25;cursor:default}
+#prevBtn{left:10px}#nextBtn{right:10px}
+.bottom{position:fixed;inset:auto 0 0 0;height:46px;display:flex;align-items:center;gap:14px;padding:0 18px;color:#b9c8d8;font-size:12px}
+.bar{flex:1;height:5px;background:#24365a;border-radius:9px;overflow:hidden}.bar span{display:block;height:100%;background:var(--mint);width:0;transition:width .3s}
+.dots{display:flex;gap:6px}.dots button{width:9px;height:9px;border-radius:50%;border:0;background:#3a4e72;padding:0;cursor:pointer}.dots button.on{background:var(--mint)}
+.hint{white-space:nowrap}
+body.fs .top,body.fs .bottom{opacity:0;transition:opacity .3s}body.fs:hover .top,body.fs:hover .bottom{opacity:1}
+body.fs .stage{inset:8px}body.fs .deck{width:min(100%,calc((100vh - 16px)*16/9))}
+@media(max-width:700px){.hint,.dots,.top .brand{display:none}.nav{width:38px;height:38px;font-size:18px;top:auto;bottom:54px;transform:none}.stage{padding:0 8px}}
+@media print{html,body{overflow:visible;height:auto;background:#fff}.top,.bottom,.nav{display:none}.stage{position:static;padding:0}.deck{width:100%;aspect-ratio:auto}.slide{position:relative;opacity:1;visibility:visible;transform:none;aspect-ratio:16/9;page-break-after:always;border:1px solid #ccc;margin-bottom:10px}}
+</style>
+</head>
+<body>
+<div class='top'>
+<a class='brand' href='../../index.html#nouveautes'>← ✳ IA <span>ADMINISTRATIVE 2.0</span></a>
+<div class='tools'><span class='counter' id='counter'>1 / 1</span><button type='button' id='fsBtn' title='Plein écran (touche F)'>⛶ Plein écran</button></div>
+</div>
+
+<button class='nav' id='prevBtn' type='button' aria-label='Diapositive précédente'>‹</button>
+<button class='nav' id='nextBtn' type='button' aria-label='Diapositive suivante'>›</button>
+
+<main class='stage'><div class='deck' id='deck' aria-live='polite'>
+
+<!-- 1 -->
+<section class='slide dark'><div class='pad' style='justify-content:center'>
+<div class='kicker'>Diaporama · IA administrative 2.0</div>
+<h1>Créer un agent<br>avec Claude</h1>
+<p class='muted' style='font-size:3.4cqh;max-width:80%'>Il n'existe pas de bouton « Créer un agent ». Un agent s'assemble à partir de quatre briques que vous connaissez déjà, ou presque.</p>
+</div><div class='foot'><span>Formation niveau 2 · IRF ZESE · AEFE</span><span>→ pour avancer</span></div></section>
+
+<!-- 2 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Point de départ</div>
+<h2>Un assistant répond. Un agent agit.</h2>
+<div class='vs'>
+<div class='box alt'><h3>💬 La conversation</h3><ul><li>Vous expliquez le contexte à chaque fois.</li><li>Vous copiez-collez les documents.</li><li>Claude répond, vous faites le reste.</li><li>Rien ne se passe si vous n'êtes pas là.</li></ul></div>
+<div class='arrow'>→</div>
+<div class='box' style='border-color:var(--teal)'><h3>🤖 L'agent</h3><ul><li>Il connaît déjà son rôle et ses règles.</li><li>Il a ses documents de référence.</li><li>Il va chercher l'information dans vos outils.</li><li>Il peut travailler seul, à heure fixe.</li></ul></div>
+</div>
+</div></section>
+
+<!-- 3 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>La recette</div>
+<h2>Quatre briques, un agent.</h2>
+<div class='grid4'>
+<div class='brick'><div class='ico'>📁</div><b class='q'>Qui suis-je ?</b><h3>Le projet</h3><p>Son rôle, ses règles, ses documents de référence.</p></div>
+<div class='brick b2'><div class='ico'>🧭</div><b class='q'>Comment faire ?</b><h3>La skill</h3><p>Une procédure écrite, qu'il applique dès qu'elle est utile.</p></div>
+<div class='brick b3'><div class='ico'>🔌</div><b class='q'>Où chercher ?</b><h3>Les connecteurs</h3><p>L'accès à Drive, à la messagerie, à l'agenda…</p></div>
+<div class='brick b4'><div class='ico'>⏰</div><b class='q'>Quand agir ?</b><h3>La tâche programmée</h3><p>Il se lance seul, chaque lundi, chaque soir…</p></div>
+</div>
+<div class='formula'><span>📁 Projet</span>+<span>🧭 Skill</span>+<span>🔌 Connecteurs</span>+<span>⏰ Planification</span>=<span class='eq'>🤖 Agent</span></div>
+</div></section>
+
+<!-- 4 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Brique 1 · 📁 Le projet</div>
+<h2>Donner un rôle et une mémoire de travail.</h2>
+<div class='grid2'>
+<div><ol class='steps'>
+<li>Barre latérale : <span class='ui'>Projets</span>, puis <span class='ui'>Nouveau projet</span>. Donnez-lui un nom clair.</li>
+<li>Cliquez sur <span class='ui'>Définir les instructions du projet</span> : rôle, ton, règles, ce qu'il doit refuser.</li>
+<li>Déposez les documents de référence dans les <b>connaissances</b> : procédures, modèles, règlement.</li>
+<li>Partagez-le si besoin : <span class='ui'>Peut utiliser</span> ou <span class='ui'>Peut modifier</span>.</li>
+</ol></div>
+<div class='box alt'><h3>Ce qu'il faut retenir</h3><p>Les instructions et les documents du projet s'appliquent à <b>toutes les conversations ouvertes dans ce projet</b>. Vous n'expliquez plus le contexte : il le connaît.</p><p>Un projet = un métier ou un dossier. Pas un projet « fourre-tout ».</p></div>
+</div>
+</div></section>
+
+<!-- 5 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Brique 1 · 📁 Le projet</div>
+<h2>Des instructions qui marchent.</h2>
+<div class='grid2'>
+<pre><span class='c'>RÔLE</span>
+Tu es l'assistant du secrétariat de direction du LFI Marie-Curie de Valmont.
+
+<span class='c'>MISSION</span>
+Tu prépares les réponses aux courriers adressés à la proviseure, à partir des modèles fournis.
+
+<span class='c'>RÈGLES</span>
+- Ton : courtois, sobre, vouvoiement.
+- Tu t'appuies d'abord sur les documents du projet et tu cites celui que tu utilises.
+- Si une information manque, tu poses la question.
+- Tu ne fais jamais d'envoi : tu proposes un brouillon.</pre>
+<div><ul class='check'><li><b>Un rôle précis</b>, pas « sois utile ».</li><li><b>Une mission</b> en une phrase.</li><li><b>Des règles</b> vérifiables.</li><li><b>Ce qu'il ne doit pas faire</b>, écrit noir sur blanc.</li><li><b>Quoi faire quand il ne sait pas</b> : demander, pas inventer.</li></ul>
+<div class='note ok' style='margin-top:2cqh'>Astuce : demandez à Claude de critiquer vos instructions avant de les enregistrer.</div></div>
+</div>
+</div></section>
+
+<!-- 6 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Brique 2 · 🧭 La skill</div>
+<h2>Écrire une fois la façon de faire.</h2>
+<div class='grid2'>
+<div><p>Une skill est une <b>procédure écrite</b> (un fichier <span class='ui'>SKILL.md</span>) que Claude applique automatiquement quand la situation se présente. Pas besoin de programmer : c'est du texte.</p>
+<ol class='steps'>
+<li><b>Le plus simple :</b> décrivez votre procédure à Claude en conversation et demandez-lui d'en faire une skill.</li>
+<li><b>À la main :</b> <span class='ui'>Personnaliser</span> › <span class='ui'>Skills</span> › <span class='ui'>+</span> › <span class='ui'>Create skill</span>, puis importez le dossier en ZIP.</li>
+<li><b>Testez-la</b> avec plusieurs demandes différentes.</li>
+</ol></div>
+<pre><span class='c'>---
+name: accuse-reception
+description: À utiliser quand on doit répondre à un courrier de parent adressé à la direction.
+---</span>
+1. Identifier l'objet et le service concerné.
+2. Vérifier le délai de réponse (règlement, art. 12).
+3. Rédiger l'accusé de réception (modèle AR-02).
+4. Lister ce qui doit être validé par la proviseure.</pre>
+</div>
+<div class='note'>La <b>description</b> est décisive : c'est elle que Claude lit pour savoir <b>quand</b> utiliser la skill. Soyez précis.</div>
+</div></section>
+
+<!-- 7 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Brique 3 · 🔌 Les connecteurs</div>
+<h2>Lui donner accès aux bons outils.</h2>
+<div class='grid2'>
+<div><p>Un connecteur relie Claude à une application : <b>Google Drive, messagerie, agenda</b>… L'agent ne vous demande plus de copier-coller : il va lire lui-même la source.</p>
+<ul><li>Les <b>connecteurs</b> donnent l'accès aux outils.</li><li>Les <b>skills</b> apprennent à s'en servir correctement.</li><li>Les deux ensemble font un agent efficace.</li></ul></div>
+<div class='box alt'><h3>Le principe du moindre accès</h3><ul class='check'><li>Uniquement les sources nécessaires à la mission.</li><li>Lecture d'abord, écriture seulement si indispensable.</li><li>Des réponses <b>sourcées</b> : quel courriel, quel document.</li></ul><ul class='check cross'><li>Pas de messagerie entière « au cas où ».</li></ul></div>
+</div>
+<div class='note'>Les connecteurs disponibles dépendent de votre offre et des réglages de l'établissement. Vous les avez manipulés dans l'atelier 01.</div>
+</div></section>
+
+<!-- 8 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Brique 4 · ⏰ La tâche programmée</div>
+<h2>Le laisser travailler sans vous.</h2>
+<div class='grid2'>
+<div><ol class='steps'>
+<li>Barre latérale : <span class='ui'>Scheduled</span>, puis <span class='ui'>New task</span>.</li>
+<li>Choisissez <span class='ui'>Create with Claude</span> (il vous aide à rédiger) ou la configuration manuelle.</li>
+<li>Indiquez la consigne et la fréquence : chaque jour, chaque lundi à 8 h…</li>
+<li>Relisez les premiers résultats dans la liste des tâches.</li>
+</ol></div>
+<div class='box alt'><h3>Bon à savoir</h3><ul><li>Chaque exécution est une tâche à part, que vous relisez.</li><li>Elle utilise les mêmes connecteurs et skills que vous.</li><li>Fonction réservée aux offres payantes.</li><li>Prévoyez le cas « rien à signaler » : un bon agent sait se taire.</li></ul></div>
+</div>
+</div></section>
+
+<!-- 9 -->
+<section class='slide alt'><div class='pad'>
+<div class='kicker'>On assemble</div>
+<h2>Exemple : l'agent « Courrier de la direction ».</h2>
+<div class='flow'>
+<div><b>📁 Projet</b>Rôle de secrétariat, charte rédactionnelle, modèles de lettres, règlement intérieur.</div>
+<div><b>🧭 Skill</b>« Accusé de réception » : objet, délai, modèle, points à valider.</div>
+<div><b>🔌 Connecteur</b>Lecture de la boîte du secrétariat et du dossier Drive « Courrier ».</div>
+<div><b>⏰ Planification</b>Chaque lundi à 8 h : nouveaux courriers de la semaine.</div>
+</div>
+<div class='grid2'><div class='box'><h3>🤖 Lundi, 8 h 05 : le compte rendu de l'agent</h3><ul><li>6 courriers reçus cette semaine.</li><li>4 brouillons d'accusé de réception prêts (modèle AR-02).</li><li>1 demande hors procédure : à voir avec la proviseure.</li><li>1 courriel publicitaire ignoré.</li></ul></div>
+<div class='box' style='border-color:var(--teal)'><h3>👤 Ce que vous faites</h3><ul class='check'><li>Vous relisez les 4 brouillons.</li><li>Vous corrigez ce qui doit l'être.</li><li>Vous soumettez le cas particulier.</li><li><b>C'est vous qui envoyez.</b></li></ul></div></div>
+</div></section>
+
+<!-- 10 -->
+<section class='slide'><div class='pad'>
+<div class='kicker'>Garde-fous</div>
+<h2>Plus l'agent peut agir, plus le contrôle compte.</h2>
+<div class='grid2'>
+<div class='box'><h3>✓ Toujours</h3><ul class='check'><li>Un humain valide avant tout envoi ou toute action engageante.</li><li>Des réponses sourcées, que vous pouvez vérifier.</li><li>Des données pseudonymisées avant envoi (le <a href='../../pseudonymiseur/index.html'>pseudonymiseur</a>).</li><li>Des tests sur des cas difficiles avant la mise en service.</li></ul></div>
+<div class='box'><h3>✕ Jamais</h3><ul class='check cross'><li>De données de santé, sociales ou familiales.</li><li>D'accès plus large que la mission.</li><li>D'envoi automatique sans relecture.</li><li>De consigne trouvée dans un document suivie sans vérification.</li></ul></div>
+</div>
+</div></section>
+
+<!-- 11 -->
+<section class='slide dark'><div class='pad' style='justify-content:center'>
+<div class='kicker'>À vous</div>
+<h2 style='color:#fff'>Chaque brique a son atelier.</h2>
+<ul style='color:#dfe8f1'>
+<li>📁 + 🧭 <b>Atelier 04</b> · Je fabrique mon assistant métier</li>
+<li>🔌 <b>Atelier 01</b> · Radar contrats (connecteurs)</li>
+<li>⏰ <b>Atelier 05</b> · Mon agent travaille sans moi</li>
+<li>🤖 <b>Atelier 08</b> · Grand défi : trois agents, un seul rapport</li>
+</ul>
+<div class='links'><a href='../../ateliers/04-assistant-metier/index.html'>Commencer par l'atelier 04 ↗</a><a class='g' href='../../index.html#ateliers'>Tous les ateliers</a></div>
+<p class='muted' style='margin-top:3cqh;font-size:2.3cqh'>Les noms des menus évoluent vite : vérifiez sur support.claude.com avant chaque session.</p>
+</div><div class='foot'><span>Formation créée par Fehmi Klabi et Cédric Deanaz · Contenu élaboré avec l'outil d'IA Claude</span><span>Fin</span></div></section>
+
+</div></main>
+
+<div class='bottom'><div class='dots' id='dots'></div><div class='bar'><span id='bar'></span></div><span class='hint'>← → pour naviguer · F plein écran</span></div>
+
+<script>
+(function(){
+var slides=[].slice.call(document.querySelectorAll('.slide')),n=slides.length,i=0;
+var dots=document.getElementById('dots');
+slides.forEach(function(_,k){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Diapositive '+(k+1));b.onclick=function(){go(k)};dots.appendChild(b)});
+function go(k){
+ i=Math.max(0,Math.min(n-1,k));
+ slides.forEach(function(s,j){s.classList.toggle('on',j===i);s.classList.toggle('prev',j<i);s.setAttribute('aria-hidden',j===i?'false':'true')});
+ [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i)});
+ document.getElementById('counter').textContent=(i+1)+' / '+n;
+ document.getElementById('bar').style.width=((i+1)/n*100)+'%';
+ document.getElementById('prevBtn').disabled=i===0;document.getElementById('nextBtn').disabled=i===n-1;
+ try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+}
+document.getElementById('prevBtn').onclick=function(){go(i-1)};
+document.getElementById('nextBtn').onclick=function(){go(i+1)};
+function fs(){if(document.fullscreenElement){document.exitFullscreen()}else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen()}}
+var fb=document.getElementById('fsBtn');fb.onclick=fs;
+if(!document.documentElement.requestFullscreen)fb.style.display='none';
+document.addEventListener('fullscreenchange',function(){var on=!!document.fullscreenElement;document.body.classList.toggle('fs',on);fb.textContent=on?'✕ Quitter':'⛶ Plein écran'});
+document.addEventListener('keydown',function(e){
+ if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1)}
+ else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+ else if(e.key==='Home')go(0);else if(e.key==='End')go(n-1);
+ else if(e.key==='f'||e.key==='F')fs();
+});
+document.getElementById('deck').addEventListener('click',function(e){if(e.target.closest('a,button'))return;var r=this.getBoundingClientRect();go(e.clientX-r.left<r.width/3?i-1:i+1)});
+var x0=null;document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)go(dx<0?i+1:i-1);x0=null});
+function fromHash(){var h=parseInt(location.hash.slice(1),10);if(h>0&&h-1!==i)go(h-1)}
+window.addEventListener('hashchange',fromHash);var h0=parseInt(location.hash.slice(1),10);go(h0>0?h0-1:0);
+})();
+</script>
+</body>
+</html>
