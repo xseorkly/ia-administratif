@@ -135,9 +135,9 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Étapes">
-    <button role="tab" data-tab="cle" aria-selected="true">1. Clé et table</button>
-    <button role="tab" data-tab="pseudo" aria-selected="false">2. Pseudonymiser</button>
-    <button role="tab" data-tab="reid" aria-selected="false">3. Ré-identifier</button>
+    <button role="tab" data-tab="cle" aria-selected="true">1. Ma clé</button>
+    <button role="tab" data-tab="pseudo" aria-selected="false">2. Masquer les données</button>
+    <button role="tab" data-tab="reid" aria-selected="false">3. Retrouver mon fichier</button>
     <button role="tab" data-tab="aide" aria-selected="false">Aide</button>
   </nav>
 
@@ -156,16 +156,16 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
     </div>
 
     <div class="card">
-      <h2>Table de correspondance</h2>
-      <p class="lead">Elle n'existe que dans cette page tant que vous ne l'exportez pas. Fermer l'onglet l'efface.</p>
+      <h2>Sauvegarde des noms et des codes (JSON)</h2>
+      <p class="lead">Ce petit fichier JSON permet, avec votre clé, de retrouver les vrais noms après le travail de l’IA. Il doit être conservé sur votre ordinateur, jamais partagé avec l’IA.</p>
       <div class="stats">
         <div class="stat"><b id="stN">0</b><span>jetons</span></div>
         <div class="stat"><b id="stC">–</b><span>catégories</span></div>
       </div>
       <div id="dirtyNote" class="note warn hidden"><b>Table non sauvegardée.</b> Exportez-la avant de fermer cette page, sinon la ré-identification sera impossible.</div>
       <div class="row">
-        <button class="btn primary" id="tblExport" type="button">Exporter la table chiffrée</button>
-        <label class="btn" for="tblImport">Importer une table…</label>
+        <button class="btn primary" id="tblExport" type="button">Sauvegarder les correspondances (JSON)</button>
+        <label class="btn" for="tblImport">Ouvrir une sauvegarde JSON…</label>
         <input id="tblImport" type="file" accept=".json,.pseudo,application/json" class="hidden">
         <button class="btn danger" id="tblClear" type="button">Vider</button>
       </div>
@@ -195,8 +195,10 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
     <div class="card hidden" id="xCard">
       <h2 id="xTitle">Excel</h2>
       <div class="row">
-        <label class="kbd" for="xSheet">Feuille</label><select id="xSheet"></select>
+        <label class="kbd" for="xSheet">Configurer la feuille</label><select id="xSheet"></select>
       </div>
+      <div class="note info"><b>Choisissez les feuilles à traiter :</b> cochez-les ci-dessous. Changez de feuille dans la liste pour configurer ses colonnes ou lignes. Chaque feuille conserve ses réglages.</div>
+      <div id="xSheetsList" class="cols" aria-label="Feuilles du classeur à pseudonymiser"></div>
       <div class="row" style="margin-top:8px">
         <label class="kbd" for="xOrient">Les titres sont</label>
         <select id="xOrient">
@@ -225,8 +227,9 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
       <label class="chk"><input type="checkbox" id="xMail" checked> Détecter les e-mails dans le texte libre</label>
       <label class="chk"><input type="checkbox" id="xTel" checked> Détecter les numéros de téléphone dans le texte libre</label>
       <label class="chk"><input type="checkbox" id="xDate"> Détecter toutes les dates (jj/mm/aaaa) dans le texte libre</label>
-      <div class="note info">Seule la feuille choisie est exportée. La mise en forme Excel (couleurs, largeurs) n'est pas conservée.</div>
-      <button class="btn primary" id="xGo" type="button">Pseudonymiser et télécharger</button>
+      <div class="note info" id="xPreserveNotice"><b>Conservation maximale (.xlsx) :</b> les cellules traitées sont modifiées dans les fichiers XML du classeur d’origine. Les styles, largeurs, tableaux, feuilles non traitées et autres composants sont conservés autant que possible. Les lignes et colonnes sensibles sont <b>vidées sur place</b> plutôt que décalées pour protéger les formules et la mise en page. Les anciennes valeurs de la table de chaînes partagées sont retirées du fichier.</div>
+      <div class="note warn"><b>Confidentialité :</b> les feuilles non cochées restent inchangées et peuvent contenir des informations personnelles. Les formules, notes, graphiques, noms de plages, propriétés et objets intégrés peuvent aussi contenir des données sensibles : vérifiez le fichier avant tout envoi à une IA.</div>
+      <button class="btn primary" id="xGo" type="button">Pseudonymiser les feuilles cochées et télécharger le classeur</button>
     </div>
 
     <!-- Word -->
@@ -248,38 +251,47 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
 
     <!-- Résultat -->
     <div class="card hidden" id="pDone">
-      <h2>C'est prêt</h2>
+      <h2>Votre fichier masqué est prêt</h2>
       <div id="pReport"></div>
-      <h3>Consigne à coller avec le fichier dans l'IA</h3>
+      <h3>Consigne à coller avec le fichier dans l’IA</h3>
       <textarea id="prompt" readonly></textarea>
       <div class="row" style="margin-top:8px">
         <button class="btn" id="promptCopy" type="button">Copier la consigne</button>
-        <button class="btn primary" id="pExport" type="button">Exporter la table chiffrée</button>
+        <button class="btn primary" id="pExport" type="button">Sauvegarder les correspondances (JSON)</button>
       </div>
     </div>
   </section>
 
-  <!-- ============ 3. RÉ-IDENTIFIER ============ -->
+  <!-- ============ 3. RESTAURER LE FICHIER ============ -->
   <section class="panel" id="panel-reid" hidden>
-    <div id="rNoTable" class="note warn"><b>La table est vide.</b> Importez d'abord la table chiffrée avec sa clé (étape 1).</div>
     <div class="card">
-      <h2>Fichier rendu par l'IA</h2>
-      <p class="lead">Les jetons sont remplacés par les vraies valeurs, dans un nouveau fichier téléchargé sur cet ordinateur.</p>
-      <label class="drop" id="dropR"><input type="file" id="fileR" accept=".xlsx,.xls,.ods,.csv,.docx,.txt,.md"><strong>Déposer le fichier de l'IA</strong><span>Excel, Word, CSV, texte</span></label>
-      <div id="rMsg"></div>
+      <h2>Retrouver mon fichier avec les vrais noms</h2>
+      <p class="lead">Vous avez terminé votre travail avec l'IA ? Donnez simplement votre clé, la sauvegarde JSON et le fichier modifié par l'IA. Vous récupérerez un nouveau fichier avec les informations d'origine et les modifications de l'IA.</p>
+      <div class="note info"><b>Il vous faut 3 éléments :</b> votre clé (celle du départ), le petit fichier <b>.json</b> de sauvegarde, et votre <b>fichier modifié par l’IA</b>. Le fichier Excel original n'est pas nécessaire.</div>
+      <form id="reidSimpleForm" onsubmit="return false">
+        <h3><label for="reidKey">1. Ma clé secrète</label></h3>
+        <div class="row"><input id="reidKey" class="grow mono" type="password" autocomplete="off" spellcheck="false" placeholder="Collez ici votre clé d'origine" aria-label="Clé secrète utilisée pour masquer les données"><button type="button" class="btn" id="reidKeyToggle">Afficher</button></div>
+        <h3><label for="reidJson">2. Ma sauvegarde JSON</label></h3>
+        <p class="kbd">C'est le fichier contenant les correspondances entre les vrais noms et les codes, protégé par votre clé.</p>
+        <input type="file" id="reidJson" accept=".json,.pseudo,application/json" style="width:100%">
+        <h3><label for="reidFile">3. Mon fichier travaillé par l’IA</label></h3>
+        <p class="kbd">Sélectionnez la dernière version du document Excel, Word ou texte renvoyé par l'IA.</p>
+        <input type="file" id="reidFile" accept=".xlsx,.xls,.ods,.xlsm,.csv,.docx,.txt,.md" style="width:100%">
+        <div class="row" style="margin-top:18px"><button type="button" class="btn primary" id="reidSimpleGo">Rétablir les vrais noms et télécharger mon fichier</button></div>
+        <div id="reidSimpleMsg" role="status" aria-live="polite"></div>
+      </form>
+      <div class="note warn"><b>Confidentialité :</b> la clé et le JSON doivent rester sur votre ordinateur. Aucun des deux ne doit être donné à l’IA. Si un code a été modifié ou supprimé par l'IA, le logiciel ne pourra pas le retrouver automatiquement.</div>
     </div>
     <div class="card">
-      <h2>Ou réponse copiée depuis l'IA</h2>
-      <textarea id="rIn" placeholder="Collez ici la réponse de l'IA qui contient des jetons comme [NOM_001]"></textarea>
-      <div class="row" style="margin-top:8px"><button class="btn primary" id="rGo" type="button">Rétablir les vraies valeurs</button></div>
+      <h2>Autre possibilité : rétablir un texte copié</h2>
+      <p class="lead">Après avoir récupéré vos correspondances avec les trois éléments ci-dessus, vous pouvez aussi coller un texte contenant des codes.</p>
+      <textarea id="rIn" placeholder="Collez ici la réponse de l'IA qui contient des codes comme [NOM_001]"></textarea>
+      <div class="row" style="margin-top:8px"><button class="btn" id="rGo" type="button">Rétablir les noms dans le texte</button></div>
       <div id="rTxtMsg"></div>
       <div id="rOutWrap" class="hidden">
-        <h3>Texte ré-identifié</h3>
+        <h3>Texte avec les vrais noms</h3>
         <textarea id="rOut" readonly></textarea>
-        <div class="row" style="margin-top:8px">
-          <button class="btn" id="rCopy" type="button">Copier</button>
-          <button class="btn" id="rDl" type="button">Télécharger (.txt)</button>
-        </div>
+        <div class="row" style="margin-top:8px"><button class="btn" id="rCopy" type="button">Copier</button><button class="btn" id="rDl" type="button">Télécharger (.txt)</button></div>
       </div>
     </div>
   </section>
@@ -291,9 +303,9 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
       <ol class="steps">
         <li><b>Clé.</b> Générez une clé et rangez-la à part.</li>
         <li><b>Pseudonymiser.</b> Excel : cochez les colonnes (ou les lignes) sensibles, et/ou repérez les cellules par leur mise en forme. Word : mettez les données en <span class="sample">gras italique souligné bleu</span> avant d'importer. L'outil remplace chaque donnée par un jeton, par exemple <span class="token">[NOM_001]</span>.</li>
-        <li><b>Exporter la table chiffrée.</b> C'est le seul moyen de retrouver les vraies valeurs plus tard.</li>
+        <li><b>Sauvegardez aussi le JSON.</b> Il contient les correspondances protégées par votre clé. Conservez-le sur votre ordinateur.</li>
         <li><b>Travailler avec l'IA.</b> Donnez-lui uniquement le fichier pseudonymisé et la consigne proposée.</li>
-        <li><b>Ré-identifier.</b> Importez la table avec la clé, puis le fichier ou le texte rendu par l'IA.</li>
+        <li><b>Retrouver vos vrais noms.</b> Dans l’étape 3, entrez la clé, choisissez le JSON et choisissez le fichier modifié par l’IA. Un seul bouton restaure les valeurs.</li>
       </ol>
     </div>
     <div class="card">
@@ -305,7 +317,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:24px}
       <ul>
         <li>Word : seule la mise en forme appliquée directement au texte est repérée, pas celle d'un style de paragraphe. Les zones de texte et images ne sont pas analysées.</li>
         <li>Word : le format ancien .doc n'est pas lu. Ouvrez-le dans Word puis « Enregistrer sous » .docx.</li>
-        <li>Excel : seule la feuille choisie est exportée, sans la mise en forme ni les commentaires de cellule.</li>
+        <li>Excel : cochez les feuilles à pseudonymiser et configurez leurs colonnes ou lignes séparément. Le classeur entier est téléchargé. En .xlsx, la structure et la présentation sont préservées autant que possible ; les colonnes et lignes à supprimer sont vidées sans décalage. Les feuilles non cochées et les contenus hors cellules ne sont pas vérifiés.</li>
         <li>Excel : le repérage par la mise en forme (gras, couleur, taille…) ne fonctionne qu'avec les fichiers .xlsx, et ignore la mise en forme conditionnelle.</li>
         <li>Si l'IA invente un jeton (<span class="token">[NOM_099]</span> absent de la table), il est signalé et laissé tel quel.</li>
       </ul>
@@ -382,7 +394,7 @@ async function copyText(s){
 function showTab(id){
   $$('[role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === id)));
   $$('.panel').forEach(p => p.hidden = p.id !== 'panel-' + id);
-  if (id === 'reid') $('#rNoTable').classList.toggle('hidden', T.entries.size > 0);
+  if (id === 'reid' && !$('#reidKey').value && $('#key').value) $('#reidKey').value = $('#key').value;
 }
 $$('[role=tab]').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
 
@@ -432,7 +444,7 @@ function refreshTable(){
   $('#stC').textContent = cats.size ? [...cats].map(c => CAT_LABEL[c] || c).join(', ') : '–';
   $('#stC').style.fontSize = cats.size > 2 ? '.9rem' : '';
   $('#dirtyNote').classList.toggle('hidden', !(T.dirty && n));
-  $('#rNoTable').classList.toggle('hidden', n > 0);
+
   renderTableRows();
 }
 function renderTableRows(){
@@ -500,22 +512,30 @@ async function exportTable(){
 $('#tblExport').addEventListener('click', exportTable);
 $('#pExport').addEventListener('click', exportTable);
 
-$('#tblImport').addEventListener('change', async e => {
-  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
-  if (!checkCrypto()) return;
+async function importCorrespondences(f, pass, replaceExisting=true){
+  if (!checkCrypto()) throw new Error('Chiffrement indisponible dans le navigateur.');
   let file;
-  try { file = JSON.parse(await f.text()); } catch(_){ toast('Ce fichier n\'est pas une table de correspondance'); return; }
-  if (!file || file.app !== 'pseudonymiseur-hors-ligne'){ toast('Ce fichier n\'est pas une table de correspondance'); return; }
-  const pass = getKey(); if (!pass) return;
+  try { file = JSON.parse(await f.text()); } catch (_) { throw new Error('Le fichier choisi n’est pas un JSON valide.'); }
+  if (!file || file.app !== 'pseudonymiseur-hors-ligne' || !file.salt || !file.iv || !file.data) throw new Error('Ce JSON n’est pas une sauvegarde du pseudonymiseur.');
+  if (!pass || pass.trim().length < 12) throw new Error('Saisissez la clé utilisée lors de la pseudonymisation.');
   let data;
   try {
-    const key = await deriveKey(pass, unb64(file.salt), file.iterations || ITER);
-    const pt = await crypto.subtle.decrypt({name: 'AES-GCM', iv: unb64(file.iv)}, key, unb64(file.data));
+    const key = await deriveKey(pass.trim(), unb64(file.salt), file.iterations || ITER);
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv: unb64(file.iv)}, key, unb64(file.data));
     data = JSON.parse(new TextDecoder().decode(pt));
-  } catch(_){ toast('Clé incorrecte ou fichier abîmé'); return; }
-  if (T.entries.size && !confirm(`Remplacer la table actuelle (${T.entries.size} jetons) par celle du fichier (${data.entries.length} jetons) ?`)) return;
-  resetTable(); data.entries.forEach(([tok, en]) => addEntry(tok, en)); T.dirty = false;
-  refreshTable(); toast(`Table importée : ${plural(T.entries.size, 'jeton')}`);
+  } catch (_) { throw new Error('La clé ne correspond pas à ce JSON, ou le fichier est endommagé.'); }
+  if (!data || !Array.isArray(data.entries)) throw new Error('Le contenu de cette sauvegarde est invalide.');
+  if (replaceExisting) resetTable();
+  for (const [tok, en] of data.entries) addEntry(tok,en);
+  T.dirty = false; refreshTable();
+  return data.entries.length;
+}
+$('#tblImport').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  const pass = getKey(); if (!pass) return;
+  if (T.entries.size && !confirm('Remplacer les correspondances actuelles par celles de ce JSON ?')) return;
+  try { const n = await importCorrespondences(f,pass); toast(`${n} correspondances récupérées`); }
+  catch(e){ toast(e.message); }
 });
 
 /* ================= Remplacement dans du texte ================= */
@@ -613,10 +633,12 @@ function guessCat(h){
 async function loadExcel(name, buf){
   const wb = XLSX.read(buf, {type: 'array', cellNF: true, cellDates: false, cellStyles: false});
   const ext = (name.match(/\.([^.]+)$/) || [])[1]?.toLowerCase();
-  X = {name, wb, fmt: ['xlsx', 'xlsm'].includes(ext) ? await loadXlsxFormats(buf) : null};
+  X = {name, wb, buf, ext, states: {}, selected: new Set([wb.SheetNames[0]]), fmt: ext === 'xlsx' ? await loadXlsxFormats(buf) : null};
   $('#xTitle').textContent = 'Excel : ' + name;
   $('#xSheet').innerHTML = wb.SheetNames.map(n => `<option>${esc(n)}</option>`).join('');
   sheetChanged();
+  renderSheetList();
+  $('#xPreserveNotice').classList.toggle('hidden', ext !== 'xlsx');
   $('#xCard').classList.remove('hidden'); $('#wCard').classList.add('hidden'); $('#pDone').classList.add('hidden');
   note('#pMsg', 'ok', `<b>${esc(name)}</b> chargé${wb.SheetNames.length > 1 ? ` (${wb.SheetNames.length} feuilles)` : ''}.`);
 }
@@ -654,8 +676,57 @@ function sensitiveScore(w, rows){
   }
   return n;
 }
+function saveSheetState(){
+  if (!X || !X.current) return;
+  X.states[X.current] = {
+    orient: $('#xOrient').value, header: $('#xHeader').value,
+    cols: $$('#xCols .colrow').map(el => ({it: +el.dataset.c,
+      on: el.querySelector('.xOn').checked, del: el.querySelector('.xDel').checked,
+      cat: el.querySelector('.xCat').value, age: !!el.querySelector('.xAge')?.checked})),
+    fmtOn: $('#xFmtOn').checked, fvals: X.fvals ? new Map(X.fvals) : new Map(),
+    opts: ['xOther','xMail','xTel','xDate'].map(k => $('#' + k).checked)
+  };
+}
+function restoreSheetState(st){
+  $('#xOrient').value = st.orient;
+  $('#xHeader').value = st.header;
+  $('#xHeaderLbl').textContent = st.orient === 'rows' ? 'Colonne' : 'Ligne n°';
+  $('#xItemsTitle').textContent = st.orient === 'rows' ? 'Lignes à pseudonymiser' : 'Colonnes à pseudonymiser';
+  renderColumns();
+  for (const c of st.cols){
+    const el = $$('#xCols .colrow').find(row => +row.dataset.c === c.it);
+    if (!el) continue;
+    el.querySelector('.xOn').checked = c.on; el.querySelector('.xDel').checked = c.del;
+    el.querySelector('.xCat').value = c.cat;
+    if (el.querySelector('.xAge')) el.querySelector('.xAge').checked = c.age;
+    el.classList.toggle('on', c.on); el.classList.toggle('del', c.del);
+  }
+  $('#xFmtOn').checked = st.fmtOn;
+  X.fvals = new Map(st.fvals);
+  ['xOther','xMail','xTel','xDate'].forEach((k,i) => $('#' + k).checked = st.opts[i]);
+  analyzeExcelFmt();
+}
+function renderSheetList(){
+  if (!X) return;
+  $('#xSheetsList').innerHTML = X.wb.SheetNames.map(n => `<label class="colrow" style="grid-template-columns:auto 1fr auto;cursor:pointer"><input type="checkbox" class="xSheetSelect" data-name="${esc(n)}" ${X.selected.has(n) ? 'checked' : ''}><span class="meta"><b>${esc(n)}</b><small>${X.selected.has(n) ? 'À pseudonymiser' : 'Conservée sans modification'}</small></span><button type="button" class="btn small xConfigure" data-name="${esc(n)}">Configurer</button></label>`).join('');
+  $$('#xSheetsList .xSheetSelect').forEach(el => el.addEventListener('change', () => {
+    el.checked ? X.selected.add(el.dataset.name) : X.selected.delete(el.dataset.name);
+    renderSheetList();
+  }));
+  $$('#xSheetsList .xConfigure').forEach(el => el.addEventListener('click', () => {
+    $('#xSheet').value = el.dataset.name; sheetChanged();
+    $('#xCols').scrollIntoView({block:'nearest', behavior:'smooth'});
+  }));
+}
 function sheetChanged(){
-  const w = ws();
+  if (!X) return;
+  saveSheetState();
+  const n = $('#xSheet').value; X.current = n;
+  const st = X.states[n], w = ws();
+  if (st){ restoreSheetState(st); return; }
+  X.fvals = new Map(); $('#xFmtOn').checked = false;
+  ['xOther','xMail','xTel'].forEach(k => $('#' + k).checked = true);
+  $('#xDate').checked = false;
   if (w && w['!ref']) $('#xOrient').value = sensitiveScore(w, true) > sensitiveScore(w, false) ? 'rows' : 'cols';
   orientChanged(true);
 }
@@ -839,15 +910,16 @@ async function analyzeExcelFmt(){
 }
 $('#xFmtOn').addEventListener('change', analyzeExcelFmt);
 
-$('#xGo').addEventListener('click', async () => {
-  if (!X) return;
+
+async function processOneSheet(){
+  if (!X) return null;
   const w = ws(), rows = isRows(), g = geo(w, rows), r = g.r, h0 = headerPos();
   const delSet = new Set($$('#xCols .colrow').filter(row => row.querySelector('.xDel').checked).map(row => +row.dataset.c));
   const cfg = $$('#xCols .colrow').filter(row => row.querySelector('.xOn').checked && !row.querySelector('.xDel').checked).map(row => ({
     it: +row.dataset.c, cat: row.querySelector('.xCat').value, age: !!(row.querySelector('.xAge') && row.querySelector('.xAge').checked)
   }));
   const fmtOn = $('#xFmtOn').checked && !!X.fmt;
-  if (!cfg.length && !fmtOn && !delSet.size){ toast(`Cochez au moins une ${g.word[0]}, ou activez le repérage par la mise en forme`); return; }
+  if (!cfg.length && !fmtOn && !delSet.size){ return null; }
   const out = {};
   for (const k of Object.keys(w)) out[k] = k[0] === '!' ? JSON.parse(JSON.stringify(w[k])) : Object.assign({}, w[k]);
   const sel = new Set(cfg.map(x => x.it));
@@ -901,41 +973,150 @@ $('#xGo').addEventListener('click', async () => {
     if (res.n){ out[addr] = {t: 's', v: res.out}; nOther += res.n; }
   }
   out['!ref'] = XLSX.utils.encode_range({s: r.s, e: rows ? {r: r.e.r + extra, c: r.e.c} : {r: r.e.r, c: r.e.c + extra}});
-  // 3. suppression des colonnes (ou lignes) sensibles, les suivantes sont décalées
-  let nDel = 0;
+  // 3. Redaction conservatrice : on vide les lignes/colonnes sensibles en place.
+  // Déplacer les cellules casserait potentiellement formules, tableaux, validations et graphiques.
+  const nDel = delSet.size;
   if (delSet.size){
-    const dels = [...delSet].sort((a, b) => a - b), shift = it => dels.filter(d => d < it).length;
-    const moved = {};
     for (const addr of Object.keys(out)){
-      if (addr[0] === '!'){ moved[addr] = out[addr]; continue; }
-      const d = XLSX.utils.decode_cell(addr), it = rows ? d.r : d.c;
-      if (delSet.has(it)) continue;
-      const n = it - shift(it);
-      moved[enc(rows ? {r: n, c: d.c} : {r: d.r, c: n})] = out[addr];
+      if (addr[0] === '!') continue;
+      const d = XLSX.utils.decode_cell(addr);
+      if (delSet.has(rows ? d.r : d.c)) delete out[addr];
     }
-    delete moved['!merges'];
-    const key = rows ? '!rows' : '!cols';
-    if (moved[key]) moved[key] = moved[key].filter((_, i) => !delSet.has(i));
-    const rr = XLSX.utils.decode_range(moved['!ref']);
-    if (rows) rr.e.r -= dels.length; else rr.e.c -= dels.length;
-    moved['!ref'] = XLSX.utils.encode_range(rr);
-    Object.keys(out).forEach(k => delete out[k]); Object.assign(out, moved);
-    nDel = dels.length;
   }
-  const nwb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(nwb, out, $('#xSheet').value.slice(0, 31));
-  const name = baseName(X.name) + '_PSEUDO.xlsx';
-  download(XLSX.write(nwb, {bookType: 'xlsx', type: 'array'}), name, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  refreshTable();
-  const [w1, wN] = g.word;
-  done(name, [
-    cfg.length ? `${plural(nTok, 'cellule')} remplacée${nTok > 1 ? 's' : ''} dans ${cfg.length} ${cfg.length > 1 ? wN : w1}` : null,
-    nFmt ? `${plural(nFmt, 'donnée')} repérée${nFmt > 1 ? 's' : ''} par la mise en forme` : null,
-    nDel ? `${nDel} ${nDel > 1 ? wN : w1} supprimée${nDel > 1 ? 's' : ''} (données sensibles)` : null,
-    nOther ? `${plural(nOther, 'autre occurrence', 'autres occurrences')} masquée${nOther > 1 ? 's' : ''} dans le texte libre` : null,
-    extra ? `${extra} ${extra > 1 ? wN : w1} d'âge ajoutée${extra > 1 ? 's' : ''}` : null,
-    nCom ? `${plural(nCom, 'commentaire')} de cellule supprimé${nCom > 1 ? 's' : ''}` : null
-  ]);
+  return {out, stats: {nTok, nOther, nCom, extra, nFmt, nDel, cfg:cfg.length}};
+}
+
+/* ===== Export .xlsx haute fidélité : patch XML ciblé plutôt que réécriture SheetJS ===== */
+function xChild(parent, name){ return [...parent.children].find(e => e.localName === name); }
+function xMake(doc, name){ return doc.createElementNS(SML, name); }
+function xCellValue(doc, c, data){
+  // Conserve l'attribut s (style) et les autres attributs utiles de la cellule.
+  for (const child of [...c.children]) if (['v','is','f'].includes(child.localName)) c.removeChild(child);
+  if (!data || data.v == null || data.v === '') { c.removeAttribute('t'); return; }
+  if (data.t === 's' || typeof data.v === 'string'){
+    c.setAttribute('t', 'inlineStr');
+    const is = xMake(doc, 'is'), t = xMake(doc, 't');
+    t.textContent = String(data.v);
+    if (/^\s|\s$/.test(t.textContent)) t.setAttribute('xml:space', 'preserve');
+    is.appendChild(t); c.appendChild(is);
+  } else {
+    c.setAttribute('t', data.t === 'b' ? 'b' : 'n');
+    const v = xMake(doc, 'v'); v.textContent = String(data.t === 'b' ? (data.v ? 1 : 0) : data.v); c.appendChild(v);
+  }
+}
+function xInsertRow(doc, data, index){
+  const newRow = xMake(doc, 'row'); newRow.setAttribute('r', String(index));
+  const next = [...data.children].find(el => el.localName === 'row' && +el.getAttribute('r') > index);
+  if (next) data.insertBefore(newRow, next); else data.appendChild(newRow);
+  return newRow;
+}
+function xInsertCell(doc, row, addr){
+  const cell = xMake(doc, 'c'); cell.setAttribute('r', addr);
+  const cidx = XLSX.utils.decode_cell(addr).c;
+  const next = [...row.children].find(el => el.localName === 'c' && XLSX.utils.decode_cell(el.getAttribute('r')).c > cidx);
+  if (next) row.insertBefore(cell, next); else row.appendChild(cell);
+  return cell;
+}
+function xPatchCells(doc, original, changed){
+  const root = doc.documentElement, data = root.getElementsByTagNameNS(SML, 'sheetData')[0];
+  if (!data) throw new Error('Feuille Excel sans sheetData');
+  const cells = new Map([...root.getElementsByTagNameNS(SML, 'c')].map(c => [c.getAttribute('r'), c]));
+  const rows = new Map([...data.children].filter(r=>r.localName==='row').map(r => [+r.getAttribute('r'),r]));
+  const addrs = new Set([...Object.keys(original), ...Object.keys(changed)].filter(a => a[0] !== '!'));
+  for (const addr of addrs){
+    const before = original[addr], after = changed[addr];
+    if (before && after && before.t === after.t && String(before.v) === String(after.v)) continue;
+    if (!before && !after) continue;
+    let c = cells.get(addr);
+    if (!c && !after) continue;
+    if (!c){
+      const rno = XLSX.utils.decode_cell(addr).r + 1;
+      let row = rows.get(rno);
+      if (!row){ row = xInsertRow(doc, data, rno); rows.set(rno,row); }
+      c = xInsertCell(doc,row,addr); cells.set(addr,c);
+    }
+    xCellValue(doc,c,after);
+  }
+  const dim = root.getElementsByTagNameNS(SML, 'dimension')[0];
+  if (dim && changed['!ref']) dim.setAttribute('ref',changed['!ref']);
+}
+async function exportXlsxPreserved(results){
+  const zip = await JSZip.loadAsync(X.buf), F = X.fmt;
+  if (!F || !F.sheets) throw new Error('Structure XML .xlsx indisponible');
+  const originalSSFile = zip.file('xl/sharedStrings.xml');
+  const ssDoc = originalSSFile ? parseXml(await originalSSFile.async('string')) : null;
+  const ss = ssDoc ? [...ssDoc.documentElement.children].filter(x => x.localName === 'si') : [];
+  // Convertit TOUTES les références aux chaînes partagées, y compris dans les
+  // feuilles non traitées, pour pouvoir retirer l'ancien dictionnaire du ZIP.
+  for (const name of X.wb.SheetNames){
+    const path = F.sheets[name], file = zip.file(path);
+    if (!file) throw new Error('Feuille introuvable dans le ZIP : ' + name);
+    const doc = parseXml(await file.async('string'));
+    for (const c of doc.getElementsByTagNameNS(SML,'c')){
+      if (c.getAttribute('t') !== 's') continue;
+      const v = xChild(c,'v'), si = v && ss[+v.textContent];
+      if (!si) throw new Error('Index de chaîne partagée non résolu dans « ' + name + ' »');
+      const inline = xMake(doc,'is');
+      for (const child of [...si.childNodes]) inline.appendChild(doc.importNode(child,true));
+      if (v) c.removeChild(v);
+      c.appendChild(inline); c.setAttribute('t','inlineStr');
+    }
+    if (results[name]) xPatchCells(doc, X.wb.Sheets[name], results[name]);
+    zip.file(path, serXml(doc));
+  }
+  if (originalSSFile){
+    zip.remove('xl/sharedStrings.xml');
+    const relPath = 'xl/_rels/workbook.xml.rels', relFile = zip.file(relPath);
+    if (relFile){
+      const relDoc = parseXml(await relFile.async('string'));
+      [...relDoc.documentElement.children].filter(r=>/\/sharedStrings$/.test(r.getAttribute('Type')||'')).forEach(r=>r.remove());
+      zip.file(relPath, serXml(relDoc));
+    }
+    const ctPath = '[Content_Types].xml', ctFile = zip.file(ctPath);
+    if (ctFile){
+      const ctDoc = parseXml(await ctFile.async('string'));
+      [...ctDoc.documentElement.children].filter(e=>e.getAttribute('PartName')==='/xl/sharedStrings.xml').forEach(e=>e.remove());
+      zip.file(ctPath, serXml(ctDoc));
+    }
+  }
+  return zip.generateAsync({type:'uint8array', compression:'DEFLATE', compressionOptions:{level:6}});
+}
+$('#xGo').addEventListener('click', async () => {
+  if (!X) return;
+  saveSheetState();
+  if (!X.selected.size){ toast('Cochez au moins une feuille à pseudonymiser'); return; }
+  const button = $('#xGo'); button.disabled = true;
+  try {
+    const results = {}, summaries = [], skipped = [];
+    const orig = $('#xSheet').value;
+    for (const sheet of X.wb.SheetNames){
+      if (!X.selected.has(sheet)) continue;
+      $('#xSheet').value = sheet; sheetChanged();
+      const data = await processOneSheet();
+      if (data){ results[sheet] = data.out; summaries.push(sheet + ' : ' + data.stats.nTok + ' cellules remplacées, ' + data.stats.nFmt + ' repérages par format, ' + data.stats.nDel + ' axes vidés'); }
+      else skipped.push(sheet);
+    }
+    $('#xSheet').value = orig; sheetChanged();
+    if (!Object.keys(results).length){ toast('Aucune modification configurée dans les feuilles cochées'); return; }
+    const name = baseName(X.name) + '_PSEUDO.xlsx';
+    let bytes;
+    if (X.ext === 'xlsx' && X.fmt){
+      bytes = await exportXlsxPreserved(results);
+    } else {
+      const wb = {...X.wb, SheetNames:[...X.wb.SheetNames], Sheets:{...X.wb.Sheets,...results}};
+      bytes = XLSX.write(wb,{bookType:'xlsx',type:'array'});
+    }
+    download(bytes,name,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    refreshTable();
+    done(name, [
+      `${Object.keys(results).length} feuille(s) pseudonymisée(s) sur ${X.wb.SheetNames.length} feuille(s) du classeur`,
+      ...summaries,
+      skipped.length ? 'Feuilles cochées sans configuration : ' + skipped.join(', ') : null,
+      X.ext === 'xlsx' ? 'Conservation ciblée des fichiers XML originaux (styles et structure préservés autant que possible)' : 'Fichier reconstruit : la mise en forme peut être perdue',
+      'Vérifiez les informations sensibles restantes avant tout partage avec une IA'
+    ]);
+  } catch (e){ console.error(e); note('#pMsg','err','Export impossible : '+esc(e.message)); }
+  finally {button.disabled = false;}
 });
 
 /* ================= Word ================= */
@@ -1215,7 +1396,7 @@ Consignes :
 
 Tâche : `;
   $('#pReport').innerHTML = `<div class="note ok"><b>${esc(name)}</b> téléchargé.<br>${lines.filter(Boolean).map(esc).join(' · ')}.</div>` +
-    (T.dirty ? `<div class="note warn"><b>Exportez maintenant la table chiffrée.</b> Sans elle, impossible de retrouver les vraies données.</div>` : '');
+    (T.dirty ? `<div class="note warn"><b>IMPORTANT : sauvegardez maintenant le fichier JSON avec le bouton ci-dessous.</b> Avec votre clé, il permettra de récupérer les vrais noms après le travail de l’IA. Gardez ce JSON privé.</div>` : '');
   $('#pDone').classList.remove('hidden');
   $('#pDone').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
@@ -1248,7 +1429,7 @@ function reidReport(stats){
   return h;
 }
 async function handleReid(f){
-  if (!needTable('#rMsg')) return;
+  if (!needTable('#reidSimpleMsg')) return;
   const ext = (f.name.match(/\.([^.]+)$/) || [])[1]?.toLowerCase();
   const TM = tokenMatcher();
   try {
@@ -1259,30 +1440,66 @@ async function handleReid(f){
       for (const part of parts){ for (const p of paragraphs(part.doc)) replaceInParagraph(p, TM.re, TM.fn); zip.file(part.path, serXml(part.doc)); }
       download(await zip.generateAsync({type: 'blob', compression: 'DEFLATE', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}), (outName = stem + 'docx'));
     } else if (['xlsx', 'xls', 'ods', 'xlsm'].includes(ext)){
-      const wb = XLSX.read(buf, {type: 'array', cellNF: true});
+      const wb = XLSX.read(buf, {type:'array', cellNF:true});
+      const changes = {};
       for (const sn of wb.SheetNames){
-        const s = wb.Sheets[sn];
-        for (const addr of Object.keys(s)){
+        const sh = wb.Sheets[sn], changed = {...sh}; let modified = false;
+        for (const addr of Object.keys(sh)){
           if (addr[0] === '!') continue;
-          const c = s[addr]; if (typeof c.v !== 'string' || c.f) continue;
+          const c = sh[addr]; if (typeof c.v !== 'string' || c.f) continue;
           const whole = c.v.trim().match(/^\[?([A-Z]+)_(\d{1,6})\]?$/);
           if (whole){
             const e = T.entries.get(`[${whole[1]}_${String(parseInt(whole[2], 10)).padStart(3, '0')}]`);
-            if (e && e.d){ const [y, m, d] = e.d.split('-').map(Number); s[addr] = {t: 'n', v: (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5, z: 'dd/mm/yyyy'}; TM.stats.n++; continue; }
+            if (e && e.d){
+              const [y,m,d] = e.d.split('-').map(Number);
+              changed[addr] = {t:'s', v:`${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`};
+              TM.stats.n++; modified = true; continue;
+            }
           }
           const r = replaceString(c.v, TM);
-          if (r.n) s[addr] = {t: 's', v: r.out};
+          if (r.n){ changed[addr] = {...c, t:'s', v:r.out, w:undefined}; modified = true; }
         }
+        if (modified) changes[sn] = changed;
       }
-      download(XLSX.write(wb, {bookType: 'xlsx', type: 'array'}), (outName = stem + 'xlsx'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      if (ext === 'xlsx'){
+        const savedX = X;
+        try {
+          const fmt = await loadXlsxFormats(buf);
+          if (!fmt) throw new Error('Impossible de lire la structure du classeur Excel.');
+          X = {buf,wb,fmt};
+          const out = await exportXlsxPreserved(changes);
+          download(out, (outName = stem + 'xlsx'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } finally { X = savedX; }
+      } else {
+        const output = {...wb, Sheets:{...wb.Sheets,...changes}};
+        download(XLSX.write(output,{bookType:'xlsx',type:'array'}), (outName = stem + 'xlsx'), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      }
     } else if (['csv', 'txt', 'md'].includes(ext)){
       const r = replaceString(await f.text(), TM);
       download(r.out, (outName = stem + ext), 'text/plain;charset=utf-8');
-    } else { note('#rMsg', 'warn', 'Format non pris en charge.'); return; }
-    note('#rMsg', TM.stats.unknown.size ? 'warn' : 'ok', reidReport(TM.stats) + `<br>Fichier téléchargé : <b>${esc(outName)}</b>`);
-  } catch(e){ note('#rMsg', 'err', 'Impossible de traiter ce fichier : ' + esc(e.message)); }
+    } else { note('#reidSimpleMsg', 'warn', 'Format non pris en charge.'); return; }
+    note('#reidSimpleMsg', TM.stats.unknown.size ? 'warn' : 'ok', reidReport(TM.stats) + `<br>Fichier téléchargé : <b>${esc(outName)}</b>`);
+  } catch(e){ note('#reidSimpleMsg', 'err', 'Impossible de traiter ce fichier : ' + esc(e.message)); }
 }
-setupDrop($('#dropR'), $('#fileR'), handleReid);
+$('#reidKeyToggle').addEventListener('click', () => {
+  const el = $('#reidKey'), visible = el.type === 'password';
+  el.type = visible ? 'text' : 'password';
+  $('#reidKeyToggle').textContent = visible ? 'Masquer' : 'Afficher';
+});
+$('#reidSimpleGo').addEventListener('click', async () => {
+  const btn = $('#reidSimpleGo');
+  const password = $('#reidKey').value.trim(), json = $('#reidJson').files[0], file = $('#reidFile').files[0];
+  if (!password){ note('#reidSimpleMsg','warn','<b>Étape 1 :</b> collez votre clé secrète.'); return; }
+  if (!json){ note('#reidSimpleMsg','warn','<b>Étape 2 :</b> sélectionnez le fichier JSON sauvegardé au départ.'); return; }
+  if (!file){ note('#reidSimpleMsg','warn','<b>Étape 3 :</b> sélectionnez le fichier travaillé par l’IA.'); return; }
+  btn.disabled = true; btn.textContent = 'Rétablissement en cours…';
+  try {
+    const n = await importCorrespondences(json,password);
+    note('#reidSimpleMsg','info',`<b>${n} correspondances chargées.</b> Rétablissement du document…`);
+    await handleReid(file);
+  } catch(e){ note('#reidSimpleMsg','err',esc(e.message)); }
+  finally{ btn.disabled = false; btn.textContent = 'Rétablir les vrais noms et télécharger mon fichier'; }
+});
 
 $('#rGo').addEventListener('click', () => {
   if (!needTable('#rTxtMsg')) return;

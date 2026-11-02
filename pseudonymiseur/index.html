@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang='fr'>
+<head>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="09bb50e4-e5cd-47d4-b231-1551e99b2df5" data-domains="xseorkly.github.io" data-exclude-search="true"></script>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Présentation · Le pseudonymiseur hors ligne – IA administrative 2.0</title>
+<meta name='description' content="Présentation du pseudonymiseur hors ligne : à quoi il sert, comment il fonctionne vraiment, et le logiciel à utiliser directement dans la page.">
+<style>
+:root{--navy:#101c31;--mint:#cafd70;--light:#f4f7f5;--gray:#5d6b7b;--teal:#078879;--line:#dce4e4;--warn:#fff7e0;--warnb:#c49317;--ok:#e7f6ec;--okb:#2f8a52;--stop:#fdeceb;--stopb:#b23a2a;--tok:#6b3fa0;--toksoft:#f1eafa}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--navy);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}button{cursor:pointer;font:inherit}.wrap{max-width:1100px;margin:auto;padding:0 25px}
+header{position:sticky;top:0;background:#ffffffeb;backdrop-filter:blur(12px);border-bottom:1px solid #dae1e4;z-index:5}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:15px;padding-bottom:15px;gap:18px}
+nav{display:flex;flex-wrap:wrap;gap:19px;font-size:13px;font-weight:700}nav a{text-decoration:none}
+.brand{font-size:16px;font-weight:900;text-decoration:none}.brand span{color:var(--teal)}
+.hero{background:var(--navy);color:white;padding:80px 0 70px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#008f7f}.hero .eyebrow{color:var(--mint)}
+h1,h2,h3{line-height:1.13;letter-spacing:-.04em}h1{font-size:clamp(40px,5.6vw,70px);max-width:900px;margin:18px 0}
+h2{font-size:clamp(30px,4vw,44px);margin:12px 0 18px}h3{font-size:21px;margin:8px 0}h4{font-size:15px;margin:18px 0 6px}
+p{max-width:820px}.lead{font-size:19px;color:#c6d3e2;max-width:800px}
+.btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;padding:12px 18px;font-weight:800;background:var(--mint);color:var(--navy);margin:8px 8px 0 0}
+.ghost{background:transparent;color:white;border:1px solid #75879e}.btn.dark{background:var(--navy);color:#fff}.btn.soft{background:#e6eded;color:var(--navy)}
+.section{padding:70px 0}.alt{background:var(--light)}.intro{color:var(--gray);font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px}.card p,.card li{font-size:14.5px;color:var(--gray)}.card ul{padding-left:18px;margin:6px 0}
+.card .num{font-size:11px;font-weight:900;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.crumbs{font-size:13px;margin-bottom:10px}.crumbs a{color:var(--mint)}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2b3a52;border-radius:14px;overflow:hidden;margin-top:38px}
+.summary div{background:#16243c;padding:16px}.summary b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:4px}.summary span{font-size:14.5px;color:#e4ecf3}
+.note{background:var(--warn);border-left:4px solid var(--warnb);padding:14px 18px;border-radius:6px;font-size:15px;margin:18px 0;max-width:900px}
+.note.ok{background:var(--ok);border-color:var(--okb)}.note.stop{background:var(--stop);border-color:var(--stopb)}
+.tok{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;color:var(--tok);background:var(--toksoft);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
+/* Avant / après */
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin:24px 0}
+.ba .card h3{font-size:17px}.ba .arrow{display:grid;place-items:center;font-size:30px;color:var(--teal);font-weight:900}
+.mini{width:100%;border-collapse:collapse;font-size:13.5px}.mini th,.mini td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}.mini th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+/* Cycle */
+.cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 8px;counter-reset:c}
+.cycle .st{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;position:relative;counter-increment:c}
+.cycle .st::before{content:counter(c);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--mint);font-weight:900;font-size:14px;margin-bottom:8px}
+.cycle .st.ia{border-color:var(--warnb);background:#fffcf2}.cycle .st.ia::before{background:var(--warnb);color:#fff}
+.cycle .st h3{font-size:17px}.cycle .st p{font-size:14px;color:var(--gray);margin:4px 0 0}
+.zones{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.zone{border-radius:14px;padding:18px 20px}.zone.home{background:var(--ok);border:1px solid #bfe3cb}.zone.out{background:var(--warn);border:1px solid #efd99a}
+.zone h3{font-size:16px;margin:0 0 6px}.zone ul{margin:0;padding-left:18px;font-size:14.5px}
+/* Sous le capot */
+.engine{display:grid;grid-template-columns:260px 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;margin-top:24px}
+.engine .menu{background:var(--light);border-right:1px solid var(--line);display:flex;flex-direction:column}
+.engine .menu button{all:unset;cursor:pointer;padding:14px 18px;font-weight:700;font-size:14.5px;border-bottom:1px solid var(--line)}
+.engine .menu button small{display:block;font-weight:400;color:var(--gray);font-size:12.5px}
+.engine .menu button[aria-selected=true]{background:var(--navy);color:#fff}.engine .menu button[aria-selected=true] small{color:#b9c8d8}
+.engine .menu button:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+.engine .pane{padding:22px 26px}.engine .pane[hidden]{display:none}.engine .pane h3{margin-top:0}.engine .pane p,.engine .pane li{font-size:15px}.engine .pane ul{padding-left:20px}.engine .pane li{margin:5px 0}
+.kv{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}.kv td{border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}.kv td:first-child{font-weight:700;white-space:nowrap;width:1%}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+/* Logiciel */
+.app{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;margin-top:20px}
+.app .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--navy);color:#fff;padding:10px 14px}
+.app .bar b{font-size:14px}.app .bar .btns{display:flex;gap:8px;flex-wrap:wrap}
+.app .bar button,.app .bar a{border:0;border-radius:8px;padding:8px 12px;font-weight:800;font-size:13px;background:var(--mint);color:var(--navy);text-decoration:none}
+.app .bar .sec{background:#25365a;color:#fff}
+.app .start{padding:40px 24px;text-align:center;background:var(--light)}
+.app .start p{margin:8px auto;color:var(--gray)}
+.app iframe{display:block;width:100%;height:82vh;min-height:620px;border:0;background:#f4f6f8}
+.app:fullscreen{border-radius:0;display:flex;flex-direction:column}.app:fullscreen iframe{flex:1;height:auto}
+.next{background:var(--navy);color:#fff;border-radius:16px;padding:30px 32px;margin-top:10px}
+.next h2{color:#fff}.next p{color:#c6d3e2}.next a.btn{margin-top:14px}
+footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}footer a{color:#fff}
+.credits{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding-bottom:18px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}.credits .logos{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.credits .logos img{height:84px;width:auto;display:block;border-radius:4px}.credits p{margin:0;flex:1 1 300px;min-width:0;color:#e6eef3;font-size:14px;line-height:1.55}.credits b{color:#fff}
+@media(max-width:900px){.grid,.grid2,.cycle,.summary,.zones{grid-template-columns:1fr 1fr}.engine{grid-template-columns:1fr}.engine .menu{flex-direction:row;overflow-x:auto}.engine .menu button{border-bottom:0;border-right:1px solid var(--line);min-width:170px}.ba{grid-template-columns:1fr}.ba .arrow{transform:rotate(90deg)}}
+@media(max-width:600px){.grid,.grid2,.cycle,.summary,.zones{grid-template-columns:1fr}nav{display:none}.hero{padding:56px 0}}
+</style>
+</head>
+<body>
+<header><div class='wrap'><a class='brand' href='../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../index.html#nouveautes'>Nouveautés</a><a href='../index.html#programme'>Programme</a><a href='../index.html#ateliers'>Ateliers</a><a href='../index.html#ressources'>Ressources</a><a href='../index.html#formateur'>Formateur</a></nav></div></header>
+<main>
+
+<section class='hero'><div class='wrap'>
+<div class='crumbs'><a href='../index.html#programme'>← Programme</a></div>
+<div class='eyebrow'>Présentation · 30 min · Jour 1</div>
+<h1>Le pseudonymiseur hors ligne</h1>
+<p class='lead'>Un petit logiciel qui masque les noms, les dates, les adresses et les numéros d'un fichier Excel ou Word avant de le confier à une IA, puis qui remet les vraies informations dans le travail rendu par l'IA. Il tient dans un seul fichier, s'ouvre dans le navigateur et n'envoie rien sur Internet.</p>
+<a class='btn' href='#logiciel'>Ouvrir le logiciel ↓</a><a class='btn ghost' href='pseudonymiseur-hors-ligne.html' download>↧ Télécharger le logiciel (1 Mo)</a>
+<div class='summary'>
+<div><b>Pour qui</b><span>Toute personne qui veut faire travailler une IA sur un fichier contenant des personnes.</span></div>
+<div><b>Fichiers</b><span>Excel (.xlsx, .xls, .ods, .csv) et Word (.docx).</span></div>
+<div><b>Installation</b><span>Aucune : un fichier HTML à ouvrir avec Chrome, Edge ou Firefox.</span></div>
+<div><b>Connexion</b><span>Aucune donnée ne quitte l'ordinateur. Fonctionne Wi-Fi coupé.</span></div>
+</div>
+</div></section>
+
+<!-- ============ À QUOI IL SERT ============ -->
+<section class='section'><div class='wrap'>
+<div class='eyebrow'>À quoi il sert</div>
+<h2>Faire travailler l'IA sans lui donner les noms.</h2>
+<p class='intro'>Vous voulez qu'une IA prépare un courrier aux familles, trie une liste d'élèves ou résume un compte rendu. Le problème : le fichier contient des noms, des dates de naissance, des courriels, des téléphones. Le pseudonymiseur remplace chacune de ces informations par un <b>code</b>, par exemple <span class='tok'>[NOM_001]</span>. L'IA travaille sur les codes. Vous seule gardez la correspondance entre les codes et les vraies informations.</p>
+
+<div class='ba'>
+<div class='card'><div class='num'>Ce que vous avez</div><h3>Liste de la 4e B</h3>
+<table class='mini'><tr><th>Nom</th><th>Prénom</th><th>Né(e) le</th><th>Observations</th></tr>
+<tr><td>MARTIN</td><td>Léa</td><td>12/03/2012</td><td>Léa progresse bien ; travaille avec Hugo en sciences.</td></tr>
+<tr><td>DUPONT</td><td>Hugo</td><td>05/11/2011</td><td>Joindre la famille au 06 12 34 56 78.</td></tr></table></div>
+<div class='arrow' aria-hidden='true'>→</div>
+<div class='card'><div class='num'>Ce que l'IA reçoit</div><h3>liste-4eB_PSEUDO.xlsx</h3>
+<table class='mini'><tr><th>Nom</th><th>Prénom</th><th>Né(e) le</th><th>Observations</th></tr>
+<tr><td><span class='tok'>[NOM_001]</span></td><td><span class='tok'>[PRENOM_001]</span></td><td><span class='tok'>[DATE_001]</span></td><td><span class='tok'>[PRENOM_001]</span> progresse bien ; travaille avec <span class='tok'>[PRENOM_002]</span> en sciences.</td></tr>
+<tr><td><span class='tok'>[NOM_002]</span></td><td><span class='tok'>[PRENOM_002]</span></td><td><span class='tok'>[DATE_002]</span></td><td>Joindre la famille au <span class='tok'>[TEL_001]</span>.</td></tr></table></div>
+</div>
+<p class='intro'>Remarquez que « Hugo » dans les observations devient le même code que dans la colonne Prénom. C'est voulu : l'IA comprend qu'il s'agit de la même personne et peut raisonner juste, sans jamais savoir qui elle est.</p>
+
+<div class='note'><b>Pseudonymiser n'est pas anonymiser.</b> Pseudonymiser, c'est remplacer les noms par des codes en gardant de quoi revenir en arrière : c'est ce que fait ce logiciel. Anonymiser, c'est rendre la personne impossible à retrouver, définitivement. Un fichier pseudonymisé reste soumis au RGPD, et le contexte peut suffire à reconnaître quelqu'un (« la seule élève de 4e arrivée de Tokyo en janvier »). Relisez toujours le fichier avant de l'envoyer.</div>
+</div></section>
+
+<!-- ============ LE CYCLE ============ -->
+<section class='section alt'><div class='wrap'>
+<div class='eyebrow'>Le cycle complet</div>
+<h2>Quatre temps, un aller et un retour.</h2>
+<p class='intro'>Le logiciel est organisé en onglets qui suivent exactement ces étapes.</p>
+<div class='cycle'>
+<div class='st'><h3>Ma clé</h3><p>Le logiciel génère une clé secrète (un mot de passe de 20 caractères). Vous la notez et la rangez à part.</p></div>
+<div class='st'><h3>Masquer les données</h3><p>Vous déposez le fichier, vous vérifiez ce qui sera codé, vous téléchargez la copie <span class='mono'>_PSEUDO</span> et la sauvegarde <span class='mono'>.json</span>.</p></div>
+<div class='st ia'><h3>Travailler avec l'IA</h3><p>Vous donnez à l'IA uniquement la copie masquée, avec la consigne que le logiciel a préparée.</p></div>
+<div class='st'><h3>Retrouver mon fichier</h3><p>Clé + sauvegarde JSON + fichier rendu par l'IA : un bouton remet les vrais noms et télécharge un fichier <span class='mono'>_REIDENTIFIE</span>.</p></div>
+</div>
+<div class='zones'>
+<div class='zone home'><h3>🔒 Reste sur votre ordinateur</h3><ul><li>le fichier d'origine ;</li><li>la clé secrète (jamais dans le même dossier que le JSON) ;</li><li>la sauvegarde JSON des correspondances.</li></ul></div>
+<div class='zone out'><h3>↗ Part vers l'IA</h3><ul><li>la copie <span class='mono'>_PSEUDO</span>, après relecture ;</li><li>la consigne qui demande de garder les codes intacts ;</li><li>votre demande (« rédige un courrier pour… »).</li></ul></div>
+</div>
+</div></section>
+
+<!-- ============ SOUS LE CAPOT ============ -->
+<section class='section'><div class='wrap'>
+<div class='eyebrow'>Comment il fonctionne vraiment</div>
+<h2>Sous le capot.</h2>
+<p class='intro'>Pas besoin de savoir programmer pour l'utiliser. Mais pour lui faire confiance, il faut savoir ce qu'il fait réellement de vos fichiers. Choisissez un thème.</p>
+
+<div class='engine'>
+<div class='menu' role='tablist' aria-label='Fonctionnement du logiciel'>
+<button role='tab' aria-selected='true' data-pane='p1'>1. Rien ne sort<small>un fichier, zéro connexion</small></button>
+<button role='tab' aria-selected='false' data-pane='p2'>2. Les codes<small>comment un nom devient un jeton</small></button>
+<button role='tab' aria-selected='false' data-pane='p3'>3. Dans Excel<small>colonnes, repérage, conservation</small></button>
+<button role='tab' aria-selected='false' data-pane='p4'>4. Dans Word<small>la mise en forme comme repère</small></button>
+<button role='tab' aria-selected='false' data-pane='p5'>5. La clé et le JSON<small>le coffre-fort des correspondances</small></button>
+<button role='tab' aria-selected='false' data-pane='p6'>6. Le retour<small>remettre les vrais noms</small></button>
+</div>
+
+<div class='pane' id='p1' role='tabpanel'>
+<h3>Tout se passe dans le navigateur</h3>
+<p>Le logiciel est <b>un seul fichier HTML</b> d'environ 1 Mo. Il contient tout ce dont il a besoin, y compris deux bibliothèques libres qui savent lire et écrire les fichiers Office : <b>SheetJS</b> pour Excel et <b>JSZip</b> pour ouvrir l'intérieur des fichiers .xlsx et .docx (qui sont en réalité des dossiers compressés).</p>
+<ul>
+<li>Quand vous « déposez » un fichier, il n'est pas envoyé : le navigateur le lit directement depuis votre disque, en mémoire.</li>
+<li>La page contient une règle de sécurité (<span class='mono'>Content-Security-Policy</span> avec <span class='mono'>connect-src 'none'</span>) qui <b>interdit au navigateur toute connexion réseau</b> depuis cette page. Même si quelqu'un voulait lui faire envoyer vos données, le navigateur refuserait.</li>
+<li>Le badge en haut du logiciel affiche l'état : « Hors ligne » ou « Connecté, mais aucune donnée envoyée ».</li>
+<li>La preuve la plus simple : coupez le Wi-Fi, tout continue de fonctionner.</li>
+<li>Les fichiers produits (copie masquée, JSON, fichier restauré) sont créés dans le navigateur et arrivent dans votre dossier Téléchargements.</li>
+</ul>
+<div class='note ok'>Conséquence pratique : vous pouvez copier le fichier sur une clé USB ou dans un dossier partagé du service, il fonctionne partout, sans installation ni compte.</div>
+</div>
+
+<div class='pane' id='p2' role='tabpanel' hidden>
+<h3>Un nom devient un jeton</h3>
+<p>Chaque information à masquer est remplacée par un <b>jeton</b> : une catégorie en majuscules et un numéro à trois chiffres, entre crochets.</p>
+<div class='chips'><span class='tok'>[NOM_001]</span><span class='tok'>[PRENOM_001]</span><span class='tok'>[PERSONNE_001]</span><span class='tok'>[DATE_001]</span><span class='tok'>[EMAIL_001]</span><span class='tok'>[TEL_001]</span><span class='tok'>[ADRESSE_001]</span><span class='tok'>[LIEU_001]</span><span class='tok'>[ID_001]</span><span class='tok'>[AUTRE_001]</span></div>
+<p>Trois règles rendent ces jetons utiles à l'IA :</p>
+<ul>
+<li><b>Une même valeur donne toujours le même jeton.</b> « MARTIN », « Martin » ou « martin » avec un espace de trop : c'est la même personne, donc <span class='tok'>[NOM_001]</span> partout. L'IA peut croiser les informations.</li>
+<li><b>Les numéros continuent.</b> Si vous masquez un deuxième fichier dans la même séance, les nouveaux noms prennent la suite (<span class='tok'>[NOM_007]</span>, <span class='tok'>[NOM_008]</span>…), et les noms déjà connus gardent leur code.</li>
+<li><b>Le logiciel retient chaque correspondance</b> dans une table (jeton ↔ vraie valeur), visible dans l'onglet « 1. Ma clé », valeurs floutées par défaut.</li>
+</ul>
+<p>Le logiciel repère aussi, dans le texte libre (observations, commentaires, corps d'un courrier), trois types d'informations grâce à leur forme :</p>
+<table class='kv'>
+<tr><td>Courriels</td><td>tout ce qui ressemble à <span class='mono'>quelquechose@domaine.fr</span></td></tr>
+<tr><td>Téléphones</td><td>numéros français (<span class='mono'>06 12 34 56 78</span>, <span class='mono'>01.23.45.67.89</span>) et internationaux (<span class='mono'>+43 …</span>)</td></tr>
+<tr><td>Dates</td><td>au format jj/mm/aaaa (option à cocher, car toutes les dates ne sont pas personnelles)</td></tr>
+</table>
+<p>Enfin, il prépare une <b>consigne à coller dans l'IA</b> avec le fichier : garder chaque jeton exactement tel quel, ne pas en inventer, ne pas essayer de deviner les vraies valeurs. Il ne vous reste qu'à écrire votre demande à la suite de « Tâche : ».</p>
+</div>
+
+<div class='pane' id='p3' role='tabpanel' hidden>
+<h3>Dans un classeur Excel</h3>
+<p><b>Le logiciel devine, vous vérifiez.</b> À l'ouverture, il cherche la ligne des titres (la première qui contient au moins deux cellules remplies) et lit chaque titre de colonne :</p>
+<table class='kv'>
+<tr><td>Nom, Prénom</td><td>cochés et classés en <span class='tok'>NOM</span> / <span class='tok'>PRENOM</span></td></tr>
+<tr><td>Date de naissance, né(e) le</td><td>cochés en <span class='tok'>DATE</span>, avec en option une colonne <b>Âge</b> calculée (utile si l'IA doit raisonner sur l'âge sans connaître la date)</td></tr>
+<tr><td>Responsable, parent, père, mère</td><td>cochés en <span class='tok'>PERSONNE</span></td></tr>
+<tr><td>Mail, téléphone, adresse, INE, matricule</td><td>cochés dans leur catégorie</td></tr>
+<tr><td>Santé, PAI, PPS, allergie, traitement, bourse, social, religion…</td><td>marqués en rouge <b>« supprimer »</b> : ces données ne doivent pas partir du tout, même codées</td></tr>
+</table>
+<ul>
+<li><b>Feuilles :</b> vous cochez les feuilles à traiter ; chacune garde ses propres réglages.</li>
+<li><b>Sens du tableau :</b> si les titres sont dans la première colonne (une fiche par colonne), le logiciel le détecte et travaille en lignes.</li>
+<li><b>Repérage par la mise en forme</b> (.xlsx seulement) : vous pouvez aussi masquer les cellules, ou les mots à l'intérieur d'une cellule, écrits en gras, en couleur, souligné… selon une règle que vous choisissez.</li>
+<li><b>Les autres colonnes :</b> une fois les noms connus, le logiciel les cherche aussi dans les observations et les remplace par le même jeton (option cochée par défaut).</li>
+</ul>
+<h4>Pourquoi le classeur garde sa présentation</h4>
+<p>Un fichier .xlsx est un dossier compressé qui contient des fichiers XML : un par feuille, plus un « dictionnaire » de tous les textes du classeur. Au lieu de reconstruire le classeur (ce qui ferait perdre couleurs, largeurs, tableaux), le logiciel <b>modifie uniquement les cellules concernées</b> dans ces XML. Il <b>supprime aussi l'ancien dictionnaire des textes</b>, sinon les vrais noms y resteraient cachés à l'intérieur du fichier. Les colonnes à supprimer sont <b>vidées sur place</b>, sans décaler les autres, pour ne pas casser les formules.</p>
+<div class='note'>Les feuilles non cochées, les commentaires (notes) de cellule, les liens hypertextes, les formules, les graphiques, les noms de plages et les propriétés du fichier ne sont pas vérifiés. Ouvrez la copie <span class='mono'>_PSEUDO</span> et parcourez-la avant tout envoi.</div>
+</div>
+
+<div class='pane' id='p4' role='tabpanel' hidden>
+<h3>Dans un document Word</h3>
+<p>Dans un courrier, impossible de deviner seul ce qui est un nom. Le principe est donc inverse : <b>c'est vous qui marquez</b> les informations à masquer, avec une mise en forme repère. Par défaut : <b><i><u style='color:#0070C0'>gras, italique, souligné, bleu</u></i></b>. La règle est réglable (couleur rouge ou verte, taille de police, « toutes les conditions » ou « au moins une »).</p>
+<ul>
+<li>Le logiciel ouvre le .docx, lit le corps du texte <b>et</b> les en-têtes, pieds de page, notes de bas de page et commentaires.</li>
+<li>Il liste les passages repérés, devine leur catégorie (courriel, date, téléphone, numéro, personne) et vous laisse décocher ou corriger.</li>
+<li>Il remplace les passages par leurs jetons, puis, en option, <b>toutes les autres occurrences</b> du même nom, même non mises en forme.</li>
+<li>Il code aussi les adresses cachées dans les liens « mailto: » et <b>efface les propriétés du fichier</b> (auteur, dernier modificateur, titre, société…), qui trahissent souvent un nom.</li>
+</ul>
+<div class='note'>Limites : seule la mise en forme appliquée directement au texte est repérée (pas celle d'un style de paragraphe) ; les zones de texte et les images ne sont pas analysées ; l'ancien format .doc n'est pas lu (« Enregistrer sous » .docx d'abord).</div>
+</div>
+
+<div class='pane' id='p5' role='tabpanel' hidden>
+<h3>La clé et la sauvegarde JSON</h3>
+<p>La table des correspondances est ce qui permet de revenir en arrière. C'est donc aussi la donnée la plus sensible : elle contient tous les vrais noms. Le logiciel l'enregistre dans un petit fichier <span class='mono'>table-correspondance-AAAAMMJJ-HHMM.json</span>, <b>chiffré</b>.</p>
+<table class='kv'>
+<tr><td>La clé</td><td>20 caractères tirés au hasard par le navigateur, en 4 groupes de 5 (sans les caractères qui se confondent : 0/O, 1/l/I). Vous pouvez aussi saisir votre propre clé, 12 caractères minimum.</td></tr>
+<tr><td>Le chiffrement</td><td>AES-256-GCM, la norme utilisée par les banques et les messageries sécurisées.</td></tr>
+<tr><td>La dérivation</td><td>La clé est passée 310 000 fois dans une fonction de hachage (PBKDF2-SHA-256) avec un « sel » aléatoire. Résultat : essayer des milliers de clés au hasard devient extrêmement lent.</td></tr>
+<tr><td>Le contrôle</td><td>Si la clé est fausse ou le fichier abîmé, le logiciel refuse de l'ouvrir : il ne restitue jamais de données fausses.</td></tr>
+</table>
+<div class='note stop'><b>Sans la clé, personne ne peut rien retrouver, vous comprise.</b> Ni le formateur, ni le logiciel n'ont de « porte de secours ». Rangez la clé dans un gestionnaire de mots de passe ou sur papier, jamais dans le même dossier que le JSON, et ne donnez jamais ni l'un ni l'autre à l'IA.</div>
+<p>Le logiciel vous prévient tant que la table n'est pas sauvegardée, et vous demande confirmation si vous fermez la page avant.</p>
+</div>
+
+<div class='pane' id='p6' role='tabpanel' hidden>
+<h3>Remettre les vrais noms</h3>
+<p>Dans l'onglet « 3. Retrouver mon fichier », il faut trois éléments : <b>la clé</b>, <b>la sauvegarde JSON</b> et <b>le fichier rendu par l'IA</b>. Le fichier d'origine n'est pas nécessaire.</p>
+<ul>
+<li>Le logiciel déchiffre le JSON avec la clé, puis parcourt le fichier de l'IA à la recherche de jetons.</li>
+<li>Formats acceptés : Excel (.xlsx, .xlsm, .xls, .ods, .csv), Word (.docx) et texte (.txt, .md). Le résultat est téléchargé sous le nom <span class='mono'>…_REIDENTIFIE</span>.</li>
+<li>Il est <b>tolérant</b> : il retrouve <span class='tok'>[NOM_001]</span> même si l'IA a écrit <span class='mono'>NOM_001</span> sans crochets ou <span class='mono'>NOM_1</span>.</li>
+<li>Une cellule Excel qui ne contient qu'un jeton de date redevient une vraie date.</li>
+<li>Si l'IA a <b>inventé</b> un jeton qui n'existe pas dans la table (<span class='tok'>[NOM_099]</span>), il est laissé tel quel et signalé : c'est un indice que l'IA a mal travaillé.</li>
+<li>Pour une réponse de l'IA copiée dans la conversation, une zone permet de coller le texte et de récupérer la version avec les vrais noms.</li>
+</ul>
+</div>
+</div>
+</div></section>
+
+<!-- ============ LIMITES ============ -->
+<section class='section alt'><div class='wrap'>
+<div class='eyebrow'>Les bons réflexes</div>
+<h2>Un outil, pas une autorisation.</h2>
+<div class='grid'>
+<div class='card'><div class='num'>Avant</div><h3>Vérifier ce qui est coché</h3><p>Les cases sont pré-cochées par devinette. Une colonne mal nommée (« Contact », « Référent ») peut échapper au repérage automatique.</p></div>
+<div class='card'><div class='num'>Pendant</div><h3>Relire la copie masquée</h3><p>Ouvrez le fichier <span class='mono'>_PSEUDO</span> avant de l'envoyer : un nom dans un titre, une formule ou une feuille non cochée peut rester visible.</p></div>
+<div class='card'><div class='num'>Toujours</div><h3>Pas de données sensibles</h3><p>Santé, vie familiale, difficultés sociales : même pseudonymisées, elles ne partent pas vers une IA sans l'accord du référent RGPD de l'établissement.</p></div>
+</div>
+</div></section>
+
+<!-- ============ LE LOGICIEL ============ -->
+<section class='section' id='logiciel'><div class='wrap'>
+<div class='eyebrow'>Le logiciel</div>
+<h2>Essayez-le ici, sans rien installer.</h2>
+<p class='intro'>Le logiciel s'ouvre ci-dessous, dans la page. Pour vous entraîner, utilisez les boutons « Exemple Excel » et « Exemple Word » de l'onglet 2 : ils génèrent des fichiers fictifs. Pour vos vrais fichiers, préférez la version téléchargée, ouverte depuis votre ordinateur.</p>
+<div class='app' id='app'>
+<div class='bar'><b>Pseudonymiseur hors ligne</b><div class='btns'><button type='button' class='sec' id='fs' hidden>⛶ Plein écran</button><a class='sec' href='pseudonymiseur-hors-ligne.html' target='_blank' rel='noopener'>↗ Nouvel onglet</a><a href='pseudonymiseur-hors-ligne.html' download>↧ Télécharger</a></div></div>
+<div class='start' id='start'><p><b>Le logiciel pèse 1 Mo.</b> Il se charge seulement quand vous le demandez.</p><button type='button' class='btn dark' id='open'>▶ Ouvrir le logiciel dans la page</button></div>
+</div>
+</div></section>
+
+<!-- ============ ET ENSUITE ============ -->
+<section class='section alt'><div class='wrap'>
+<div class='next'>
+<div class='eyebrow' style='color:var(--mint)'>Et ensuite</div>
+<h2>Ce logiciel n'a pas été acheté. Il a été fabriqué.</h2>
+<p>Un seul fichier, conçu avec l'aide de l'IA, pour répondre à un besoin précis du service. C'est exactement ce que vous apprendrez à faire dans un prochain atelier : décrire votre besoin, faire construire par l'IA l'outil que vous voulez pour vos propres fichiers (tri, contrôle, publipostage, tableau de suivi…), puis le tester avant de lui faire confiance.</p>
+<a class='btn' href='../ateliers/07-application/index.html'>Atelier 07 · Je crée mon logiciel administratif ↗</a><a class='btn ghost' href='../ateliers/06-pilotage-excel/index.html'>Atelier 06 · Un outil dans Excel ↗</a>
+</div>
+</div></section>
+</main>
+
+<footer><div class='wrap'><div class='credits'><div class='logos'><img src='../ressources/logos/logo-aefe.png' alt='AEFE – Agence pour l&#x27;enseignement français à l&#x27;étranger'><img src='../ressources/logos/logo-irf-zese-aefe.png' alt='Institut régional de formation Europe du Sud-Est et AEFE – Agence pour l&#x27;enseignement français à l&#x27;étranger'></div><p>Formation créée par <b>Fehmi Klabi</b>, EF2D Technologie, et <b>Cédric Deanaz</b>, EF2D EPS · Institut régional de formation Europe du Sud-Est (ZESE), AEFE.<br>Contenu élaboré avec l&#x27;outil d&#x27;IA Claude (Anthropic).</p></div>✳ IA ADMINISTRATIVE 2.0 · Formation niveau 2 · Établissement, personnes et documents fictifs (LFI Marie-Curie de Valmont) · <a href='https://github.com/xseorkly/ia-administratif'>Dépôt GitHub ↗</a></div></footer>
+
+<script>
+(function(){
+// Onglets « sous le capot »
+var tabs=document.querySelectorAll('.engine [role=tab]');
+tabs.forEach(function(b){b.addEventListener('click',function(){
+tabs.forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
+document.querySelectorAll('.engine .pane').forEach(function(p){p.hidden=p.id!==b.dataset.pane});});});
+// Logiciel intégré
+var app=document.getElementById('app'),fs=document.getElementById('fs');
+document.getElementById('open').addEventListener('click',function(){
+var f=document.createElement('iframe');f.src='pseudonymiseur-hors-ligne.html';f.title='Pseudonymiseur hors ligne';
+document.getElementById('start').replaceWith(f);
+if(app.requestFullscreen)fs.hidden=false;});
+fs.addEventListener('click',function(){if(document.fullscreenElement)document.exitFullscreen();else app.requestFullscreen();});
+document.addEventListener('fullscreenchange',function(){fs.textContent=document.fullscreenElement?'✕ Quitter le plein écran':'⛶ Plein écran';});
+})();
+</script>
+</body>
+</html>
