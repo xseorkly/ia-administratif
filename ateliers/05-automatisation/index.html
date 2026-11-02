@@ -33,7 +33,6 @@ p{max-width:820px}.lead{font-size:19px;color:#c6d3e2;max-width:780px}
 .who{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0}.who td,.who th{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}.who th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
 .tabs{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0 0}.tabs button{border:1px solid #dbe3e4;border-radius:10px 10px 0 0;padding:11px 16px;background:white;font-weight:800;font-size:14px}.tabs button.active{background:var(--navy);color:white;border-color:var(--navy)}
 .panel{border:1px solid var(--line);border-radius:0 12px 12px 12px;padding:22px 24px;background:#fff}.panel[hidden]{display:none}.panel ol li,.panel ul li{margin:6px 0}
-.levels .card h3{font-size:20px}.lvl-bronze{border-top:5px solid #b07a4a}.lvl-argent{border-top:5px solid #98a4ad}.lvl-or{border-top:5px solid #d4a514}
 .levels .card ul{padding-left:18px;margin:8px 0}.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:20px;padding:2px 9px;background:#efe2d4;color:#7b4f25;margin-left:6px}
 .step{border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:18px 0;background:#fff;position:relative}
 .step-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
@@ -62,7 +61,16 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 @media(max-width:550px){.wrap{padding:0 16px}.grid,.grid2,.summary{grid-template-columns:1fr}.section{padding:55px 0}.files td:nth-child(3),.files th:nth-child(3){display:none}.who td:nth-child(3),.who th:nth-child(3){display:none}}
 @media print{header,.timer,.copy,.toc,.btn{display:none!important}.hero{background:#fff;color:var(--navy);padding:20px 0}.summary div{background:#fff}.summary span{color:var(--navy)}details{break-inside:avoid}details:not([open]) > *:not(summary){display:none}}
 .credits{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding-bottom:18px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}.credits .logos{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.credits .logos img{height:84px;width:auto;display:block;border-radius:4px}.credits p{margin:0;flex:1 1 300px;min-width:0;color:#e6eef3;font-size:14px;line-height:1.55}.credits b{color:#fff}.hero-logos{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:26px}.hero-logos img{height:84px;width:auto;display:block;border-radius:4px}</style>
-<style>code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}</style>
+<style>code{background:#eef2f1;border-radius:4px;padding:1px 5px;font-size:13.5px}
+.b-core{color:var(--teal)}.b-plus{color:#b06a10}
+.mini{font-size:14.5px;background:#f0f6f3;border-left:4px solid var(--teal);padding:8px 14px;border-radius:6px;margin:12px 0;max-width:900px}
+.ex{font-size:13.5px;background:#f0f4f2;border:1px dashed #9fb1b3;border-radius:8px;padding:10px 14px;margin:12px 0;max-width:900px}.ex b{color:var(--teal)}.ex .f{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+.blocsep{margin:36px 0 8px;padding-top:10px;border-top:2px solid var(--line)}.blocsep .eyebrow{font-size:12px}.blocsep h3{margin:2px 0 4px}.blocsep p{color:var(--gray);font-size:14.5px;margin:0;max-width:900px}
+.blocsep.plus{border-top:2px dashed #e0b35e}.blocsep.plus .eyebrow{color:#b06a10}
+.roadmap{border:1px solid var(--line);border-radius:14px;padding:20px 24px;background:#fff;margin:24px 0}
+.roadmap ol{margin:10px 0 0;padding-left:22px}.roadmap li{margin:7px 0;font-size:15px}
+.roadmap .tag2{display:inline-block;font-size:10.5px;font-weight:900;border-radius:4px;padding:1px 6px;margin-right:7px;vertical-align:middle}
+.tag2.c{background:#e0f1ec;color:var(--teal)}.tag2.p{background:#fcefd8;color:#b06a10}</style>
 </head>
 <body>
 <header><div class='wrap'><a class='brand' href='../../index.html#accueil'>✳ IA <span>ADMINISTRATIVE 2.0</span></a><nav><a href='../../index.html#nouveautes'>Nouveautés</a><a href='../../index.html#programme'>Programme</a><a href='../../index.html#ateliers'>Ateliers</a><a href='../../index.html#ressources'>Ressources</a><a href='../../index.html#formateur'>Formateur</a></nav></div></header>
@@ -81,9 +89,9 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 <div><b>Votre mission</b><span>Écrire et tester les instructions d'une tâche qui tournera chaque semaine</span></div>
 <div><b>La difficulté</b><span>Pas de fausse alerte, pas d'oubli, et savoir dire « rien à signaler »</span></div>
 <div><b>Vous rendez</b><span>Instructions de la tâche · 2 synthèses · journal de test</span></div>
-<div><b>Votre outil</b><span>ChatGPT ou Claude, avec analyse de fichiers ; tâches programmées si disponibles</span></div>
+<div><b>Votre outil</b><span>ChatGPT ou Claude, avec analyse de fichiers ; tâches programmées (ou exécution manuelle)</span></div>
 </div>
-<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#objectifs'>2 · Objectifs</a><a href='#demarrer'>3 · Démarrer</a><a href='#niveaux'>4 · Niveau</a><a href='#mission'>5 · Mission</a><a href='#livrable'>6 · Livrable</a><a href='#glossaire'>Glossaire</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
+<nav class='toc' aria-label='Sommaire'><a href='#situation'>1 · Situation</a><a href='#objectifs'>2 · Objectifs</a><a href='#demarrer'>3 · Démarrer</a><a href='#perimetre'>4 · Périmètre</a><a href='#mission'>5 · Mission</a><a href='#livrable'>6 · Livrable</a><a href='#glossaire'>Glossaire</a><a href='#aide'>Coups de pouce</a><a href='#bilan'>Autocontrôle</a></nav>
 </div></section>
 
 <!-- ============ 1. SITUATION ============ -->
@@ -94,6 +102,14 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 <p>Le DAF a écrit ses règles dans une note : ce qui doit déclencher une alerte, ce qui ne le doit pas, le format, les interdits. Vous disposez de <b>trois exports successifs</b> (vendredis 9, 16 et 23 octobre), de la dernière synthèse manuelle, de la documentation des champs de MaintiGest et des notifications de la semaine.</p>
 <p>Pour l'atelier, vous allez <b>simuler deux lundis</b> : celui d'aujourd'hui (comparaison du 9 au 16 octobre) et celui de la semaine prochaine, le 26 octobre (comparaison du 16 au 23 octobre). C'est la répétition générale avant de laisser l'agent travailler seul.</p>
 <div class='note stop'><b>Pourquoi c'est important.</b> Une tâche programmée tourne sans vous. Si elle crie au loup chaque semaine, le DAF cessera de la lire, et le jour où une porte coupe-feu ne se ferme plus, l'alerte passera inaperçue. Si elle oublie une règle, personne ne s'en rendra compte. Il faut donc la tester <b>avant</b> de la programmer.</div>
+
+<h3 style='margin-top:34px'>Avant tout : où l'agent prendra-t-il ses fichiers ?</h3>
+<p class='intro'>Une tâche programmée tourne <b>dans le cloud, pas sur votre ordinateur</b> : elle n'a aucun accès aux fichiers de votre PC. La question « où prend-elle l'export chaque lundi ? » se tranche <b>avant</b> de concevoir la tâche.</p>
+<div class='grid2'>
+<div class='card'><div class='num'>L'agent vraiment connecté</div><p>Pour qu'il aille chercher l'export tout seul, il faut que les fichiers soient déposés dans un <b>cloud connecté</b> (Google Drive, SharePoint / OneDrive) et que l'outil IA ait le <b>connecteur</b> correspondant, réglé pour aller lire ce dossier. C'est le seul montage réellement automatique.</p></div>
+<div class='card' style='border-top:4px solid var(--stopb)'><div class='num' style='color:var(--stopb)'>Le point RGPD, à trancher avant</div><p>Déposer des exports MaintiGest dans un cloud et les faire lire par un outil IA est un <b>traitement de données</b>. Selon le pays et les règles de l'administration — et, dans le réseau, la <b>validation RGPD de l'établissement</b> — ce n'est pas toujours autorisé. Ce n'est pas un détail technique, c'est une décision préalable.</p></div>
+</div>
+<div class='note'><b>À défaut — le cas le plus courant.</b> La tâche programmée sert de <b>rappel</b>, et l'assistante <b>joint l'export à la main</b> chaque lundi (le « plan B » de l'atelier). Le robot, c'est la recette testée et le minuteur — pas le livreur. Le « sans moi » de l'atelier, c'est « sans re-réfléchir aux règles chaque semaine », pas « sans personne pour fournir le fichier ».</div>
 
 <h3>Qui est qui dans ce dossier</h3>
 <div class='tw'><table class='who'>
@@ -119,7 +135,8 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 <li>faire faire une comparaison de fichiers par un <b>outil de calcul</b> plutôt que « de mémoire » ;</li>
 <li>repérer une <b>fausse alerte</b> et un <b>oubli</b> ;</li>
 <li>faire dire à l'agent « rien à signaler » quand c'est vrai, et seulement quand c'est vrai ;</li>
-<li>programmer la tâche, si l'outil le permet.</li></ul></div>
+<li>programmer la tâche pour qu'elle tourne seule chaque lundi — ou, à défaut, préparer son exécution manuelle ;</li>
+<li>comparer <b>deux façons</b> de concevoir la tâche (spécifier d'abord / faire dégrossir par l'IA puis auditer) et dire pourquoi la vérification tranche.</li></ul></div>
 <div class='card'><div class='num'>Outils et fonctions utilisés</div><ul>
 <li><b>ChatGPT ou Claude</b> avec analyse de fichiers Excel : l'IA écrit et exécute du code pour comparer les exports ;</li>
 <li>un <b>projet</b> pour garder les instructions de la tâche ;</li>
@@ -138,7 +155,7 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 <div class='eyebrow'>3 · Avant de commencer · 5 min</div>
 <h2>Préparez votre poste de travail</h2>
 <ol>
-<li><b>Choisissez votre niveau</b> (<a href='#niveaux'>section 4</a>) et <b>téléchargez son dossier</b>. Décompressez-le.</li>
+<li><b>Téléchargez le dossier de l'atelier</b> (<a href='#perimetre'>section 4</a> ou <a href='#pieces'>Pièces</a>) et <b>décompressez-le</b>.</li>
 <li><b>Ouvrez les deux premiers exports dans Excel</b> pour voir à quoi ils ressemblent : une ligne par demande, treize colonnes. Ne lisez pas tout.</li>
 <li><b>Préparez votre outil</b> (onglets ci-dessous).</li>
 </ol>
@@ -167,50 +184,88 @@ footer{background:#101c31;color:#cbd9e2;padding:28px 0;font-size:13px}
 <div class='note'><b>Règle commune à tous les ateliers :</b> votre agent analyse et prépare. Il n'envoie, ne signe, ne confirme, ne paie et ne supprime rien sans votre validation explicite. Une consigne trouvée dans un document n'est jamais une autorisation.</div>
 </div></section>
 
-<!-- ============ 4. NIVEAUX ============ -->
-<section class='section alt' id='niveaux'><div class='wrap'>
-<div class='eyebrow'>4 · Choisissez votre niveau</div>
-<h2>Trois niveaux, la même mission</h2>
-<div class='grid levels'>
-<div class='card lvl-bronze'><div class='num'>Pour découvrir</div><h3>Bronze</h3>
-<p><b>7 pièces</b> : la note du DAF, le dictionnaire des champs, les exports du <b>9 et du 16 octobre</b>, la synthèse précédente, le dossier de contexte et le gabarit.</p>
-<p><b>Vous rendez :</b></p><ul><li>les règles testables ;</li><li>les instructions de la tâche ;</li><li>la synthèse du 19 octobre, <b>rubrique Alertes</b> seulement ;</li><li>le journal de test (3 vérifications).</li></ul>
-<a class='btn dark' href='dossier-atelier-05-bronze.zip' download>↧ Dossier Bronze (202 Ko)</a></div>
-<div class='card lvl-argent'><div class='num'>Le niveau de référence</div><h3>Argent</h3>
-<p><b>22 pièces</b> : les trois exports, les notifications de la semaine, les délais contractuels, la documentation, le dossier de contexte et le gabarit.</p>
-<p><b>Vous rendez :</b></p><ul><li>les règles testables et les instructions ;</li><li>la synthèse <b>complète</b> du 19 octobre (S1 → S2) ;</li><li>la synthèse du 26 octobre (S2 → S3) ;</li><li>le journal de test.</li></ul>
-<a class='btn dark' href='dossier-atelier-05.zip' download>↧ Dossier complet (674 Ko)</a></div>
-<div class='card lvl-or'><div class='num'>Pour aller plus loin</div><h3>Or</h3>
-<p>Le niveau Argent, et en plus :</p><ul><li>la <b>programmation réelle</b> de la tâche chaque lundi à 8 h dans l'outil de tâches programmées ;</li><li>le calcul des <b>indicateurs de délai par prestataire</b> (onglet 3 du gabarit), à partir des délais contractuels.</li></ul>
-<a class='btn dark' href='dossier-atelier-05.zip' download>↧ Dossier complet (674 Ko)</a></div>
+<!-- ============ 4. PÉRIMÈTRE ============ -->
+<section class='section alt' id='perimetre'><div class='wrap'>
+<div class='eyebrow'>4 · Le périmètre</div>
+<h2>Un seul atelier, une seule exigence</h2>
+<p class='intro'>Pas de niveaux : tout le monde vise le même résultat, au niveau d'attente le plus élevé. Ce qui se module, c'est le <b>rythme</b> — un <b>cœur</b> que chacun termine, et deux prolongements <b>« si vous allez au bout »</b> qui ne rognent jamais le cœur.</p>
+<div class='grid2'>
+<div class='card'><div class='num'>Le cœur — tout le monde</div><ul>
+<li>les <b>règles testables</b> tirées de la note du DAF ;</li>
+<li>les <b>instructions</b> de la tâche récurrente ;</li>
+<li>l'<b>exécution du 19 octobre</b> (9 → 16), vérifiée à la main ;</li>
+<li>l'<b>exécution du 26 octobre</b> (16 → 23), la semaine calme ;</li>
+<li>la <b>carte surprise</b> et la <b>restitution</b>.</li></ul></div>
+<div class='card'><div class='num' style='color:#b06a10'>Si vous allez au bout</div><ul>
+<li>les <b>indicateurs de délai par prestataire</b> (onglet 3 du gabarit), à partir des délais contractuels ;</li>
+<li>la <b>programmation réelle</b> de la tâche chaque lundi à 8 h dans l'outil de tâches programmées.</li></ul>
+<p style='font-size:14px;color:var(--gray)'>Le temps manque ? On garde ces deux blocs pour la fin, on ne sacrifie pas une exécution vérifiée.</p></div>
 </div>
-<p class='intro'>Tous les niveaux utilisent le <a href='gabarit-veille-atelier-05.xlsx' download><b>gabarit Excel</b></a> (règles testables, journal de test, indicateurs), inclus dans les deux archives.</p>
+<div class='note ok'><b>Repères avant de commencer.</b> La note du DAF fixe <b>6 règles d'alerte</b> et <b>5 règles de non-alerte</b> : votre onglet 1 doit donc contenir environ onze lignes. Le <a href='gabarit-veille-atelier-05.xlsx' download><b>gabarit Excel</b></a> a <b>trois onglets</b> — <b>1 · Règles testables</b>, <b>2 · Journal de test</b>, <b>3 · Indicateurs</b> — et c'est lui qui liste, onglet par onglet, ce que vous rendez.</div>
+<p><a class='btn dark' href='dossier-atelier-05.zip' download>↧ Télécharger le dossier de l'atelier (674 Ko)</a> <small style='color:var(--gray)'>22 pièces, gabarit inclus. Décompressez avant de commencer.</small></p>
 </div></section>
 
 <!-- ============ 5. MISSION ============ -->
 <section class='section' id='mission'><div class='wrap'>
-<div class='eyebrow'>5 · Votre mission · 65 min</div>
-<h2>Six étapes, à suivre dans l'ordre</h2>
-<p class='intro'>Chaque étape indique son but, les questions à vous poser, comment faire, et à quoi vous savez qu'elle est terminée. Le chronomètre vous aide à tenir le temps.</p>
+<div class='eyebrow'>5 · Votre mission · ≈ 70 min (cœur) + extensions</div>
+<h2>Le déroulé, étape par étape</h2>
+<p class='intro'>Chaque étape indique son <b>but</b>, ce que vous <b>produisez</b> concrètement, comment faire, et à quoi vous savez qu'elle est terminée. Le chronomètre vous aide à tenir le temps.</p>
 
-<div class='step' id='e1'><div class='step-head'><div><div class='step-num'>ÉTAPE 1 · SANS IA</div><h3>Transformer la note du DAF en règles testables</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> une règle est <i>testable</i> quand on peut répondre oui ou non en regardant deux exports. « Ce qui mérite mon attention » n'est pas testable ; « le statut est passé à Rouvert » l'est.</p>
-<div class='cols'><div><h4>Comment faire</h4><ul>
-<li>Lisez la <b>note du DAF</b> (1 page) et le <b>dictionnaire des champs</b> de MaintiGest.</li>
-<li>Dans l'onglet 1 du gabarit, une ligne par règle : la phrase du DAF, la colonne à regarder, le changement qui déclenche.</li>
-<li>Faites de même pour les règles « ne pas déclencher » : elles sont aussi importantes.</li>
-<li>Lisez la <b>synthèse précédente</b> : c'est le format attendu.</li></ul></div>
-<div><h4>Les questions à vous poser</h4><ul>
-<li>Combien de règles « alerte » le DAF fixe-t-il ? Et de règles « pas d'alerte » ?</li>
-<li>Que signifie un changement de « Dernière MAJ » d'après le dictionnaire ?</li>
-<li>Une demande qui disparaît d'un export à l'autre : alerte ou pas ? Dans quel cas ?</li>
-<li>Un retard déjà signalé la semaine précédente : on le répète ou on le compte ?</li>
-<li>Comment reconnaître un doublon, d'après le DAF ?</li></ul></div></div>
-<div class='success'><b>Étape terminée quand</b> chaque phrase de la note a sa ligne dans l'onglet 1, avec une colonne et une condition.</div>
+<div class='roadmap'>
+<b>La feuille de route en un coup d'œil</b>
+<ol>
+<li><span class='tag2 c'>CŒUR</span> Transformer la note du DAF en règles testables · 10 min</li>
+<li><span class='tag2 c'>CŒUR</span> Écrire les instructions de la tâche · 15 min</li>
+<li><span class='tag2 c'>CŒUR</span> Exécution 1 — lundi 19 octobre, vérifiée à la main · 15 min</li>
+<li><span class='tag2 c'>CŒUR</span> Exécution 2 — lundi 26 octobre, la semaine calme · 10 min</li>
+<li><span class='tag2 c'>CŒUR</span> La carte surprise · 10 min</li>
+<li><span class='tag2 p'>AU BOUT</span> Les indicateurs de délai par prestataire · 10 min</li>
+<li><span class='tag2 p'>AU BOUT</span> Programmer la tâche chaque lundi à 8 h · 8 min</li>
+<li><span class='tag2 c'>CŒUR</span> Restitution et autocontrôle · 5 min</li>
+</ol>
+<p style='font-size:14px;color:var(--gray);margin:10px 0 0'>Si le temps manque, faites tout le cœur (1 → 5, puis 8) : une exécution bien vérifiée vaut mieux qu'une tâche programmée sans test. Les étapes 6 et 7 viennent si vous allez au bout. <b>Les étapes 1 et 2 se font de deux manières différentes</b> (ci-dessous) ; à partir de l'étape 3, tout le monde suit le même chemin.</p>
 </div>
 
-<div class='step' id='e2'><div class='step-head'><div><div class='step-num'>ÉTAPE 2 · SANS IA, PUIS DANS L'OUTIL</div><h3>Écrire les instructions de la tâche</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
-<p><b>But :</b> écrire une consigne qui pourra tourner chaque lundi <b>sans vous</b>. Tout ce que vous ne mettez pas dedans, l'agent devra le deviner.</p>
+<h3 style='margin-top:34px'>Deux manières de concevoir la tâche</h3>
+<div class='grid2' style='margin-top:4px'>
+<div class='card' style='border-top:4px solid var(--teal)'><div class='num'>Manière A — la spécification d'abord</div>
+<p>Vous lisez la note du DAF et vous écrivez <b>vous-même</b> les règles testables, <i>puis</i> la consigne. Vous partez des règles.</p></div>
+<div class='card' style='border-top:4px solid #b06a10'><div class='num' style='color:#b06a10'>Manière B — le brouillon assisté</div>
+<p>Vous demandez d'abord à l'IA de proposer l'outil et un <b>premier brouillon</b> de consigne à partir des documents, <i>puis</i> vous confrontez ce brouillon à la note du DAF et vous le corrigez. Vous partez d'un jet à auditer.</p></div>
+</div>
+<div class='note'><b>Deux groupes, un seul point d'arrivée.</b> Le formateur répartit : un groupe en manière A, un groupe en manière B. <b>Seules les étapes 1 et 2 diffèrent</b> — à l'étape 2, les deux groupes ont exactement le même livrable (onglet 1 complet + instructions). On se retrouve à la <b>restitution (étape 8)</b> pour comparer les deux manières sur une grille commune.</div>
+
+<div class='step' id='e1'><div class='step-head'><div><div class='step-num'><span class='b-core'>ÉTAPE 1 · CŒUR</span> · SELON VOTRE MANIÈRE</div><h3>Préparer la matière de la tâche</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> une règle est <i>testable</i> quand on peut répondre oui ou non en regardant deux exports. « Ce qui mérite mon attention » n'est pas testable ; « le statut est passé à Rouvert » l'est.</p>
+<p class='mini'><b>Vous produisez — selon votre groupe :</b> Manière A → l'onglet 1 rempli (≈ 6 règles d'alerte + 5 de non-alerte). Manière B → un brouillon de consigne proposé par l'IA, mis de côté pour l'audit de l'étape 2.</p>
+<div class='ex'><span class='f'>La forme d'une règle testable (fictif — utile aux deux manières)</span>
+<b>Phrase :</b> « Je veux repérer les demandes qui ont changé de technicien. » — <b>Colonne :</b> Technicien — <b>Déclenche si :</b> la valeur « Technicien » diffère entre l'export précédent et le plus récent.</div>
+<div class='grid2'>
+<div><h4 style='color:var(--teal);font-size:13px;letter-spacing:.06em;text-transform:uppercase'>Manière A — comment faire</h4><ul>
+<li>Lisez la <b>note du DAF</b> (1 page) et le <b>dictionnaire des champs</b>.</li>
+<li>Dans l'onglet 1, une ligne par règle : la phrase du DAF, la colonne à regarder, le changement qui déclenche — pour les <b>6 règles d'alerte</b> comme pour les <b>5 règles de non-alerte</b>.</li>
+<li>Lisez la <b>synthèse précédente</b> : c'est le format attendu.</li></ul></div>
+<div><h4 style='color:#b06a10;font-size:13px;letter-spacing:.06em;text-transform:uppercase'>Manière B — comment faire</h4><ul>
+<li>Donnez à l'IA les <b>exports</b>, le <b>dictionnaire</b> et la <b>synthèse précédente</b>, et décrivez votre objectif en langage courant.</li>
+<li>Demandez-lui : <b>quel outil / quel type d'agent</b> convient, et un <b>premier brouillon de consigne</b>.</li>
+<li><b>Ne lui donnez pas encore la note du DAF</b> : on veut voir ce qu'elle devine toute seule.</li>
+<li>Gardez le brouillon de côté : vous l'auditerez à l'étape 2.</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> — <b>A</b> : chaque règle de la note a sa ligne dans l'onglet 1 (colonne + condition). <b>B</b> : vous avez la proposition d'outil et un brouillon de consigne, mis de côté pour l'audit.</div>
+</div>
+
+<div class='step' id='e2'><div class='step-head'><div><div class='step-num'><span class='b-core'>ÉTAPE 2 · CŒUR</span> · SELON VOTRE MANIÈRE, PUIS CONVERGENCE</div><h3>Arriver aux instructions vérifiées</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> aboutir aux <b>deux mêmes livrables</b> pour les deux groupes — l'onglet 1 complet et une consigne qui pourra tourner chaque lundi <b>sans vous</b>. Tout ce que vous ne mettez pas dedans, l'agent devra le deviner.</p>
+<p class='mini'><b>Vous produisez (les deux groupes) :</b> l'onglet 1 rempli (≈ 11 règles) <b>et</b> les instructions de la tâche. À la fin de cette étape, A et B ont exactement le même livrable.</p>
+<div class='grid2'>
+<div><h4 style='color:var(--teal);font-size:13px;letter-spacing:.06em;text-transform:uppercase'>Manière A</h4><ul>
+<li>Reprenez vos règles de l'onglet 1 et remplissez la trame ci-dessous.</li>
+<li>Vérifiez que <b>chacune des 11 règles</b> apparaît dans la consigne.</li></ul></div>
+<div><h4 style='color:#b06a10;font-size:13px;letter-spacing:.06em;text-transform:uppercase'>Manière B</h4><ul>
+<li>Donnez <b>maintenant</b> la note du DAF à l'IA et demandez : « Qu'est-ce que ton brouillon a manqué par rapport à cette note ? »</li>
+<li>Remplissez l'onglet 1 avec <b>toutes</b> les règles, y compris celles que le brouillon avait oubliées.</li>
+<li>Corrigez le brouillon jusqu'à ce qu'il couvre les 11 règles : c'est lui qui devient votre consigne.</li></ul></div></div>
+<div class='ex'><span class='f'>À vérifier dans les deux manières — les pièges classiques</span>
+Un changement de « Dernière MAJ » seul ne déclenche pas · une demande close archivée après 30 jours disparaît normalement · un retard déjà signalé se <b>compte</b>, il ne se répète pas · la catégorie <b>Sécurité</b> déclenche quelle que soit la priorité · un <b>doublon</b> ne se voit qu'en comparant les lignes entre elles.</div>
 <pre class='tpl' id='tplTache'>TÂCHE RÉCURRENTE – Veille MaintiGest du lundi
 QUAND : chaque lundi à 8 h.
 SOURCES : l'export MaintiGest le plus récent et l'export précédent (…). Rien d'autre.
@@ -226,16 +281,20 @@ INTERDITS : …
 VÉRIFICATION : à la fin, liste les tickets que tu as écartés et la règle qui les a écartés.</pre>
 <button class='copy' data-copy='tplTache'>Copier la trame</button>
 <p>Collez ensuite vos instructions dans les instructions du projet (ou gardez-les dans un fichier texte pour le plan B).</p>
-<div class='success'><b>Étape terminée quand</b> toutes les rubriques sont remplies et que chaque règle de l'onglet 1 apparaît dans les instructions.</div>
+<div class='success'><b>Étape terminée quand</b> toutes les rubriques sont remplies et que chaque règle de l'onglet 1 apparaît dans les instructions. <b>À partir d'ici, les deux manières suivent exactement le même chemin.</b></div>
 </div>
 
-<div class='step' id='e3'><div class='step-head'><div><div class='step-num'>ÉTAPE 3 · EXÉCUTION 1</div><h3>Le lundi 19 octobre : comparer le 9 et le 16 octobre</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
+<div class='step' id='e3'><div class='step-head'><div><div class='step-num'><span class='b-core'>ÉTAPE 3 · CŒUR</span> · EXÉCUTION 1</div><h3>Le lundi 19 octobre : comparer le 9 et le 16 octobre</h3></div><div class='timer' data-min='15'><span class='t'>15:00</span><button>Démarrer</button></div></div>
 <p><b>But :</b> faire tourner la tâche une première fois, puis vérifier à la main que ses alertes sont justes et qu'elle n'en a oublié aucune.</p>
+<p class='mini'><b>Vous produisez :</b> la synthèse du 19 octobre (une page, 3 rubriques), 3 vérifications notées dans l'onglet 2, et au moins une correction des <i>instructions</i> si vous avez trouvé une erreur.</p>
+<div class='ex'><span class='f'>À quoi ressemble une ligne d'alerte (fictif, pour la forme)</span>
+<b>🔴 P1 · MG-26-0000</b> — colonne <b>Priorité</b> : relevée de P3 à P1 le 15/10 — porte coupe-feu, à traiter sous 24 h.<br>
+<span style='color:var(--gray)'>Et quand rien ne se déclenche, la synthèse dit seulement : « aucun changement significatif », suivi des compteurs.</span></div>
 <div class='cols'><div><h4>Comment faire</h4><ul>
 <li>Ouvrez une conversation (dans le projet), joignez les exports du <b>9</b> et du <b>16 octobre</b>, et lancez : « Exécute la veille du lundi 19 octobre. »</li>
 <li>Lisez la synthèse. Puis demandez la liste des tickets <b>écartés</b> et la règle appliquée.</li>
 <li>Vérifiez <b>trois alertes</b> à la main : ouvrez les deux exports, filtrez sur le numéro de ticket, comparez les colonnes.</li>
-<li>Argent : utilisez aussi les <b>notifications</b> de la semaine pour repérer un oubli.</li>
+<li>Utilisez aussi les <b>notifications</b> de la semaine pour repérer un oubli.</li>
 <li>Notez chaque vérification dans l'onglet 2 du gabarit.</li></ul></div>
 <div><h4>Des relances utiles (à adapter)</h4><ul>
 <li>« Pour ce ticket, montre-moi la ligne dans les deux exports. »</li>
@@ -246,8 +305,9 @@ VÉRIFICATION : à la fin, liste les tickets que tu as écartés et la règle qu
 <div class='success'><b>Étape terminée quand</b> la synthèse tient sur une page, que vous avez vérifié trois alertes et cherché au moins un oubli, et que les erreurs éventuelles ont donné lieu à une <b>correction des instructions</b> (pas seulement de la synthèse).</div>
 </div>
 
-<div class='step' id='e4'><div class='step-head'><div><div class='step-num'>ÉTAPE 4 · EXÉCUTION 2 · ARGENT ET OR</div><h3>Le lundi 26 octobre : comparer le 16 et le 23 octobre</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<div class='step' id='e4'><div class='step-head'><div><div class='step-num'><span class='b-core'>ÉTAPE 4 · CŒUR</span> · EXÉCUTION 2</div><h3>Le lundi 26 octobre : comparer le 16 et le 23 octobre</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
 <p><b>But :</b> vérifier que la tâche sait distinguer une semaine agitée d'une semaine calme, sans rien inventer et sans rien oublier.</p>
+<p class='mini'><b>Vous produisez :</b> la synthèse du 26 octobre, qui contient exactement ce que les règles imposent — ou le seul « aucun changement significatif » si aucune ne se déclenche — avec une justification pour chaque ligne (ou pour leur absence).</p>
 <div class='cols'><div><h4>Comment faire</h4><ul>
 <li>Nouvelle conversation, mêmes instructions, exports du <b>16</b> et du <b>23 octobre</b>. Lancez : « Exécute la veille du lundi 26 octobre. »</li>
 <li>Regardez combien de lignes ont « changé » et quelles colonnes ont changé.</li>
@@ -260,22 +320,62 @@ VÉRIFICATION : à la fin, liste les tickets que tu as écartés et la règle qu
 <div class='success'><b>Étape terminée quand</b> la synthèse du 26 octobre contient exactement ce que les règles imposent, et rien d'autre, et que vous savez justifier chaque ligne (ou l'absence de ligne).</div>
 </div>
 
-<div class='step' id='e5'><div class='step-head'><div><div class='step-num'>ÉTAPE 5 · IMPRÉVU</div><h3>La carte surprise</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<div class='step' id='e5'><div class='step-head'><div><div class='step-num'><span class='b-core'>ÉTAPE 5 · CŒUR</span> · IMPRÉVU</div><h3>La carte surprise</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
 <p>Le formateur distribue une carte. Demandez-vous : <b>faut-il changer une règle, le format, la source ?</b> Modifiez les <b>instructions</b> de la tâche, puis relancez une exécution pour vérifier l'effet. Notez-le dans le journal de test.</p>
 <p><small style='color:var(--gray)'>Sans formateur : le DAF vous écrit « Je veux aussi être alerté de toute demande P1 non résolue depuis plus de 24 h, même déjà signalée. » Ajoutez la règle, relancez l'exécution 1, comparez.</small></p>
 <div class='success'><b>Étape terminée quand</b> les instructions sont modifiées, une exécution de contrôle est faite et notée dans le journal.</div>
 </div>
 
-<div class='step' id='e6'><div class='step-head'><div><div class='step-num'>ÉTAPE 6 · PROGRAMMATION ET RESTITUTION</div><h3>Laisser l'agent travailler sans vous</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
-<ul>
-<li><b>Si l'outil le permet</b> (Or) : programmez la tâche chaque <b>lundi à 8 h</b>, avec vos instructions. Indiquez où elle trouvera les exports (connecteur, dossier) et qu'elle produit un <b>brouillon</b>, sans envoi.</li>
-<li><b>Sinon</b> : écrivez en deux lignes ce qu'il faudrait pour la programmer (où sont les exports, qui lit la synthèse, qui la valide).</li>
-<li>Préparez trois phrases :</li></ul>
+<div class='blocsep plus'><div class='eyebrow'>Si vous allez au bout</div><h3>Deux prolongements — seulement quand le cœur est fait</h3><p>Ils portent la barre au plus haut. Si le temps manque, passez-les et filez à la restitution (étape 8) : le cœur vérifié reste la priorité.</p></div>
+
+<div class='step' id='e6'><div class='step-head'><div><div class='step-num'><span class='b-plus'>ÉTAPE 6 · AU BOUT</span> · INDICATEURS</div><h3>Les indicateurs de délai par prestataire</h3></div><div class='timer' data-min='10'><span class='t'>10:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> mesurer si chaque prestataire tient ses délais contractuels. C'est ce qui objective les relances — que le DAF, lui seul, décidera.</p>
+<p class='mini'><b>Vous produisez :</b> l'onglet 3 du gabarit rempli — pour ThermoServices, NetSol et Securis Alarmes : le délai contractuel, le délai réellement constaté, et le nombre de demandes hors délai.</p>
+<div class='cols'><div><h4>Comment faire</h4><ul>
+<li>Ouvrez le PDF <b>Délais contractuels</b> : il donne, par prestataire et par priorité, le délai d'intervention promis.</li>
+<li>Demandez à l'agent de calculer, <b>avec un outil de calcul</b>, le délai réel de chaque demande (de l'ouverture à la résolution, ou à la date de l'export si non résolue), regroupé par prestataire.</li>
+<li>Reportez dans l'onglet 3 : délai contractuel, délai moyen constaté, nombre de demandes hors délai.</li></ul></div>
+<div><h4>Les questions à vous poser</h4><ul>
+<li>Quel prestataire tient ses délais ? Lequel décroche ?</li>
+<li>Un retard tient-il au prestataire, ou à une demande ouverte tardivement ?</li>
+<li>Ces chiffres suffisent-ils à justifier une relance, ou faut-il regarder les cas un par un ?</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> l'onglet 3 est rempli pour les trois prestataires et que vous savez dire, chiffres à l'appui, lequel tient ses délais.</div>
+</div>
+
+<div class='step' id='e7'><div class='step-head'><div><div class='step-num'><span class='b-plus'>ÉTAPE 7 · AU BOUT</span> · PROGRAMMATION</div><h3>Programmer la tâche chaque lundi à 8 h</h3></div><div class='timer' data-min='8'><span class='t'>08:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> laisser la tâche tourner seule, en sécurité : elle prépare un brouillon, elle n'envoie rien.</p>
+<p class='mini'><b>Vous produisez :</b> soit la tâche réellement programmée dans l'outil, soit (plan B) les deux lignes qui disent comment la programmer.</p>
+<div class='cols'><div><h4>Si votre offre le permet</h4><ul>
+<li>Créez une <b>tâche planifiée</b> chaque <b>lundi à 8 h</b>, avec vos instructions.</li>
+<li>Pour qu'elle aille chercher les exports seule, ils doivent être dans un <b>drive connecté</b> et le <b>connecteur</b> réglé sur ce dossier — <b>sous réserve de la validation RGPD</b> (voir l'encadré « Où l'agent prendra-t-il ses fichiers ? » au début).</li>
+<li>Exigez qu'elle produise un <b>brouillon</b>, sans aucun envoi.</li></ul></div>
+<div><h4>Plan B — tout aussi valable</h4><ul>
+<li>Écrivez en deux lignes ce qu'il faudrait pour la programmer : où sont les exports, qui lit la synthèse, qui la valide.</li>
+<li>C'est le même raisonnement que la programmation : vous décrivez le minuteur que vous remplaciez à la main.</li></ul></div></div>
+<div class='success'><b>Étape terminée quand</b> la tâche est programmée (ou son plan écrit), et qu'il est <b>explicite</b> qu'elle ne fait qu'un brouillon.</div>
+</div>
+
+<div class='blocsep'><div class='eyebrow'>Pour terminer — tout le monde</div><h3>La restitution</h3><p>Que vous ayez fait les prolongements ou non, on conclut de la même façon.</p></div>
+
+<div class='step' id='e8'><div class='step-head'><div><div class='step-num'><span class='b-core'>ÉTAPE 8 · CŒUR</span> · RESTITUTION</div><h3>Préparer sa restitution et faire l'autocontrôle</h3></div><div class='timer' data-min='5'><span class='t'>05:00</span><button>Démarrer</button></div></div>
+<p><b>But :</b> dire en quelques phrases ce que fait votre tâche, ce que les tests ont corrigé, ce qu'un humain garde en main — puis <b>confronter les deux manières</b> entre les groupes.</p>
+<p class='mini'><b>Vous produisez :</b> vos phrases de restitution, la <b>grille de comparaison</b> remplie en commun, et l'<a href='#bilan'>autocontrôle</a> coché honnêtement.</p>
 <pre class='tpl' id='tplResti'>1. Ma tâche alerte sur : … et se tait sur : …
 2. L'erreur que les tests ont révélée, et la correction faite dans les instructions : …
-3. Ce qu'un humain vérifie encore chaque lundi avant que la synthèse parte : …</pre>
+3. Ce qu'un humain vérifie encore chaque lundi avant que la synthèse parte : …
+4. Ce que la comparaison des deux manières a montré : …</pre>
 <button class='copy' data-copy='tplResti'>Copier la trame</button>
-<div class='success'><b>Étape terminée quand</b> vous avez fait l'<a href='#bilan'>autocontrôle</a> et préparé vos trois phrases.</div>
+<h4 style='margin-top:18px'>La grille de comparaison — à remplir ensemble, un groupe A et un groupe B</h4>
+<div class='tw'><table class='cols-table'>
+<tr><th>Sur quoi on compare</th><th>Manière A — spécifier d'abord</th><th>Manière B — brouillon assisté</th></tr>
+<tr><td>Temps jusqu'au 1ᵉʳ jet de consigne</td><td>…</td><td>…</td></tr>
+<tr><td>Fausses alertes trouvées à la vérification</td><td>…</td><td>…</td></tr>
+<tr><td>Oublis trouvés à la vérification</td><td>…</td><td>…</td></tr>
+<tr><td>Les 11 règles du DAF sont-elles toutes présentes ?</td><td>…</td><td>…</td></tr>
+<tr><td>Confiance finale dans la tâche</td><td>…</td><td>…</td></tr>
+</table></div>
+<div class='note ok'><b>Ce que la comparaison doit faire ressortir.</b> La manière B donne souvent un premier jet plus vite — mais c'est la <b>confrontation à la note du DAF</b> qui révèle ce qu'il manquait. Quelle que soit la route, <b>c'est la vérification humaine contre les règles du DAF qui garantit le résultat</b> : la manière B avance un brouillon, elle ne dispense pas de l'auditer.</div>
+<div class='success'><b>Étape terminée quand</b> vous avez fait l'<a href='#bilan'>autocontrôle</a>, préparé vos phrases, et rempli la grille de comparaison avec l'autre groupe.</div>
 </div>
 
 <h3 id='prompt' style='margin-top:45px'>Le prompt de départ</h3>
@@ -304,13 +404,15 @@ Ne contacte aucun prestataire, ne modifie rien, n'envoie rien : la synthèse est
 <p><b>Les instructions de la tâche</b> (fichier texte ou instructions du projet), avec les règles testables de l'onglet 1.</p>
 <p><b>Les synthèses</b>, en brouillon, au format du DAF :</p>
 <table class='cols-table'>
-<tr><td>19 octobre</td><td>S1 → S2 : la semaine agitée. Bronze : rubrique Alertes ; Argent et Or : les trois rubriques.</td></tr>
-<tr><td>26 octobre</td><td>S2 → S3 (Argent et Or) : ce que les règles imposent, et rien d'autre ; « aucun changement significatif » si aucune ne se déclenche.</td></tr>
+<tr><td>19 octobre</td><td>S1 → S2 : la semaine agitée, les <b>trois rubriques</b>.</td></tr>
+<tr><td>26 octobre</td><td>S2 → S3 : ce que les règles imposent, et rien d'autre ; « aucun changement significatif » si aucune ne se déclenche.</td></tr>
 <tr><td>Alertes</td><td>5 au maximum, numéro de ticket, colonne changée, motif.</td></tr>
 <tr><td>Pour information</td><td>Nouvelles demandes, clôtures, retards en cours, priorités abaissées.</td></tr>
 </table></div>
-<div class='card'><div class='num'>③ Le journal de test</div>
-<p>Onglet 2 du <a href='gabarit-veille-atelier-05.xlsx' download>gabarit</a> : chaque exécution, les tickets vérifiés à la main, les fausses alertes ou oublis trouvés, et les corrections apportées aux instructions.</p>
+<div class='card'><div class='num'>③ Le journal de test · ④ Les indicateurs</div>
+<p><b>Journal de test</b> — onglet 2 du <a href='gabarit-veille-atelier-05.xlsx' download>gabarit</a> : chaque exécution, les tickets vérifiés à la main, les fausses alertes ou oublis trouvés, et les corrections apportées aux instructions.</p>
+<p><b>Indicateurs de délai</b> <span style='font-size:12px;font-weight:800;color:#b06a10'>(si vous allez au bout)</span> — onglet 3 : par prestataire, délai contractuel, délai constaté, demandes hors délai.</p>
+<p><b>Grille de comparaison A/B</b> — remplie en commun à la restitution : ce que chaque manière a donné, et pourquoi la vérification tranche.</p>
 <div class='num' style='margin-top:18px'>Critères de réussite</div>
 <ul>
 <li>Chaque alerte cite le ticket et la colonne qui a changé.</li>
@@ -395,32 +497,31 @@ Ne contacte aucun prestataire, ne modifie rien, n'envoie rien : la synthèse est
 <section class='section alt' id='pieces'><div class='wrap'>
 <div class='eyebrow'>Pièces du dossier</div>
 <h2>22 documents professionnels fictifs</h2>
-<p class='intro'>Formats réels : exports Excel, Word, PDF, notifications imprimées en PDF. Les anomalies ne sont pas signalées : à vous et à votre agent de les trouver. Les pièces marquées <span class='bz'>BRONZE</span> composent le dossier Bronze.</p>
-<a class='btn dark' href='dossier-atelier-05-bronze.zip' download>↧ Dossier Bronze (202 Ko)</a>
+<p class='intro'>Formats réels : exports Excel, Word, PDF, notifications imprimées en PDF. Les anomalies ne sont pas signalées : à vous et à votre agent de les trouver.</p>
 <a class='btn dark' href='dossier-atelier-05.zip' download>↧ Dossier complet (674 Ko)</a>
-<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th><th>Niveau</th></tr>
-<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Delais-contractuels-prestataires.pdf' download>Delais-contractuels-prestataires.pdf</a></td><td>—</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/MaintiGest-dictionnaire-des-champs.pdf' download>MaintiGest-dictionnaire-des-champs.pdf</a></td><td>—</td><td>36 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-09.xlsx' download>MaintiGest_export_2026-10-09.xlsx</a></td><td>—</td><td>18 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-16.xlsx' download>MaintiGest_export_2026-10-16.xlsx</a></td><td>—</td><td>18 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-23.xlsx' download>MaintiGest_export_2026-10-23.xlsx</a></td><td>—</td><td>18 Ko</td><td></td></tr>
-<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Note-DAF-veille-hebdomadaire.docx' download>Note-DAF-veille-hebdomadaire.docx</a></td><td>—</td><td>38 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Synthese-precedente-12-10-2026.docx' download>Synthese-precedente-12-10-2026.docx</a></td><td>—</td><td>37 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-12_0900_MG-26-1776.pdf' download>2026-10-12_0900_MG-26-1776.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1615.pdf' download>2026-10-13_1000_MG-26-1615.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1616.pdf' download>2026-10-13_1000_MG-26-1616.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1775.pdf' download>2026-10-13_1000_MG-26-1775.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_0812_MG-26-1632.pdf' download>2026-10-14_0812_MG-26-1632.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_1100_MG-26-1777.pdf' download>2026-10-14_1100_MG-26-1777.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_1750_MG-26-1774.pdf' download>2026-10-14_1750_MG-26-1774.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_0805_MG-26-1772.pdf' download>2026-10-15_0805_MG-26-1772.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_0840_MG-26-1773.pdf' download>2026-10-15_0840_MG-26-1773.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1500_MG-26-1637.pdf' download>2026-10-15_1500_MG-26-1637.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1619.pdf' download>2026-10-15_1600_MG-26-1619.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1662.pdf' download>2026-10-15_1600_MG-26-1662.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1700_MG-26-1623.pdf' download>2026-10-15_1700_MG-26-1623.pdf</a></td><td>notifications</td><td>35 Ko</td><td></td></tr>
-<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a> <small>(ressource commune)</small></td><td>—</td><td>60 Ko</td><td><span class="bz">BRONZE</span></td></tr>
-<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-veille-atelier-05.xlsx' download>gabarit-veille-atelier-05.xlsx</a> <small>(gabarit du livrable)</small></td><td>—</td><td>9 Ko</td><td><span class="bz">BRONZE</span></td></tr>
+<div class='tw'><table class='files'><tr><th>Type</th><th>Fichier</th><th>Dossier</th><th>Taille</th></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/Delais-contractuels-prestataires.pdf' download>Delais-contractuels-prestataires.pdf</a></td><td>—</td><td>35 Ko</td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='dossier/MaintiGest-dictionnaire-des-champs.pdf' download>MaintiGest-dictionnaire-des-champs.pdf</a></td><td>—</td><td>36 Ko</td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-09.xlsx' download>MaintiGest_export_2026-10-09.xlsx</a></td><td>—</td><td>18 Ko</td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-16.xlsx' download>MaintiGest_export_2026-10-16.xlsx</a></td><td>—</td><td>18 Ko</td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='dossier/MaintiGest_export_2026-10-23.xlsx' download>MaintiGest_export_2026-10-23.xlsx</a></td><td>—</td><td>18 Ko</td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Note-DAF-veille-hebdomadaire.docx' download>Note-DAF-veille-hebdomadaire.docx</a></td><td>—</td><td>38 Ko</td></tr>
+<tr><td><span class='t docx'>WORD</span></td><td><a href='dossier/Synthese-precedente-12-10-2026.docx' download>Synthese-precedente-12-10-2026.docx</a></td><td>—</td><td>37 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-12_0900_MG-26-1776.pdf' download>2026-10-12_0900_MG-26-1776.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1615.pdf' download>2026-10-13_1000_MG-26-1615.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1616.pdf' download>2026-10-13_1000_MG-26-1616.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-13_1000_MG-26-1775.pdf' download>2026-10-13_1000_MG-26-1775.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_0812_MG-26-1632.pdf' download>2026-10-14_0812_MG-26-1632.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_1100_MG-26-1777.pdf' download>2026-10-14_1100_MG-26-1777.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-14_1750_MG-26-1774.pdf' download>2026-10-14_1750_MG-26-1774.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_0805_MG-26-1772.pdf' download>2026-10-15_0805_MG-26-1772.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_0840_MG-26-1773.pdf' download>2026-10-15_0840_MG-26-1773.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1500_MG-26-1637.pdf' download>2026-10-15_1500_MG-26-1637.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1619.pdf' download>2026-10-15_1600_MG-26-1619.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1600_MG-26-1662.pdf' download>2026-10-15_1600_MG-26-1662.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t eml'>NOTIF.</span></td><td><a href='dossier/notifications/2026-10-15_1700_MG-26-1623.pdf' download>2026-10-15_1700_MG-26-1623.pdf</a></td><td>notifications</td><td>35 Ko</td></tr>
+<tr><td><span class='t pdf'>PDF</span></td><td><a href='../../ressources/contexte-etablissement-LFI-Marie-Curie.pdf' target='_blank'>contexte-etablissement-LFI-Marie-Curie.pdf</a> <small>(ressource commune)</small></td><td>—</td><td>60 Ko</td></tr>
+<tr><td><span class='t xlsx'>EXCEL</span></td><td><a href='gabarit-veille-atelier-05.xlsx' download>gabarit-veille-atelier-05.xlsx</a> <small>(gabarit du livrable)</small></td><td>—</td><td>9 Ko</td></tr>
 </table></div>
 </div></section>
 </main>
